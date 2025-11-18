@@ -1,0 +1,1001 @@
+Position,Const,Created,Modified,Description,Name,Known For,Birth Date
+1,nm0000154,2024-01-20,2024-01-20,,Mel Gibson,Braveheart,1956-01-03
+2,nm0000658,2024-01-20,2024-01-20,,Meryl Streep,Out of Africa,1949-06-22
+3,nm0000191,2024-01-20,2024-01-20,,Ewan McGregor,Moulin Rouge!,1971-03-31
+4,nm0000701,2024-01-20,2024-01-20,,Kate Winslet,Titanic,1975-10-05
+5,nm0000158,2024-01-20,2024-01-20,,Tom Hanks,Cast Away,1956-07-09
+6,nm0000149,2024-01-20,2024-01-20,,Jodie Foster,The Silence of the Lambs,1962-11-19
+7,nm0000243,2024-01-20,2024-01-20,,Denzel Washington,Fences,1954-12-28
+8,nm1208167,2024-01-20,2024-01-20,,Diane Kruger,Inglourious Basterds,1976-07-15
+9,nm0000375,2024-01-20,2024-01-20,,Robert Downey Jr.,Iron Man,1965-04-04
+10,nm0001132,2024-01-20,2024-01-20,,Judi Dench,Skyfall,1934-12-09
+11,nm0000163,2024-01-20,2024-01-20,,Dustin Hoffman,Tootsie,1937-08-08
+12,nm0000870,2024-01-20,2024-01-20,,Kathy Bates,Misery,1948-06-28
+13,nm0000142,2024-01-20,2024-01-20,,Clint Eastwood,Million Dollar Baby,1930-05-31
+14,nm0000234,2024-01-20,2024-01-20,,Charlize Theron,Monster,1975-08-07
+15,nm0000148,2024-01-20,2024-01-20,,Harrison Ford,Raiders of the Lost Ark,1942-07-13
+16,nm0004950,2024-01-20,2024-01-20,,Jennifer Garner,Alias,1972-04-17
+17,nm0000602,2024-01-20,2024-01-20,,Robert Redford,The Natural,1936-08-18
+18,nm0001593,2024-01-20,2024-01-20,,Anna Paquin,The Piano,1982-07-24
+19,nm0000469,2024-01-20,2024-01-20,,James Earl Jones,Rogue One,1931-01-17
+20,nm0000124,2024-01-20,2024-01-20,,Jennifer Connelly,A Beautiful Mind,1970-12-12
+21,nm0419248,2024-01-20,2024-01-20,,David Jason,Only Fools and Horses....,1940-02-02
+22,nm0000139,2024-01-20,2024-01-20,,Cameron Diaz,Vanilla Sky,1972-08-30
+23,nm0001258,2024-01-20,2024-01-20,,James Garner,The Notebook,1928-04-07
+24,nm0000117,2024-01-20,2024-01-20,,Neve Campbell,Scream,1973-10-03
+25,nm0000553,2024-01-20,2024-01-20,,Liam Neeson,Kinsey,1952-06-07
+26,nm1519680,2024-01-20,2024-01-20,,Saoirse Ronan,Hanna,1994-04-12
+27,nm0001772,2024-01-20,2024-01-20,,Patrick Stewart,Logan,1940-07-13
+28,nm0000673,2024-01-20,2024-01-20,,Marisa Tomei,My Cousin Vinny,1964-12-04
+29,nm0000354,2024-01-20,2024-01-20,,Matt Damon,Good Will Hunting,1970-10-08
+30,nm0461136,2024-01-20,2024-01-20,,Keira Knightley,Pirates of the Caribbean: The Curse of the Black Pearl,1985-03-26
+31,nm0000018,2024-01-20,2024-01-20,,Kirk Douglas,The Final Countdown,1916-12-09
+32,nm2017943,2024-01-20,2024-01-20,,Hayley Atwell,Captain America: The First Avenger,1982-04-05
+33,nm0413168,2024-01-20,2024-01-20,,Hugh Jackman,Les Misérables,1968-10-12
+34,nm0001401,2024-01-20,2024-01-20,,Angelina Jolie,Maleficent,1975-06-04
+35,nm0000606,2024-01-20,2024-01-20,,Jean Reno,Léon,1948-07-30
+36,nm0000171,2024-01-20,2024-01-20,,Ashley Judd,Double Jeopardy,1968-04-19
+37,nm0000474,2024-01-20,2024-01-20,,Michael Keaton,Birdman or (The Unexpected Virtue of Ignorance),1951-09-05
+38,nm0001337,2024-01-20,2024-01-20,,Katherine Heigl,One for the Money,1978-11-24
+39,nm0000126,2024-01-20,2024-01-20,,Kevin Costner,The Postman,1955-01-18
+40,nm6073955,2024-01-20,2024-01-20,,Florence Pugh,The Falling,1996-01-03
+41,nm0262635,2024-01-20,2024-01-20,,Chris Evans,The Avengers,1981-06-13
+42,nm0000194,2024-01-20,2024-01-20,,Julianne Moore,Far from Heaven,1960-12-03
+43,nm1165110,2024-01-20,2024-01-20,,Chris Hemsworth,Snow White and the Huntsman,1983-08-11
+44,nm0005466,2024-01-20,2024-01-20,,Julia Stiles,10 Things I Hate About You,1981-03-28
+45,nm0000136,2024-01-20,2024-01-20,,Johnny Depp,Pirates of the Caribbean: The Curse of the Black Pearl,1963-06-09
+46,nm0915208,2024-01-20,2024-01-20,,Naomi Watts,Mulholland Dr.,1968-09-28
+47,nm0005023,2024-01-20,2024-01-20,,Djimon Hounsou,Blood Diamond,1964-04-24
+48,nm0647634,2024-01-20,2024-01-20,,Elizabeth Olsen,Martha Marcy May Marlene,1989-02-16
+49,nm0000654,2024-01-20,2024-01-20,,Terence Stamp,The Limey,1938-07-22
+50,nm0000379,2024-01-20,2024-01-20,,Kirsten Dunst,Spider-Man,1982-04-30
+51,nm0000115,2024-01-20,2024-01-20,,Nicolas Cage,Face/Off,1964-01-07
+52,nm0000157,2024-01-20,2024-01-20,,Linda Hamilton,Terminator 2: Judgment Day,1956-09-26
+53,nm0749263,2024-01-20,2024-01-20,,Mark Ruffalo,Spotlight,1967-11-22
+54,nm0424060,2024-01-20,2024-01-20,,Scarlett Johansson,Lost in Translation,1984-11-22
+55,nm0000093,2024-01-20,2024-01-20,,Brad Pitt,Fight Club,1963-12-18
+56,nm0000204,2024-01-20,2024-01-20,,Natalie Portman,Black Swan,1981-06-09
+57,nm0000190,2024-01-20,2024-01-20,,Matthew McConaughey,Interstellar,1969-11-04
+58,nm0000702,2024-01-20,2024-01-20,,Reese Witherspoon,Wild,1976-03-22
+59,nm0000367,2024-01-20,2024-01-20,,Gérard Depardieu,Cyrano de Bergerac,1948-12-27
+60,nm2605345,2024-01-20,2024-01-20,,Gemma Arterton,Prince of Persia: The Sands of Time,1986-02-02
+61,nm0000129,2024-01-20,2024-01-20,,Tom Cruise,Top Gun,1962-07-03
+62,nm0000173,2024-01-20,2024-01-20,,Nicole Kidman,Moulin Rouge!,1967-06-20
+63,nm0000168,2024-01-20,2024-01-20,,Samuel L. Jackson,Pulp Fiction,1948-12-21
+64,nm0000212,2024-01-20,2024-01-20,,Meg Ryan,When Harry Met Sally...,1961-11-19
+65,nm1517976,2024-01-20,2024-01-20,,Chris Pine,Star Trek,1980-08-26
+66,nm0000210,2024-01-20,2024-01-20,,Julia Roberts,Pretty Woman,1967-10-28
+67,nm0350453,2024-01-20,2024-01-20,,Jake Gyllenhaal,Nightcrawler,1980-12-19
+68,nm2225369,2024-01-20,2024-01-20,,Jennifer Lawrence,The Hunger Games,1990-08-15
+69,nm0451321,2024-01-20,2024-01-20,,Shah Rukh Khan,Don 2,1965-11-02
+70,nm0005447,2024-01-20,2024-01-20,,Leelee Sobieski,Never Been Kissed,1983-06-10
+71,nm0001659,2024-01-20,2024-01-20,,Christopher Reeve,Superman,1952-09-25
+72,nm0001838,2024-01-20,2024-01-20,,Rachel Weisz,The Constant Gardener,1970-03-07
+73,nm0000237,2024-01-20,2024-01-20,,John Travolta,Pulp Fiction,1954-02-18
+74,nm0000899,2024-01-20,2024-01-20,,Monica Bellucci,Malèna,1964-09-30
+75,nm0695435,2024-01-20,2024-01-20,,Chris Pratt,Guardians of the Galaxy,1979-06-21
+76,nm0000201,2024-01-20,2024-01-20,,Michelle Pfeiffer,What Lies Beneath,1958-04-29
+77,nm0000151,2024-01-20,2024-01-20,,Morgan Freeman,Driving Miss Daisy,1937-06-01
+78,nm0005028,2024-01-20,2024-01-20,,Kate Hudson,Almost Famous,1979-04-19
+79,nm0000120,2024-01-20,2024-01-20,,Jim Carrey,Ace Ventura: Pet Detective,1962-01-17
+80,nm0000224,2024-01-20,2024-01-20,,Alicia Silverstone,Clueless,1976-10-04
+81,nm0000206,2024-01-20,2024-01-20,,Keanu Reeves,The Matrix,1964-09-02
+82,nm0000301,2024-01-20,2024-01-20,,Thora Birch,Ghost World,1982-03-11
+83,nm0000518,2024-01-20,2024-01-20,,John Malkovich,In the Line of Fire,1953-12-09
+84,nm0659363,2024-01-20,2024-01-20,,Hayden Panettiere,Heroes,1989-08-21
+85,nm0748620,2024-01-20,2024-01-20,,Paul Rudd,Ant-Man,1969-04-06
+86,nm0000668,2024-01-20,2024-01-20,,Emma Thompson,Sense and Sensibility,1959-04-15
+87,nm1209966,2024-01-20,2024-01-20,,Oscar Isaac,Ex Machina,1979-03-09
+88,nm0010736,2024-01-20,2024-01-20,,Amy Adams,Arrival,1974-08-20
+89,nm0001804,2024-01-20,2024-01-20,,Stanley Tucci,Big Night,1960-11-11
+90,nm0000223,2024-01-20,2024-01-20,,Elisabeth Shue,Leaving Las Vegas,1963-10-06
+91,nm1212722,2024-01-20,2024-01-20,,Benedict Cumberbatch,The Imitation Game,1976-07-19
+92,nm0939697,2024-01-20,2024-01-20,,Evan Rachel Wood,Thirteen,1987-09-07
+93,nm0000128,2024-01-20,2024-01-20,,Russell Crowe,Les Misérables,1964-04-07
+94,nm1659547,2024-01-20,2024-01-20,,Carey Mulligan,Never Let Me Go,1985-05-28
+95,nm0719637,2024-01-20,2024-01-20,,Jeremy Renner,The Hurt Locker,1971-01-07
+96,nm1567113,2024-01-20,2024-01-20,,Jessica Chastain,Zero Dark Thirty,1977-03-24
+97,nm1089991,2024-01-20,2024-01-20,,Tom Hiddleston,The Avengers,1981-02-09
+98,nm0000677,2024-01-20,2024-01-20,,Robin Tunney,The Craft,1972-06-19
+99,nm0000150,2024-01-20,2024-01-20,,Michael J. Fox,Back to the Future,1961-06-09
+100,nm0001499,2024-01-20,2024-01-20,,Tina Majorino,Napoleon Dynamite,1985-02-07
+101,nm0000982,2024-01-20,2024-01-20,,Josh Brolin,Avengers: Endgame,1968-02-12
+102,nm0607865,2024-01-20,2024-01-20,,Emily Mortimer,Mary Poppins Returns,1971-10-06
+103,nm0000563,2024-01-20,2024-01-20,,Chris O'Donnell,Batman & Robin,1970-06-26
+104,nm0000349,2024-01-20,2024-01-20,,Joan Cusack,In & Out,1962-10-11
+105,nm0000358,2024-01-20,2024-01-20,,Daniel Day-Lewis,There Will Be Blood,1957-04-29
+106,nm0005392,2024-01-20,2024-01-20,,Keri Russell,Mission: Impossible III,1976-03-23
+107,nm0000980,2024-01-20,2024-01-20,,Jim Broadbent,Moulin Rouge!,1949-05-24
+108,nm0851582,2024-01-20,2024-01-20,,Audrey Tautou,Le fabuleux destin d'Amélie Poulain,1976-08-09
+109,nm0704270,2024-01-20,2024-01-20,,Zachary Quinto,Star Trek,1977-06-02
+110,nm0000113,2024-01-20,2024-01-20,,Sandra Bullock,The Proposal,1964-07-26
+111,nm0001618,2024-01-20,2024-01-20,,Joaquin Phoenix,Walk the Line,1974-10-28
+112,nm0005381,2024-01-20,2024-01-20,,Rebecca Romijn,X-Men,1972-11-06
+113,nm0000306,2024-01-20,2024-01-20,,Brian Blessed,Flash Gordon,1936-10-09
+114,nm0000098,2024-01-20,2024-01-20,,Jennifer Aniston,Friends,1969-02-11
+115,nm0177896,2024-01-20,2024-01-20,,Bradley Cooper,A Star Is Born,1975-01-05
+116,nm0005412,2024-01-20,2024-01-20,,Jane Seymour,"Dr. Quinn, Medicine Woman",1951-02-15
+117,nm0005351,2024-01-20,2024-01-20,,Ryan Reynolds,Deadpool 2,1976-10-23
+118,nm0126284,2024-01-20,2024-01-20,,Rose Byrne,Spy,1979-07-24
+119,nm0001426,2024-01-20,2024-01-20,,Ben Kingsley,Sexy Beast,1943-12-31
+120,nm2794962,2024-01-20,2024-01-20,,Hailee Steinfeld,True Grit,1996-12-11
+121,nm0564215,2024-01-20,2024-01-20,,James McAvoy,Filth,1979-04-21
+122,nm0000106,2024-01-20,2024-01-20,,Drew Barrymore,Charlie's Angels,1975-02-22
+123,nm0004051,2024-01-20,2024-01-20,,Brian Cox,Succession,1946-06-01
+124,nm1429380,2024-01-20,2024-01-20,,Britt Robertson,Tomorrowland,1990-04-18
+125,nm0000348,2024-01-20,2024-01-20,,Tony Curtis,Some Like It Hot,1925-06-03
+126,nm2552034,2024-01-20,2024-01-20,,Melissa Benoist,Supergirl,1988-10-04
+127,nm0000604,2024-01-20,2024-01-20,,John C. Reilly,Chicago,1965-05-24
+128,nm4032297,2024-01-20,2024-01-20,,Chloe Bennet,Agents of S.H.I.E.L.D.,1992-04-18
+129,nm1055413,2024-01-20,2024-01-20,,Michael Fassbender,Shame,1977-04-02
+130,nm0004742,2024-01-20,2024-01-20,,Maria Bello,A History of Violence,1967-04-18
+131,nm0000285,2024-01-20,2024-01-20,,Alec Baldwin,The Departed,1958-04-03
+132,nm0000456,2024-01-20,2024-01-20,,Holly Hunter,Broadcast News,1958-03-20
+133,nm1940449,2024-01-20,2024-01-20,,Andrew Garfield,Hacksaw Ridge,1983-08-20
+134,nm3849842,2024-01-20,2024-01-20,,Sophie Turner,Game of Thrones,1996-02-21
+135,nm0000377,2024-01-20,2024-01-20,,Richard Dreyfuss,The Goodbye Girl,1947-10-29
+136,nm0000244,2024-01-20,2024-01-20,,Sigourney Weaver,Avatar,1949-10-08
+137,nm0430107,2024-01-20,2024-01-20,,Michael B. Jordan,Black Panther,1987-02-09
+138,nm1192254,2024-01-20,2024-01-20,,Maggie Grace,Taken,1983-09-21
+139,nm0001497,2024-01-20,2024-01-20,,Tobey Maguire,Brothers,1975-06-27
+140,nm3069650,2024-01-20,2024-01-20,,Jodie Comer,The Last Duel,1993-03-11
+141,nm0000640,2024-01-20,2024-01-20,,Martin Sheen,The Departed,1940-08-03
+142,nm0001788,2024-01-20,2024-01-20,,Jessica Tandy,Driving Miss Daisy,1909-06-07
+143,nm0000437,2024-01-20,2024-01-20,,Woody Harrelson,True Detective,1961-07-23
+144,nm0005394,2024-01-20,2024-01-20,,Jeri Ryan,Star Trek: Voyager,1968-02-22
+145,nm0000110,2024-01-20,2024-01-20,,Kenneth Branagh,Henry V,1960-12-10
+146,nm0000307,2024-01-20,2024-01-20,,Helena Bonham Carter,Sweeney Todd: The Demon Barber of Fleet Street,1966-05-26
+147,nm1569276,2024-01-20,2024-01-20,,Chadwick Boseman,Black Panther,1976-11-29
+148,nm2539953,2024-01-20,2024-01-20,,Alicia Vikander,Ex Machina,1988-10-03
+149,nm0000199,2024-01-20,2024-01-20,,Al Pacino,Serpico,1940-04-25
+150,nm0518085,2024-01-20,2024-01-20,,Kristanna Loken,Terminator 3: Rise of the Machines,1979-10-08
+151,nm0881631,2024-01-20,2024-01-20,,Karl Urban,Star Trek,1972-06-07
+152,nm0955471,2024-01-20,2024-01-20,,Ziyi Zhang,Yi dai zong shi,1979-02-09
+153,nm0079273,2024-01-20,2024-01-20,,Paul Bettany,WandaVision,1971-05-27
+154,nm0517844,2024-01-20,2024-01-20,,Alison Lohman,Drag Me to Hell,1979-09-18
+155,nm0000598,2024-01-20,2024-01-20,,Dennis Quaid,Far from Heaven,1954-04-09
+156,nm0680983,2024-01-20,2024-01-20,,Elliot Page,Juno,1987-02-21
+157,nm0000638,2024-01-20,2024-01-20,,William Shatner,Star Trek V: The Final Frontier,1931-03-22
+158,nm0001287,2024-01-20,2024-01-20,,Heather Graham,Austin Powers: The Spy Who Shagged Me,1970-01-29
+159,nm0000323,2024-01-20,2024-01-20,,Michael Caine,The Dark Knight,1933-03-14
+160,nm0629697,2024-01-20,2024-01-20,,Rachel Nichols,G.I. Joe: The Rise of Cobra,1980-01-08
+161,nm0000547,2024-01-20,2024-01-20,,Alfred Molina,Spider-Man 2,1953-05-24
+162,nm2394794,2024-01-20,2024-01-20,,Karen Gillan,Selfie,1987-11-28
+163,nm0005212,2024-01-20,2024-01-20,,Ian McKellen,The Lord of the Rings: The Fellowship of the Ring,1939-05-25
+164,nm0000300,2024-01-20,2024-01-20,,Juliette Binoche,The English Patient,1964-03-09
+165,nm0397634,2024-01-20,2024-01-20,,Terence Howard,The Other 'Arf,
+166,nm0000289,2024-01-20,2024-01-20,,Ellen Barkin,The Fan,1954-04-16
+167,nm4043618,2024-01-20,2024-01-20,,Tom Holland,Spider-Man: Homecoming,1996-06-01
+168,nm0000250,2024-01-20,2024-01-20,,Renée Zellweger,Chicago,1969-04-25
+169,nm0000125,2024-01-20,2024-01-20,,Sean Connery,The Rock,1930-08-25
+170,nm0757855,2024-01-20,2024-01-20,,Zoe Saldana,Avatar,1978-06-19
+171,nm0000332,2024-01-20,2024-01-20,,Don Cheadle,Crash,1964-11-29
+172,nm0001876,2024-01-20,2024-01-20,,Catherine Zeta-Jones,Chicago,1969-09-25
+173,nm0051509,2024-01-20,2024-01-20,,Eric Bana,Dirty John,1968-08-09
+174,nm1289434,2024-01-20,2024-01-20,,Emily Blunt,Live Die Repeat: Edge of Tomorrow,1983-02-23
+175,nm0147147,2024-01-20,2024-01-20,,Henry Cavill,Man of Steel,1983-05-05
+176,nm5611121,2024-01-20,2024-01-20,,Millie Bobby Brown,Enola Holmes,2004-02-19
+177,nm0117709,2024-01-20,2024-01-20,,Daniel Brühl,Rush,1978-06-16
+178,nm0488953,2024-01-20,2024-01-20,,Brie Larson,Room,1989-10-01
+179,nm0000056,2024-01-20,2024-01-20,,Paul Newman,The Hustler,1925-01-26
+180,nm0888882,2024-01-20,2024-01-20,,Laura Vandervoort,The Handmaid's Tale,
+181,nm0000164,2024-01-20,2024-01-20,,Anthony Hopkins,The Silence of the Lambs,1937-12-31
+182,nm0002102,2024-01-20,2024-01-20,,Sharon Gless,Burn Notice,1943-05-31
+183,nm0268199,2024-01-20,2024-01-20,,Colin Farrell,The Lobster,1976-05-31
+184,nm0000521,2024-01-20,2024-01-20,,Sophie Marceau,La boum,1966-11-17
+185,nm0000226,2024-01-20,2024-01-20,,Will Smith,The Fresh Prince of Bel-Air,1968-09-25
+186,nm0000932,2024-01-20,2024-01-20,,Halle Berry,Catwoman,1966-08-14
+187,nm1214435,2024-01-20,2024-01-20,,Charlie Cox,Daredevil,1982-12-15
+188,nm0000670,2024-01-20,2024-01-20,,Lea Thompson,Back to the Future,1961-05-31
+189,nm0000288,2024-01-20,2024-01-20,,Christian Bale,The Dark Knight,1974-01-30
+190,nm0000623,2024-01-20,2024-01-20,,Rene Russo,Nightcrawler,1954-02-17
+191,nm0000134,2024-01-20,2024-01-20,,Robert De Niro,Cape Fear,1943-08-17
+192,nm4141252,2024-01-20,2024-01-20,,Lily James,Cinderella,1989-04-05
+193,nm0000169,2024-01-20,2024-01-20,,Tommy Lee Jones,The Fugitive,1946-09-15
+194,nm0004695,2024-01-20,2024-01-20,,Jessica Alba,Fantastic Four,1981-04-28
+195,nm0163988,2024-01-20,2024-01-20,,Clark Gregg,The Avengers,1962-04-02
+196,nm1157048,2024-01-20,2024-01-20,,Zachary Levi,Shazam!,1980-09-29
+197,nm0004761,2024-01-20,2024-01-20,,Rachel Blanchard,The Summer I Turned Pretty,
+198,nm0000138,2024-01-20,2024-01-20,,Leonardo DiCaprio,Inception,1974-11-11
+199,nm1046097,2024-01-20,2024-01-20,,Rachel McAdams,The Notebook,1978-11-17
+200,nm3592338,2024-01-20,2024-01-20,,Emilia Clarke,Game of Thrones,1986-10-23
+201,nm1107001,2024-01-20,2024-01-20,,Anthony Mackie,The Hurt Locker,1978-09-23
+202,nm3725055,2024-01-20,2024-01-20,,Jessica Henwick,The Royal Hotel,
+203,nm0559144,2024-01-20,2024-01-20,,Marlee Matlin,CODA,1965-08-24
+204,nm0000133,2024-01-20,2024-01-20,,Geena Davis,Thelma & Louise,1956-01-21
+205,nm0000213,2024-01-20,2024-01-20,,Winona Ryder,Little Women,1971-10-29
+206,nm0001669,2024-01-20,2024-01-20,,Miranda Richardson,The Crying Game,1958-03-03
+207,nm0005132,2024-01-20,2024-01-20,,Heath Ledger,Brokeback Mountain,1979-04-04
+208,nm1199811,2024-01-20,2024-01-20,,Masi Oka,Heroes,
+209,nm0005261,2024-01-20,2024-01-20,,Brittany Murphy,Clueless,1977-11-10
+210,nm0000686,2024-01-20,2024-01-20,,Christopher Walken,The Deer Hunter,1943-03-31
+211,nm0005476,2024-01-20,2024-01-20,,Hilary Swank,Million Dollar Baby,1974-07-30
+212,nm0330687,2024-01-20,2024-01-20,,Joseph Gordon-Levitt,Inception,1981-02-17
+213,nm0350454,2024-01-20,2024-01-20,,Maggie Gyllenhaal,Secretary,1977-11-16
+214,nm0765597,2024-01-20,2024-01-20,,Peter Sarsgaard,Shattered Glass,1971-03-07
+215,nm0397171,2024-01-20,2024-01-20,,Bryce Dallas Howard,Jurassic World Dominion,1981-03-02
+216,nm0003817,2024-01-20,2024-01-20,,Michael Clarke Duncan,The Green Mile,1957-12-10
+217,nm0000422,2024-01-20,2024-01-20,,John Goodman,10 Cloverfield Lane,1952-06-20
+218,nm0000621,2024-01-20,2024-01-20,,Kurt Russell,Escape from New York,1951-03-17
+219,nm4722966,2024-01-20,2024-01-20,,Virginia Gardner,Project Almanac,1995-04-18
+220,nm0362766,2024-01-20,2024-01-20,,Tom Hardy,Inception,1977-09-15
+221,nm0940362,2024-01-20,2024-01-20,,Shailene Woodley,Divergent,1991-11-15
+222,nm0185819,2024-01-20,2024-01-20,,Daniel Craig,Casino Royale,1968-03-02
+223,nm0000949,2024-01-20,2024-01-20,,Cate Blanchett,Carol,1969-05-14
+224,nm0000329,2024-01-20,2024-01-20,,Jackie Chan,Ngo si seoi,1954-04-07
+225,nm2933757,2024-01-20,2024-01-20,,Gal Gadot,Wonder Woman,1985-04-30
+226,nm1404239,2024-01-20,2024-01-20,,Evan Peters,X-Men: Apocalypse,1987-01-20
+227,nm1854386,2024-01-20,2024-01-20,,Stephen Amell,Arrow,1981-05-08
+228,nm1431940,2024-01-20,2024-01-20,,Evangeline Lilly,The Hobbit: The Desolation of Smaug,1979-08-03
+229,nm0913475,2024-01-20,2024-01-20,,John David Washington,Tenet,1984-07-28
+230,nm0005351,2024-01-20,2024-01-20,,Ryan Reynolds,Deadpool 2,1976-10-23
+231,nm0068260,2024-01-20,2024-01-20,,Jamie Bell,Billy Elliot,1986-03-14
+232,nm1982510,2024-01-20,2024-01-20,,Jenna Coleman,Victoria,1986-04-27
+233,nm0334318,2024-01-20,2024-01-20,,Stephen Graham,Boiling Point,1973-08-03
+234,nm0005305,2024-01-20,2024-01-20,,Piper Perabo,Coyote Ugly,1976-10-31
+235,nm2588665,2024-01-20,2024-01-20,,Tahar Rahim,Un prophète,1981-07-04
+236,nm3127051,2024-01-20,2024-01-20,,Olivia Holt,Cloak & Dagger,1997-08-05
+237,nm5824400,2024-01-20,2024-01-20,,Sophie Cookson,Kingsman: The Secret Service,1990-05-15
+238,nm0855039,2024-01-20,2024-01-20,,David Tennant,Doctor Who,1971-04-18
+239,nm0180411,2024-01-20,2024-01-20,,Abbie Cornish,Bright Star,1982-08-07
+240,nm0313534,2024-01-20,2024-01-20,,Melissa George,Hunted,1976-08-06
+241,nm0491048,2024-01-20,2024-01-20,,Stan Laurel,Saps at Sea,1890-06-16
+242,nm0001758,2024-01-20,2024-01-20,,Timothy Spall,Mr. Turner,1957-02-27
+243,nm0001316,2024-01-20,2024-01-20,,Oliver Hardy,Saps at Sea,1892-01-18
+244,nm0000559,2024-01-20,2024-01-20,,Leonard Nimoy,Star Trek IV: The Voyage Home,1931-03-26
+245,nm0000102,2024-01-20,2024-01-20,,Kevin Bacon,Footloose,1958-07-08
+246,nm0936295,2024-01-20,2024-01-20,,Norman Wisdom,A Stitch in Time,1915-02-04
+247,nm0172484,2024-01-20,2024-01-20,,Lewis Collins,Jack the Ripper,1946-05-27
+248,nm0000457,2024-01-20,2024-01-20,,John Hurt,Nineteen Eighty-Four,1940-01-22
+249,nm0809956,2024-01-20,2024-01-20,,Sheridan Smith,Cilla,1981-06-25
+250,nm1469236,2024-01-20,2024-01-20,,Olivia Colman,The Favourite,1974-01-30
+251,nm0186903,2024-01-20,2024-01-20,,Michael Crawford,The Knack ...and How to Get It,1942-01-19
+252,nm0000516,2024-01-20,2024-01-20,,Lee Majors,The Six Million Dollar Man,1939-04-23
+253,nm0000092,2024-01-20,2024-01-20,,John Cleese,A Fish Called Wanda,1939-10-27
+254,nm0799777,2024-01-20,2024-01-20,,J.K. Simmons,Whiplash,1955-01-09
+255,nm0227759,2024-01-20,2024-01-20,,Peter Dinklage,Game of Thrones,1969-06-11
+256,nm0000132,2024-01-20,2024-01-20,,Claire Danes,My So-Called Life,1979-04-12
+257,nm0000625,2024-01-20,2024-01-20,,Fred Savage,The Wonder Years,1976-07-09
+258,nm0000836,2024-01-20,2024-01-20,,Scott Bakula,Quantum Leap,1954-10-09
+259,nm0295484,2024-01-20,2024-01-20,,Anna Friel,Land of the Lost,1976-07-12
+260,nm0189887,2024-01-20,2024-01-20,,Marie-Josée Croze,Les invasions barbares,1970-02-23
+261,nm0001710,2024-01-20,2024-01-20,,David Schwimmer,Friends,1966-11-02
+262,nm0001612,2024-01-20,2024-01-20,,Matthew Perry,Friends,1969-08-19
+263,nm0001455,2024-01-20,2024-01-20,,Matt LeBlanc,Friends,1967-07-25
+264,nm0857177,2024-01-20,2024-01-20,,John Thaw,Inspector Morse,1942-01-03
+265,nm2962353,2024-01-20,2024-01-20,,Pom Klementieff,Guardians of the Galaxy Vol. 3,1986-05-03
+266,nm0919991,2024-01-20,2024-01-20,,Tom Welling,Smallville,1977-04-26
+267,nm0080524,2024-01-20,2024-01-20,,Mayim Bialik,Beaches,1975-12-12
+268,nm0528525,2024-01-20,2024-01-20,,Nicholas Lyndhurst,Only Fools and Horses....,1961-04-20
+269,nm0277213,2024-01-20,2024-01-20,,Nathan Fillion,Castle,1971-03-27
+270,nm0005128,2024-01-20,2024-01-20,,Lucy Lawless,Xena: Warrior Princess,1968-03-29
+271,nm0471036,2024-01-20,2024-01-20,,Kristin Kreuk,EuroTrip,1982-12-30
+272,nm1433588,2024-01-20,2024-01-20,,Jim Parsons,The Big Bang Theory,1973-03-24
+273,nm1741002,2024-01-20,2024-01-20,,Matt Smith,Doctor Who,1982-10-28
+274,nm1591496,2024-01-20,2024-01-20,,Mike Colter,Luke Cage,1976-08-26
+275,nm0531808,2024-01-20,2024-01-20,,Kelly Macdonald,No Country for Old Men,1976-02-23
+276,nm1343638,2024-01-20,2024-01-20,,Eliza Taylor,The 100,1989-10-24
+277,nm1409365,2024-01-20,2024-01-20,,Zoe Perry,Young Sheldon,1983-09-26
+278,nm1115741,2024-01-20,2024-01-20,,Lance Barber,Gangster Squad,1973-06-29
+279,nm2092886,2024-01-20,2024-01-20,,Jodie Whittaker,Doctor Who,1982-06-17
+280,nm0860054,2024-01-20,2024-01-20,,Derek Thompson,The Long Good Friday,1948-04-04
+281,nm0000408,2024-01-20,2024-01-20,,Jonathan Frakes,Star Trek: First Contact,1952-08-19
+282,nm0001349,2024-01-20,2024-01-20,,Jennifer Love Hewitt,I Know What You Did Last Summer,1979-02-21
+283,nm0614289,2024-01-20,2024-01-20,,Glen Murphy,London's Burning,1957-04-06
+284,nm3726887,2024-01-20,2024-01-20,,Jessica Brown Findlay,Brave New World,1989-09-14
+285,nm0516181,2024-01-20,2024-01-20,,Roger Lloyd Pack,Harry Potter and the Goblet of Fire,1944-02-08
+286,nm0000633,2024-01-20,2024-01-20,,Tom Selleck,Blue Bloods,1945-01-29
+287,nm0002084,2024-01-20,2024-01-20,,Brenda Fricker,My Left Foot: The Story of Christy Brown,1945-02-17
+288,nm0187754,2024-01-20,2024-01-20,,Bernard Cribbins,Frenzy,1928-12-29
+289,nm0000122,2024-01-20,2024-01-20,,Charles Chaplin,The Great Dictator,1889-04-16
+290,nm0001589,2024-01-20,2024-01-20,,Michael Palin,Monty Python and the Holy Grail,1943-05-05
+291,nm0922210,2024-01-20,2024-01-20,,Madeleine West,The Condemned,1979-07-26
+292,nm0149998,2024-01-20,2024-01-20,,John Challis,Only Fools and Horses....,1942-08-16
+293,nm0342399,2024-01-20,2024-01-20,,Greg Grunberg,Hollow Man,1966-07-11
+294,nm0730053,2024-01-20,2024-01-20,,Pat Roach,Raiders of the Lost Ark,1937-05-19
+295,nm0525855,2024-01-20,2024-01-20,,Carl Lumbly,Men of Honor,1951-08-14
+296,nm2692146,2024-01-20,2024-01-20,,Katie McGrath,Jurassic World,
+297,nm1592225,2024-01-20,2024-01-20,,Rachael Taylor,Transformers,1984-07-11
+298,nm1250791,2024-01-20,2024-01-20,,Sterling K. Brown,Black Panther,1976-04-05
+299,nm0835016,2024-01-20,2024-01-20,,Mark Strong,1917,1963-08-05
+300,nm0821612,2024-01-20,2024-01-20,,Jewel Staite,Firefly,1982-06-02
+301,nm2362068,2024-01-20,2024-01-20,,Caity Lotz,The Machine,1986-12-30
+302,nm0362873,2024-01-20,2024-01-20,,David Harewood,Blood Diamond,1965-12-08
+303,nm2480636,2024-01-20,2024-01-20,,Natalie Alyn Lind,Big Sky,
+304,nm0000352,2024-01-20,2024-01-20,,Vincent D'Onofrio,Men in Black,1959-06-30
+305,nm8908475,2024-01-20,2024-01-20,,Isabel May,1883,2000-11-21
+306,nm0746125,2024-01-20,2024-01-20,,Brandon Routh,Superman Returns,1979-10-09
+307,nm0683467,2024-01-20,2024-01-20,,Alison Pill,Scott Pilgrim vs. the World,1985-11-27
+308,nm0000653,2024-01-20,2024-01-20,,Brent Spiner,Star Trek: First Contact,1949-02-02
+309,nm0457062,2024-01-20,2024-01-20,,Dervla Kirwan,Ondine,1971-10-24
+310,nm0664499,2024-01-20,2024-01-20,,Adrian Pasdar,Carlito's Way,1965-04-30
+311,nm0595634,2024-01-20,2024-01-20,,Georgia Tennant,Staged,1984-12-25
+312,nm0144657,2024-01-20,2024-01-20,,Dan Castellaneta,The Simpsons,1957-10-29
+313,nm0000100,2024-01-20,2024-01-20,,Rowan Atkinson,Johnny English,1955-01-06
+314,nm0937930,2024-01-20,2024-01-20,,Scott Wolf,Nancy Drew,1968-06-04
+315,nm0001475,2024-01-20,2024-01-20,,John Lithgow,The World According to Garp,1945-10-19
+316,nm2951768,2024-01-20,2024-01-20,,Freida Pinto,Slumdog Millionaire,1984-10-18
+317,nm0001517,2024-01-20,2024-01-20,,Catherine McCormack,Braveheart,1972-04-03
+318,nm0768018,2024-01-20,2024-01-20,,Julia Sawalha,Lark Rise to Candleford,1968-09-09
+319,nm0000327,2024-01-20,2024-01-20,,Lacey Chabert,Mean Girls,1982-09-30
+320,nm0923610,2024-01-20,2024-01-20,,Kevin Whately,Inspector Morse,1951-02-06
+321,nm0617009,2024-01-20,2024-01-20,,Sophia Myles,Tristan + Isolde,1980-03-18
+322,nm0000188,2024-01-20,2024-01-20,,Steve Martin,Roxanne,1945-08-14
+323,nm0544139,2024-01-20,2024-01-20,,Clive Mantle,Alien³,1957-06-03
+324,nm1724323,2024-01-20,2024-01-20,,Jayma Mays,Red Eye,1979-07-16
+325,nm0001842,2024-01-20,2024-01-20,,Adam West,Batman,1928-09-19
+326,nm0001857,2024-01-20,2024-01-20,,Henry Winkler,The Waterboy,1945-10-30
+327,nm0001972,2024-01-20,2024-01-20,,Richard Briers,Much Ado About Nothing,1934-01-14
+328,nm0447555,2024-01-20,2024-01-20,,Felicity Kendal,The Good Life,1946-09-25
+329,nm0002033,2024-01-20,2024-01-20,,Tyne Daly,Judging Amy,1946-02-21
+330,nm0084642,2024-01-20,2024-01-20,,Bill Bixby,The Incredible Hulk,1934-01-22
+331,nm0001627,2024-01-20,2024-01-20,,Sidney Poitier,In the Heat of the Night,1927-02-20
+332,nm0005148,2024-01-20,2024-01-20,,Delroy Lindo,Get Shorty,1952-11-18
+333,nm0000593,2024-01-20,2024-01-20,,Kelly Preston,Battlefield Earth,1962-10-13
+334,nm0000704,2024-01-20,2024-01-20,,Elijah Wood,The Lord of the Rings: The Fellowship of the Ring,1981-01-28
+335,nm0516001,2024-01-20,2024-01-20,,Harold Lloyd,Safety Last!,1893-04-20
+336,nm0000322,2024-01-20,2024-01-20,,Emmanuelle Béart,8 femmes,1963-08-14
+337,nm0085312,2024-01-20,2024-01-20,,Jack Black,School of Rock,1969-08-28
+338,nm0000104,2024-01-20,2024-01-20,,Antonio Banderas,The Mask of Zorro,1960-08-10
+339,nm0915989,2024-01-20,2024-01-20,,Hugo Weaving,The Lord of the Rings: The Return of the King,1960-04-04
+340,nm0000401,2024-01-20,2024-01-20,,Laurence Fishburne,The Matrix,1961-07-30
+341,nm0000644,2024-01-20,2024-01-20,,Helen Slater,Supergirl,1963-12-15
+342,nm0604742,2024-01-20,2024-01-20,,Jeffrey Dean Morgan,Watchmen,1966-04-22
+343,nm0789864,2024-01-20,2024-01-20,,Martin Shaw,The Chief,1945-01-21
+344,nm0322562,2024-01-20,2024-01-20,,Philip Glenister,Kingdom of Heaven,1963-02-10
+345,nm0000611,2024-01-20,2024-01-20,,Ariana Richards,Jurassic Park,1979-09-11
+346,nm0491402,2024-01-20,2024-01-20,,Hugh Laurie,House M.D.,1959-06-11
+347,nm0000373,2024-01-20,2024-01-20,,Michael Dorn,Star Trek: First Contact,1952-12-09
+348,nm0001728,2024-01-20,2024-01-20,,Wallace Shawn,My Dinner with Andre,1943-11-12
+349,nm0991810,2024-01-20,2024-01-20,,Mahershala Ali,Leave the World Behind,1974-02-16
+350,nm0000143,2024-01-20,2024-01-20,,Erika Eleniak,Under Siege,1969-09-29
+351,nm0000409,2024-01-20,2024-01-20,,Brendan Fraser,The Mummy,1968-12-03
+352,nm0000501,2024-01-20,2024-01-20,,Ray Liotta,Narc,1954-12-18
+353,nm2099738,2024-01-20,2024-01-20,,Yuliya Peresild,Bitva za Sevastopol,1984-09-05
+354,nm0001461,2024-01-20,2024-01-20,,Virginie Ledoyen,8 femmes,1976-11-15
+355,nm0000432,2024-01-20,2024-01-20,,Gene Hackman,The French Connection,1930-01-30
+356,nm0001456,2024-01-20,2024-01-20,,Kelly LeBrock,Weird Science,1960-03-24
+357,nm1526352,2024-01-20,2024-01-20,,Jaimie Alexander,Thor,1984-03-12
+358,nm0001029,2024-01-20,2024-01-20,,Jim Caviezel,The Passion of the Christ,1968-09-26
+359,nm0864997,2024-01-20,2024-01-20,,Stephen Tobolowsky,Groundhog Day,1951-05-30
+360,nm0001737,2024-01-20,2024-01-20,,Martin Short,Innerspace,1950-03-26
+361,nm0001556,2024-01-20,2024-01-20,,David Morse,The Green Mile,1953-10-11
+362,nm1455681,2024-01-20,2024-01-20,,AnnaSophia Robb,Bridge to Terabithia,1993-12-08
+363,nm0267812,2024-01-20,2024-01-20,,Vera Farmiga,Up in the Air,1973-08-06
+364,nm0000630,2024-01-20,2024-01-20,,Liev Schreiber,Spotlight,1967-10-04
+365,nm0000218,2024-01-20,2024-01-20,,Kristin Scott Thomas,Gosford Park,1960-05-24
+366,nm0001833,2024-01-20,2024-01-20,,Emily Watson,Gosford Park,1967-01-14
+367,nm1918862,2024-01-20,2024-01-20,,Déborah François,Populaire,1987-05-24
+368,nm0000383,2024-01-20,2024-01-20,,Jennifer Ehle,Zero Dark Thirty,1969-12-29
+369,nm0910278,2024-01-20,2024-01-20,,Julie Walters,Billy Elliot,1950-02-22
+370,nm3014031,2024-01-20,2024-01-20,,Rachel Brosnahan,House of Cards,1990-07-12
+371,nm0396558,2024-01-20,2024-01-20,,Nicholas Hoult,About a Boy,1989-12-07
+372,nm4454223,2024-01-20,2024-01-20,,Emilia Jones,CODA,2002-02-23
+373,nm3718007,2024-01-20,2024-01-20,,Jonathan Majors,The Harder They Fall,1989-09-07
+374,nm0000054,2024-01-20,2024-01-20,,Marilyn Monroe,Some Like It Hot,1926-06-01
+375,nm0000013,2024-01-20,2024-01-20,,Doris Day,Love Me or Leave Me,1922-04-03
+376,nm0000216,2024-01-20,2024-01-20,,Arnold Schwarzenegger,The 6th Day,1947-07-30
+377,nm0000404,2024-01-20,2024-01-20,,Jane Fonda,Klute,1937-12-21
+378,nm0001749,2024-01-20,2024-01-20,,Maggie Smith,Gosford Park,1934-12-28
+379,nm0005299,2024-01-20,2024-01-20,,Sarah Paulson,12 Years a Slave,1974-12-17
+380,nm3915784,2024-01-20,2024-01-20,,John Boyega,Star Wars: Episode VII - The Force Awakens,1992-03-17
+381,nm0001290,2024-01-20,2024-01-20,,Richard E. Grant,Gosford Park,1957-05-05
+382,nm0000131,2024-01-20,2024-01-20,,John Cusack,Grosse Pointe Blank,1966-06-28
+383,nm0687146,2024-01-21,2024-01-21,,Jesse Plemons,Game Night,1988-04-02
+384,nm0000402,2024-01-20,2024-01-20,,Carrie Fisher,Star Wars,1956-10-21
+385,nm11940123,2024-01-20,2024-01-20,,Iman Vellani,Ms. Marvel,2002-09-03
+386,nm0005042,2024-01-20,2024-01-20,,Jason Isaacs,Harry Potter and the Chamber of Secrets,1963-06-06
+387,nm0000291,2024-01-20,2024-01-20,,Angela Bassett,Strange Days,1958-08-16
+388,nm0000412,2024-01-20,2024-01-20,,Andy Garcia,Ocean's Eleven,1956-04-12
+389,nm0531069,2024-01-20,2024-01-20,,Kate Maberly,The Secret Garden,
+390,nm0000295,2024-01-20,2024-01-20,,Kate Beckinsale,Underworld: Evolution,1973-07-26
+391,nm0000989,2024-01-20,2024-01-20,,Yul Brynner,The King and I,1920-07-11
+392,nm0000078,2024-01-20,2024-01-20,,John Wayne,True Grit,1907-05-26
+393,nm0001526,2024-01-20,2024-01-20,,Patrick McGoohan,The Prisoner,1928-03-19
+394,nm0000539,2024-01-20,2024-01-20,,Dina Meyer,Starship Troopers,1968-12-22
+395,nm0001845,2024-01-20,2024-01-20,,Forest Whitaker,The Last King of Scotland,1961-07-15
+396,nm0937251,2024-01-20,2024-01-20,,Agnieszka Wlodarczyk,Nigdy w zyciu!,1980-12-13
+397,nm0540441,2024-01-20,2024-01-20,,Jena Malone,The Neon Demon,1984-11-21
+398,nm0001288,2024-01-20,2024-01-20,,Kelsey Grammer,Cheers,1955-02-21
+399,nm0562003,2024-01-20,2024-01-20,,Jodhi May,The Last of the Mohicans,1975-05-08
+400,nm0668854,2024-01-20,2024-01-20,,Tessa Peake-Jones,Only Fools and Horses....,1957-05-09
+401,nm1872698,2024-01-20,2024-01-20,,Dianna Agron,The Family,1986-04-30
+402,nm0000984,2024-01-20,2024-01-20,,Avery Brooks,Star Trek: Deep Space Nine,1948-10-02
+403,nm0065765,2024-01-20,2024-01-20,,Samantha Beckinsale,Jake's Progress,1966-07-23
+404,nm0465546,2024-01-20,2024-01-20,,Ricky Koole,Sonny Boy,1972-09-11
+405,nm0001774,2024-01-20,2024-01-20,,Ben Stiller,Tropic Thunder,1965-11-30
+406,nm0001191,2024-01-20,2024-01-20,,Adam Sandler,The Waterboy,1966-09-09
+407,nm0000434,2024-01-20,2024-01-20,,Mark Hamill,Star Wars,
+408,nm5561229,2024-01-20,2024-01-20,,Brec Bassinger,Stargirl,1999-05-25
+409,nm1312575,2024-01-20,2024-01-20,,Olivia Wilde,Tron: Legacy,1984-03-10
+410,nm0005232,2024-01-20,2024-01-20,,Izabella Miko,Coyote Ugly,1981-01-21
+411,nm0000293,2024-01-20,2024-01-20,,Sean Bean,The Lord of the Rings: The Fellowship of the Ring,1959-04-17
+412,nm0001435,2024-01-20,2024-01-20,,Lisa Kudrow,Friends,1963-07-30
+413,nm0514638,2024-01-20,2024-01-20,,Natasha Little,Mr. Nobody,1969-10-02
+414,nm0001172,2024-01-20,2024-01-20,,Christopher Eccleston,Thor: The Dark World,1964-02-16
+415,nm5016878,2024-01-20,2024-01-20,,Jacob Tremblay,Room,2006-10-05
+416,nm0124930,2024-01-20,2024-01-20,,Gerard Butler,300,1969-11-13
+417,nm0421799,2024-01-20,2024-01-20,,Julia Jentsch,Sophie Scholl - Die letzten Tage,1978-02-20
+418,nm1157358,2024-01-20,2024-01-20,,Michelle Monaghan,Gone Baby Gone,1976-03-23
+419,nm0004821,2024-01-20,2024-01-20,,Michael Chiklis,The Shield,1963-08-30
+420,nm0829576,2024-01-20,2024-01-20,,Kristen Stewart,Snow White and the Huntsman,1990-04-09
+421,nm0316079,2024-01-20,2024-01-20,,Paul Giamatti,Sideways,1967-06-06
+422,nm0001212,2024-01-20,2024-01-20,,Joseph Fiennes,Shakespeare in Love,1970-05-27
+423,nm0706787,2024-01-20,2024-01-20,,Aishwarya Rai Bachchan,Jodhaa Akbar,1973-11-01
+424,nm0001449,2024-01-20,2024-01-20,,Frank Langella,Frost/Nixon,1938-01-01
+425,nm0645683,2024-01-20,2024-01-20,,Sophie Okonedo,Hotel Rwanda,1968-08-11
+426,nm1113550,2024-01-20,2024-01-20,,Abigail Breslin,Little Miss Sunshine,1996-04-14
+427,nm0993507,2024-01-20,2024-01-20,,Kat Dennings,Nick and Norah's Infinite Playlist,1986-06-13
+428,nm0000438,2024-01-20,2024-01-20,,Ed Harris,Appaloosa,1950-11-28
+429,nm0000147,2024-01-20,2024-01-20,,Colin Firth,A Single Man,1960-09-10
+430,nm0001884,2024-01-20,2024-01-20,,Max von Sydow,Flash Gordon,1929-04-10
+431,nm0818055,2024-01-20,2024-01-20,,Octavia Spencer,Hidden Figures,1970-05-25
+432,nm0001694,2024-01-20,2024-01-20,,Meredith Salenger,The Journey of Natty Gann,1970-03-14
+433,nm0266824,2024-01-20,2024-01-20,,Dakota Fanning,War of the Worlds,1994-02-23
+434,nm0000579,2024-01-20,2024-01-20,,Ron Perlman,Hand of God,1950-04-13
+435,nm0000502,2024-01-20,2024-01-20,,Christopher Lloyd,Back to the Future,1938-10-22
+436,nm0000245,2024-01-20,2024-01-20,,Robin Williams,Mrs. Doubtfire,1951-07-21
+437,nm0000429,2024-01-20,2024-01-20,,Melanie Griffith,Working Girl,1957-08-09
+438,nm1242688,2024-01-20,2024-01-20,,Josh Hutcherson,The Hunger Games,1992-10-12
+439,nm0000160,2024-01-20,2024-01-20,,Ethan Hawke,Training Day,1970-11-06
+440,nm1404408,2024-01-20,2024-01-20,,Alice Eve,Before We Go,1982-02-06
+441,nm8071137,2024-01-20,2024-01-20,,Iain Armitage,Scoob!,2008-07-15
+442,nm1335291,2024-01-20,2024-01-20,,Missy Peregrym,Stick It,1982-06-16
+443,nm1130627,2024-01-20,2024-01-20,,Cobie Smulders,The Avengers,1982-04-03
+444,nm0646351,2024-01-20,2024-01-20,,Larisa Oleynik,10 Things I Hate About You,1981-06-07
+445,nm0005017,2024-01-20,2024-01-20,,Katie Holmes,Batman Begins,1978-12-18
+446,nm0000585,2024-01-20,2024-01-20,,Robert Picardo,Star Trek: Voyager,1953-10-27
+447,nm0032375,2024-01-20,2024-01-20,,Shiri Appleby,The Thirteenth Floor,1978-12-07
+448,nm0515116,2024-01-20,2024-01-20,,Blake Lively,Gossip Girl,1987-08-25
+449,nm1659221,2024-01-20,2024-01-20,,Sebastian Stan,Captain America: The Winter Soldier,1982-08-13
+450,nm0810619,2024-01-20,2024-01-20,,Jurnee Smollett,The Burial,
+451,nm0000179,2024-01-20,2024-01-20,,Jude Law,The Talented Mr. Ripley,1972-12-29
+452,nm1954240,2024-01-20,2024-01-20,,Teresa Palmer,Warm Bodies,1986-02-26
+453,nm0001626,2024-01-20,2024-01-20,,Christopher Plummer,Beginners,1929-12-13
+454,nm0164809,2024-01-20,2024-01-20,,Jason Clarke,Zero Dark Thirty,1969-07-17
+455,nm0933940,2024-01-20,2024-01-20,,Patrick Wilson,The Phantom of the Opera,1973-07-03
+456,nm0115671,2024-01-20,2024-01-20,,Agnes Bruckner,Murder by Numbers,1985-08-16
+457,nm1631269,2024-01-20,2024-01-20,,Chloë Grace Moretz,Kick-Ass,1997-02-10
+458,nm0000545,2024-01-20,2024-01-20,,Helen Mirren,The Queen,1945-07-26
+459,nm0000032,2024-01-20,2024-01-20,,Charlton Heston,Ben-Hur,1923-10-04
+460,nm0447695,2024-01-20,2024-01-20,,Anna Kendrick,Up in the Air,1985-08-09
+461,nm0583487,2024-01-20,2024-01-20,,Ari Meyers,Kate & Allie,1969-04-06
+462,nm0107175,2024-01-20,2024-01-20,,Julia Brendler,Dolphins,1975-02-26
+463,nm0564724,2024-01-20,2024-01-20,,David McCallum,The Great Escape,1933-09-19
+464,nm3382410,2024-01-20,2024-01-20,,Ruby O. Fee,Die Unsichtbaren,1996-02-07
+465,nm2497366,2024-01-20,2024-01-20,,Sarah Greene,The Guard,1984-07-24
+466,nm0089438,2024-01-20,2024-01-20,,Sean Blowers,First Knight,1961-01-12
+467,nm5097044,2024-01-20,2024-01-20,,Isabela Merced,Transformers: The Last Knight,2001-07-10
+468,nm2143282,2024-01-20,2024-01-20,,Lupita Nyong'o,12 Years a Slave,1983-03-01
+469,nm2976580,2024-01-20,2024-01-20,,Jessie Buckley,I'm Thinking of Ending Things,1989-12-28
+470,nm0000178,2024-01-20,2024-01-20,,Diane Lane,Unfaithful,1965-01-22
+471,nm1092086,2024-01-20,2024-01-20,,David Harbour,Hellboy,1975-04-10
+472,nm0249291,2024-01-20,2024-01-20,,Joel Edgerton,The Gift,1974-06-23
+473,nm1298582,2024-01-20,2024-01-20,,Anna Castillo,Nowhere,1993-10-09
+474,nm1869101,2024-01-20,2024-01-20,,Ana de Armas,Blade Runner 2049,1988-04-30
+475,nm0068338,2024-01-20,2024-01-20,,Kristen Bell,Frozen,1980-07-18
+476,nm0261595,2024-01-20,2024-01-20,,Charles Esten,The Postman,1965-09-09
+477,nm0893257,2024-01-20,2024-01-20,,Milo Ventimiglia,Heroes,1977-07-08
+478,nm0668698,2024-01-20,2024-01-20,,Heather Peace,London's Burning,1975-06-16
+479,nm0001691,2024-01-20,2024-01-20,,Geoffrey Rush,Shakespeare in Love,1951-07-06
+480,nm0000403,2024-01-20,2024-01-20,,Bridget Fonda,A Simple Plan,1964-01-27
+481,nm0070767,2024-01-20,2024-01-20,,Dirk Benedict,The A-Team,1945-03-01
+482,nm0149950,2024-01-20,2024-01-20,,Sarah Chalke,Scrubs,1976-08-27
+483,nm0265457,2024-01-20,2024-01-20,,Christopher Fairbank,Guardians of the Galaxy,1953-10-04
+484,nm0000156,2024-01-20,2024-01-20,,Jeff Goldblum,Jurassic Park,1952-10-22
+485,nm0000096,2024-01-20,2024-01-20,,Gillian Anderson,The X Files,1968-08-09
+486,nm0733427,2024-01-20,2024-01-20,,Harry Shearer,The Simpsons,1943-12-23
+487,nm0001535,2024-01-20,2024-01-20,,Dale Midkiff,Pet Sematary,1959-07-01
+488,nm0000424,2024-01-20,2024-01-20,,Hugh Grant,Love Actually,1960-09-09
+489,nm1519666,2024-01-20,2024-01-20,,Eddie Redmayne,Les Misérables,1982-01-06
+490,nm8402992,2024-01-20,2024-01-20,,Daisy Edgar-Jones,Normal People,1998-05-24
+491,nm0205626,2024-01-20,2024-01-20,,Viola Davis,Fences,1965-08-11
+492,nm0000576,2024-01-20,2024-01-20,,Sean Penn,Mystic River,1960-08-17
+493,nm1297015,2024-01-20,2024-01-20,,Emma Stone,La La Land,1988-11-06
+494,nm0296545,2024-01-20,2024-01-20,,Nick Frost,The World's End,1972-03-28
+495,nm0000481,2024-01-20,2024-01-20,,Alice Krige,Star Trek: First Contact,1954-06-28
+496,nm0000140,2024-01-20,2024-01-20,,Michael Douglas,Wall Street,1944-09-25
+497,nm0001657,2024-01-20,2024-01-20,,Oliver Reed,Gladiator,1938-02-13
+498,nm0000079,2024-01-20,2024-01-20,,Raquel Welch,The Three Musketeers,1940-09-05
+499,nm0000146,2024-01-20,2024-01-20,,Ralph Fiennes,The Constant Gardener,1962-12-22
+500,nm0001002,2024-01-20,2024-01-20,,Dean Cain,God's Not Dead,1966-07-31
+501,nm0000230,2024-01-20,2024-01-20,,Sylvester Stallone,Rocky,1946-07-06
+502,nm0001255,2024-01-20,2024-01-20,,Victor Garber,Argo,1949-03-16
+503,nm0170552,2024-01-20,2024-01-20,,George Cole,Quentin Durward,1925-04-22
+504,nm0000123,2024-01-20,2024-01-20,,George Clooney,The Ides of March,1961-05-06
+505,nm0000174,2024-01-20,2024-01-20,,Val Kilmer,The Doors,1959-12-31
+506,nm0001813,2024-01-20,2024-01-20,,Dick Van Dyke,Mary Poppins,1925-12-13
+507,nm0684877,2024-01-20,2024-01-20,,Billie Piper,Secret Diary of a Call Girl,1982-09-22
+508,nm0000181,2024-01-20,2024-01-20,,Heather Locklear,Melrose Place,1961-09-25
+509,nm0000197,2024-01-20,2024-01-20,,Jack Nicholson,Chinatown,1937-04-22
+510,nm0000698,2024-01-20,2024-01-20,,Gene Wilder,Willy Wonka & the Chocolate Factory,1933-06-11
+511,nm0019569,2024-01-20,2024-01-20,,Mary Alice,The Matrix Revolutions,1936-12-03
+512,nm0000277,2024-01-20,2024-01-20,,Richard Attenborough,Jurassic Park,1923-08-29
+513,nm0000314,2024-01-20,2024-01-20,,Charles Bronson,Death Wish,1921-11-03
+514,nm0000537,2024-01-20,2024-01-20,,Steve McQueen,The Great Escape,1930-03-24
+515,nm0001001,2024-01-20,2024-01-20,,James Caan,Thief,1940-03-26
+516,nm0001727,2024-01-20,2024-01-20,,Robert Shaw,A Man for All Seasons,1927-08-09
+517,nm0001670,2024-01-20,2024-01-20,,Natasha Richardson,The Parent Trap,1963-05-11
+518,nm0344435,2024-01-20,2024-01-20,,Ioan Gruffudd,Fantastic Four,1973-10-06
+519,nm0005188,2024-01-20,2024-01-20,,James Marsden,Hairspray,1973-09-18
+520,nm0000614,2024-01-20,2024-01-20,,Alan Rickman,Die Hard,1946-02-21
+521,nm0000554,2024-01-20,2024-01-20,,Sam Neill,Jurassic Park,1947-09-14
+522,nm0000368,2024-01-20,2024-01-20,,Laura Dern,Jurassic Park,1967-02-10
+523,nm0000200,2024-01-20,2024-01-20,,Bill Paxton,Aliens,1955-05-17
+524,nm0000198,2024-01-20,2024-01-20,,Gary Oldman,The Dark Knight,1958-03-21
+525,nm0001420,2024-01-20,2024-01-20,,DeForest Kelley,Star Trek,1920-01-20
+526,nm0000655,2024-01-20,2024-01-20,,Eric Stoltz,Pulp Fiction,1961-09-30
+527,nm0000111,2024-01-20,2024-01-20,,Matthew Broderick,The Producers,1962-03-21
+528,nm0252230,2024-01-20,2024-01-20,,Chiwetel Ejiofor,12 Years a Slave,1977-07-10
+529,nm0001702,2024-01-20,2024-01-20,,Roy Scheider,Jaws,1932-11-10
+530,nm0001099,2024-01-20,2024-01-20,,Jeff Daniels,The Squid and the Whale,1955-02-19
+531,nm0000209,2024-01-20,2024-01-20,,Tim Robbins,Mystic River,1958-10-16
+532,nm0001515,2024-01-20,2024-01-20,,Joseph Mazzello,Jurassic Park,1983-09-21
+533,nm0170550,2024-01-20,2024-01-20,,Gary Cole,Talladega Nights: The Ballad of Ricky Bobby,1956-09-20
+534,nm0000603,2024-01-20,2024-01-20,,Vanessa Redgrave,Coriolanus,1937-01-30
+535,nm0000661,2024-01-20,2024-01-20,,Donald Sutherland,The Hunger Games: Catching Fire,1935-07-17
+536,nm0000398,2024-01-20,2024-01-20,,Sally Field,Forrest Gump,1946-11-06
+537,nm0000705,2024-01-20,2024-01-20,,Robin Wright,Forrest Gump,1966-04-08
+538,nm0000641,2024-01-20,2024-01-20,,Gary Sinise,Forrest Gump,1955-03-17
+539,nm0628601,2024-01-20,2024-01-20,,Thandiwe Newton,Crash,1972-11-06
+540,nm0001557,2024-01-20,2024-01-20,,Viggo Mortensen,The Lord of the Rings: The Return of the King,1958-10-20
+541,nm0507207,2024-01-20,2024-01-20,,Gary Lewis,Billy Elliot,
+542,nm1754059,2024-01-20,2024-01-20,,Natalie Dormer,Game of Thrones,1982-02-11
+543,nm0413561,2024-01-20,2024-01-20,,Gordon Jackson,The Great Escape,1923-12-19
+544,nm5145057,2024-01-20,2024-01-20,,Talitha Eliana Bateman,Annabelle: Creation,2001-09-04
+545,nm0334441,2024-01-20,2024-01-20,,Holliday Grainger,Cinderella,1988-03-27
+546,nm9984699,2024-01-20,2024-01-20,,Inde Navarrette,Superman & Lois,2001-03-03
+547,nm5043859,2024-01-20,2024-01-20,,Rachel Keller,Fargo,1992-12-25
+548,nm0355163,2024-01-20,2024-01-20,,Jill Halfpenny,Waterloo Road,1975-07-15
+549,nm0205063,2024-01-20,2024-01-20,,Lucy Davis,Wonder Woman,1973-02-17
+550,nm1132359,2024-01-20,2024-01-20,,Summer Glau,Serenity,1981-07-24
+551,nm0931090,2024-01-20,2024-01-20,,Kimberly Williams-Paisley,Father of the Bride,1971-09-14
+552,nm0001602,2024-01-20,2024-01-20,,Guy Pearce,Memento,1967-10-05
+553,nm0005377,2024-01-20,2024-01-20,,Sam Rockwell,Moon,1968-11-05
+554,nm0002073,2024-01-20,2024-01-20,,Lou Ferrigno,The Incredible Hulk,1951-11-09
+555,nm0289142,2024-01-20,2024-01-20,,Matthew Fox,Bone Tomahawk,1966-07-14
+556,nm0836343,2024-01-20,2024-01-20,,Jim Sturgess,21,1978-05-16
+557,nm0005048,2024-01-20,2024-01-20,,Thomas Jane,Boogie Nights,1969-02-22
+558,nm0000950,2024-01-20,2024-01-20,,Brenda Blethyn,Pride & Prejudice,1946-02-20
+559,nm0000342,2024-01-20,2024-01-20,,James Cromwell,L.A. Confidential,1940-01-27
+560,nm1195855,2024-01-20,2024-01-20,,Lee Pace,Guardians of the Galaxy,1979-03-25
+561,nm0269463,2024-01-20,2024-01-20,,Jon Favreau,Chef,1966-10-19
+562,nm0000609,2024-01-20,2024-01-20,,Ving Rhames,Pulp Fiction,1959-05-12
+563,nm0004936,2024-01-20,2024-01-20,,Ben Foster,Hell or High Water,1980-10-29
+564,nm1102577,2024-01-20,2024-01-20,,Elle Fanning,Super 8,1998-04-09
+565,nm0683253,2024-01-20,2024-01-20,,Rosamund Pike,Gone Girl,1979-01-27
+566,nm0593961,2024-01-20,2024-01-20,,Rhona Mitra,Underworld: Rise of the Lycans,1976-08-09
+567,nm0544718,2024-01-20,2024-01-20,,Kate Mara,Fantastic Four,1983-02-27
+568,nm0378245,2024-01-20,2024-01-20,,Taraji P. Henson,The Curious Case of Benjamin Button,1970-09-11
+569,nm5473782,2024-01-20,2024-01-20,,Taron Egerton,Kingsman: The Secret Service,1989-11-10
+570,nm3485845,2024-01-20,2024-01-20,,Adam Driver,Star Wars: Episode VII - The Force Awakens,1983-11-19
+571,nm0000706,2024-01-20,2024-01-20,,Michelle Yeoh,Everything Everywhere All at Once,1962-08-06
+572,nm0000027,2024-01-20,2024-01-20,,Alec Guinness,Star Wars,1914-04-02
+573,nm0000385,2024-01-20,2024-01-20,,Sam Elliott,A Star Is Born,1944-08-09
+574,nm0000458,2024-01-20,2024-01-20,,William Hurt,A History of Violence,1950-03-20
+575,nm2353862,2024-01-20,2024-01-20,,Dev Patel,Slumdog Millionaire,1990-04-23
+576,nm0005491,2024-01-20,2024-01-20,,Maura Tierney,ER,1965-02-03
+577,nm0000460,2024-01-20,2024-01-20,,Jeremy Irons,Dead Ringers,1948-09-19
+578,nm0000060,2024-01-20,2024-01-20,,Gregory Peck,To Kill a Mockingbird,1916-04-05
+579,nm4446467,2024-01-20,2024-01-20,,Tye Sheridan,Mud,1996-11-11
+580,nm0000493,2024-01-20,2024-01-20,,Jack Lemmon,The Apartment,1925-02-08
+581,nm0000112,2024-01-20,2024-01-20,,Pierce Brosnan,The World Is Not Enough,1953-05-16
+582,nm0000513,2024-01-20,2024-01-20,,William H. Macy,Fargo,1950-03-13
+583,nm0221046,2024-01-20,2024-01-20,,Zooey Deschanel,New Girl,1980-01-17
+584,nm0000685,2024-01-20,2024-01-20,,Jon Voight,Midnight Cowboy,1938-12-29
+585,nm0671567,2024-01-20,2024-01-20,,Michael Peña,American Hustle,1976-01-13
+586,nm0000741,2024-01-20,2024-01-20,,Tim Allen,Toy Story,1953-06-13
+587,nm0524197,2024-01-20,2024-01-20,,Josh Lucas,Ford v Ferrari,1971-06-20
+588,nm0000592,2024-01-20,2024-01-20,,Pete Postlethwaite,The Usual Suspects,1946-02-07
+589,nm0000443,2024-01-20,2024-01-20,,Goldie Hawn,Private Benjamin,1945-11-21
+590,nm0000166,2024-01-20,2024-01-20,,Helen Hunt,As Good as It Gets,1963-06-15
+591,nm0534635,2024-01-20,2024-01-20,,Richard Madden,Game of Thrones,1986-06-18
+592,nm0000161,2024-01-20,2024-01-20,,Salma Hayek,Frida,1966-09-02
+593,nm1847117,2024-01-20,2024-01-20,,Janelle Monáe,Hidden Figures,1985-12-01
+594,nm0000608,2024-01-20,2024-01-20,,Burt Reynolds,Boogie Nights,1936-02-11
+595,nm0000549,2024-01-20,2024-01-20,,Roger Moore,Moonraker,1927-10-14
+596,nm0331516,2024-01-20,2024-01-20,,Ryan Gosling,Blue Valentine,1980-11-12
+597,nm4563869,2024-01-20,2024-01-20,,Sophie Nélisse,The Book Thief,2000-03-27
+598,nm0851113,2024-01-20,2024-01-20,,Catherine Tate,The Catherine Tate Show,1969-12-05
+599,nm0000642,2024-01-20,2024-01-20,,Marina Sirtis,Star Trek: The Next Generation,1955-03-29
+600,nm1057213,2024-01-20,2024-01-20,,Leanne Wilson,Tracker,
+601,nm0525921,2024-01-20,2024-01-20,,Joanna Lumley,Absolutely Fabulous,1946-05-01
+602,nm0884263,2024-01-20,2024-01-20,,Kym Valentine,Neighbours,1977-05-24
+603,nm0000215,2024-01-20,2024-01-20,,Susan Sarandon,Thelma & Louise,1946-10-04
+604,nm0000321,2024-01-20,2024-01-20,,Gabriel Byrne,The Usual Suspects,1950-05-12
+605,nm0001277,2024-01-20,2024-01-20,,Scott Glenn,The Hunt for Red October,1939-01-26
+606,nm0000906,2024-01-20,2024-01-20,,Annette Bening,American Beauty,1958-05-29
+607,nm0614165,2024-01-20,2024-01-20,,Cillian Murphy,28 Days Later...,1976-05-25
+608,nm0005123,2024-01-20,2024-01-20,,Ali Larter,Final Destination,1976-02-28
+609,nm0387704,2024-01-20,2024-01-20,,Tina Hobley,Holby City,1971-05-20
+610,nm1475594,2024-01-20,2024-01-20,,Channing Tatum,21 Jump Street,1980-04-26
+611,nm0004754,2024-01-20,2024-01-20,,Jessica Biel,The Illusionist,1982-03-03
+612,nm0371660,2024-01-20,2024-01-20,,Dennis Haysbert,Far from Heaven,1954-06-02
+613,nm0000107,2024-01-20,2024-01-20,,Kim Basinger,L.A. Confidential,1953-12-08
+614,nm0000463,2024-01-20,2024-01-20,,Famke Janssen,X-Men: The Last Stand,1964-11-05
+615,nm0619406,2024-01-20,2024-01-20,,Parminder Nagra,Bend It Like Beckham,
+616,nm0001667,2024-01-20,2024-01-20,,Jonathan Rhys Meyers,Den 12. mann,1977-07-27
+617,nm0383603,2024-01-20,2024-01-20,,Freddie Highmore,Finding Neverland,1992-02-14
+618,nm0911431,2024-01-20,2024-01-20,,Burt Ward,Batman,1945-07-06
+619,nm0098378,2024-01-20,2024-01-20,,Kate Bosworth,21,1983-01-02
+620,nm0001539,2024-01-20,2024-01-20,,Hayley Mills,Pollyanna,1946-04-18
+621,nm0428065,2024-01-20,2024-01-20,,Felicity Jones,Rogue One,1983-10-17
+622,nm1169742,2024-01-20,2024-01-20,,Eileen Essell,Charlie and the Chocolate Factory,1921-10-08
+623,nm0000656,2024-01-20,2024-01-20,,Madeleine Stowe,Twelve Monkeys,1958-08-18
+624,nm0039162,2024-01-20,2024-01-20,,Shawn Ashmore,X2,1979-10-07
+625,nm0001231,2024-01-20,2024-01-20,,Claire Forlani,Meet Joe Black,1971-12-17
+626,nm0001872,2024-01-20,2024-01-20,,Steve Zahn,War for the Planet of the Apes,1967-11-13
+627,nm0005064,2024-01-20,2024-01-20,,January Jones,X: First Class,1978-01-05
+628,nm0005256,2024-01-20,2024-01-20,,Bridget Moynahan,"I, Robot",1971-04-28
+629,nm0001605,2024-01-20,2024-01-20,,Amanda Peet,2012,1972-01-11
+630,nm0829032,2024-01-20,2024-01-20,,Ray Stevenson,The Three Musketeers,1964-05-25
+631,nm0000657,2024-01-20,2024-01-20,,David Strathairn,"Good Night, and Good Luck.",1949-01-26
+632,nm2652716,2024-01-20,2024-01-20,,Grant Gustin,The Flash,1990-01-14
+633,nm1093951,2024-01-20,2024-01-20,,Aaron Taylor-Johnson,Kick-Ass,1990-06-13
+634,nm0001173,2024-01-20,2024-01-20,,Aaron Eckhart,The Dark Knight,1968-03-12
+635,nm0000450,2024-01-20,2024-01-20,,Philip Seymour Hoffman,The Master,1967-07-23
+636,nm0000353,2024-01-20,2024-01-20,,Willem Dafoe,Spider-Man,1955-07-22
+637,nm0913488,2024-01-20,2024-01-20,,Kerry Washington,Scandal,1977-01-31
+638,nm0517820,2024-01-20,2024-01-20,,Lindsay Lohan,Mean Girls,1986-07-02
+639,nm0272581,2024-01-20,2024-01-20,,Rebecca Ferguson,The Greatest Showman,1983-10-19
+640,nm1017334,2024-01-20,2024-01-20,,Juno Temple,Atonement,1989-07-21
+641,nm0000400,2024-01-20,2024-01-20,,Linda Fiorentino,The Last Seduction,1958-03-09
+642,nm0000239,2024-01-20,2024-01-20,,Liv Tyler,Armageddon,1977-07-01
+643,nm0001450,2024-01-20,2024-01-20,,Angela Lansbury,The Manchurian Candidate,1925-10-16
+644,nm0004937,2024-01-20,2024-01-20,,Jamie Foxx,Collateral,1967-12-13
+645,nm0908094,2024-01-20,2024-01-20,,Paul Walker,The Fast and the Furious,1973-09-12
+646,nm0322407,2024-01-20,2024-01-20,,Brendan Gleeson,The Guard,1955-03-29
+647,nm0339304,2024-01-20,2024-01-20,,Bruce Greenwood,Star Trek,1956-08-12
+648,nm1567174,2024-01-20,2024-01-20,,Chelsea Halfpenny,Emmerdale Farm,1991-09-26
+649,nm0107988,2024-01-20,2024-01-20,,Sally Bretton,Green Wing,1980-04-23
+650,nm0000024,2024-01-20,2024-01-20,,John Gielgud,Arthur,1904-04-14
+651,nm0670408,2024-01-20,2024-01-20,,Simon Pegg,Shaun of the Dead,1970-02-14
+652,nm0480118,2024-01-20,2024-01-20,,Elizabeth Lackey,Planet of the Apes,1971-03-02
+653,nm4855517,2024-01-20,2024-01-20,,Simu Liu,Shang-Chi and the Legend of the Ten Rings,1989-04-19
+654,nm0001598,2024-01-20,2024-01-20,,Robert Patrick,Terminator 2: Judgment Day,1958-11-05
+655,nm0000075,2024-01-20,2024-01-20,,Spencer Tracy,Guess Who's Coming to Dinner,1900-04-05
+656,nm0001427,2024-01-20,2024-01-20,,Greg Kinnear,As Good as It Gets,1963-06-17
+657,nm0249319,2024-01-20,2024-01-20,,Gigi Edgley,Farscape,1977-11-16
+658,nm0000058,2024-01-20,2024-01-20,,Maureen O'Hara,Miracle on 34th Street,1920-08-17
+659,nm0001423,2024-01-20,2024-01-20,,Richard Kiel,Moonraker,1939-09-13
+660,nm0000534,2024-01-20,2024-01-20,,Kelly McGillis,Top Gun,1957-07-09
+661,nm0947447,2024-01-20,2024-01-20,,Donnie Yen,Ip Man,1963-07-27
+662,nm0000121,2024-01-20,2024-01-20,,Phoebe Cates,Fast Times at Ridgemont High,1963-07-16
+663,nm0001552,2024-01-20,2024-01-20,,Pat Morita,The Karate Kid,1932-06-28
+664,nm0000144,2024-01-20,2024-01-20,,Cary Elwes,Saw,1962-10-26
+665,nm0590055,2024-01-20,2024-01-20,,John Mills,Great Expectations,1908-02-22
+666,nm5085683,2024-01-20,2024-01-20,,Mckenna Grace,Gifted,2006-06-25
+667,nm0000503,2024-01-20,2024-01-20,,Emily Lloyd,Wish You Were Here,1970-09-29
+668,nm0000430,2024-01-20,2024-01-20,,Steve Guttenberg,Short Circuit,1958-08-24
+669,nm0001868,2024-01-20,2024-01-20,,Michael York,Logan's Run,1942-03-27
+670,nm3964350,2024-01-20,2024-01-20,,Amandla Stenberg,The Hunger Games,1998-10-23
+671,nm4498368,2024-01-20,2024-01-20,,Isabelle Cornish,Puberty Blues,1994-07-22
+672,nm0000256,2024-01-20,2024-01-20,,Jenny Agutter,Logan's Run,1952-12-20
+673,nm0000334,2024-01-20,2024-01-20,,Chow Yun-Fat,Wo hu cang long,1955-05-18
+674,nm0186505,2024-01-20,2024-01-20,,Bryan Cranston,Breaking Bad,1956-03-07
+675,nm0941777,2024-01-20,2024-01-20,,Sam Worthington,Avatar,1976-08-02
+676,nm0001016,2024-01-20,2024-01-20,,David Carradine,Kill Bill: Vol. 2,1936-12-08
+677,nm3053338,2024-01-20,2024-01-20,,Margot Robbie,Suicide Squad,1990-07-02
+678,nm0000663,2024-01-20,2024-01-20,,Dominique Swain,Lolita,1980-08-12
+679,nm0002090,2024-01-20,2024-01-20,,Zach Galligan,Gremlins,1964-02-14
+680,nm0001215,2024-01-20,2024-01-20,,Albert Finney,Murder on the Orient Express,1936-05-09
+681,nm2946516,2024-01-20,2024-01-20,,Claire Foy,First Man,1984-04-16
+682,nm0581467,2024-01-20,2024-01-20,,Buster Merryfield,Only Fools and Horses....,1920-11-27
+683,nm0043041,2024-01-20,2024-01-20,,James Avery,Teenage Mutant Ninja Turtles,1945-11-27
+684,nm0850102,2024-01-20,2024-01-20,,Amanda Tapping,Stargate SG-1,1965-08-28
+685,nm0000255,2024-01-20,2024-01-20,,Ben Affleck,Argo,1972-08-15
+686,nm0000389,2024-01-20,2024-01-20,,Emilio Estevez,The Way,1962-05-12
+687,nm0004851,2024-01-20,2024-01-20,,Penélope Cruz,Vicky Cristina Barcelona,1974-04-28
+688,nm0000297,2024-01-20,2024-01-20,,Tom Berenger,Platoon,1949-05-31
+689,nm0000418,2024-01-20,2024-01-20,,Danny Glover,Lethal Weapon,1946-07-22
+690,nm0899681,2024-01-20,2024-01-20,,Goran Visnjic,The Girl with the Dragon Tattoo,1972-09-09
+691,nm0000902,2024-01-20,2024-01-20,,Jim Belushi,Red Heat,1954-06-15
+692,nm0001722,2024-01-20,2024-01-20,,Rufus Sewell,Dark City,1967-10-29
+693,nm0913993,2024-01-20,2024-01-20,,Dennis Waterman,New Tricks,1948-02-24
+694,nm0000202,2024-01-20,2024-01-20,,Ryan Phillippe,Crash,1974-09-10
+695,nm0776239,2024-01-20,2024-01-20,,Dwight Schultz,Star Trek: First Contact,1947-11-24
+696,nm1176985,2024-01-20,2024-01-20,,Dave Bautista,Guardians of the Galaxy,1969-01-18
+697,nm1086543,2024-01-20,2024-01-20,,Amanda Seyfried,Les Misérables,1985-12-03
+698,nm0912916,2024-01-20,2024-01-20,,Kiersten Warren,Bicentennial Man,1965-11-04
+699,nm0048982,2024-01-20,2024-01-20,,Tom Baker,Nicholas and Alexandra,1934-01-20
+700,nm1597316,2024-01-20,2024-01-20,,Adrianne Palicki,G.I. Joe: Retaliation,1983-05-06
+701,nm9712591,2024-01-20,2024-01-20,,Elisha Williams,The Wonder Years,2009-03-31
+702,nm3241371,2024-01-20,2024-01-20,,Clare Bowen,Nashville,1984-05-12
+703,nm0005543,2024-01-20,2024-01-20,,Victor Webster,Workin' Moms,1973-02-07
+704,nm0001624,2024-01-20,2024-01-20,,Oliver Platt,The Three Musketeers,1960-01-12
+705,nm0192505,2024-01-20,2024-01-20,,Kaley Cuoco,The Big Bang Theory,1985-11-30
+706,nm0000569,2024-01-20,2024-01-20,,Gwyneth Paltrow,Shakespeare in Love,1972-09-27
+707,nm0000495,2024-01-20,2024-01-20,,Téa Leoni,The Family Man,1966-02-25
+708,nm0001993,2024-01-20,2024-01-20,,Vincent Cassel,L'ennemi public n°1,1966-11-23
+709,nm0136797,2024-01-20,2024-01-20,,Steve Carell,The Office,1962-08-16
+710,nm0000492,2024-01-20,2024-01-20,,Jennifer Jason Leigh,The Hateful Eight,1962-02-05
+711,nm0000775,2024-01-20,2024-01-20,,Christina Applegate,Don't Tell Mom the Babysitter's Dead,1971-11-25
+712,nm0004789,2024-01-20,2024-01-20,,Amanda Bynes,Hairspray,1986-04-03
+713,nm0000380,2024-01-20,2024-01-20,,Robert Duvall,The Apostle,1931-01-05
+714,nm0108287,2024-01-20,2024-01-20,,Jordana Brewster,Fast & Furious 7,1980-04-26
+715,nm0000556,2024-01-20,2024-01-20,,Olivia Newton-John,Grease,1948-09-26
+716,nm0000978,2024-01-20,2024-01-20,,Lloyd Bridges,Hot Shots! Part Deux,1913-01-15
+717,nm0005561,2024-01-20,2024-01-20,,Luke Wilson,Old School,1971-09-21
+718,nm0000995,2024-01-20,2024-01-20,,Ellen Burstyn,Requiem for a Dream,1932-12-07
+719,nm0005327,2024-01-20,2024-01-20,,Freddie Prinze Jr.,She's All That,1976-03-08
+720,nm0386472,2024-01-20,2024-01-20,,Emile Hirsch,Into the Wild,1985-03-13
+721,nm1385871,2024-01-20,2024-01-20,,Olga Kurylenko,Oblivion,1979-11-14
+722,nm1415323,2024-01-20,2024-01-20,,Miley Cyrus,Hannah Montana,1992-11-23
+723,nm0006969,2024-01-20,2024-01-20,,Elizabeth Banks,The Hunger Games,1974-02-10
+724,nm0001473,2024-01-20,2024-01-20,,Laura Linney,The Big C,1964-02-05
+725,nm0427894,2024-01-20,2024-01-20,,Dean Jones,The Love Bug,1931-01-25
+726,nm0497891,2024-01-20,2024-01-20,,Michele Lee,Knots Landing,1942-06-24
+727,nm0788335,2024-01-20,2024-01-20,,Michael Shannon,Take Shelter,1974-08-07
+728,nm0000267,2024-01-20,2024-01-20,,Julie Andrews,The Sound of Music,1935-10-01
+729,nm0000966,2024-01-20,2024-01-20,,Lorraine Bracco,Goodfellas,1954-10-02
+730,nm0779084,2024-01-20,2024-01-20,,Dougray Scott,Ever After,1965-11-25
+731,nm0000681,2024-01-20,2024-01-20,,Vince Vaughn,The Break-Up,1970-03-28
+732,nm0000279,2024-01-20,2024-01-20,,Hank Azaria,The Simpsons,1964-04-25
+733,nm0000558,2024-01-20,2024-01-20,,Leslie Nielsen,Airplane!,1926-02-11
+734,nm0001636,2024-01-20,2024-01-20,,Priscilla Presley,The Naked Gun 2½: The Smell of Fear,1945-05-24
+735,nm0001848,2024-01-20,2024-01-20,,Dianne Wiest,The Birdcage,1946-03-28
+736,nm3353780,2024-01-20,2024-01-20,,Katie Douglas,Ginny & Georgia,1998-10-19
+737,nm0001107,2024-01-20,2024-01-20,,Stacey Dash,Clueless,1967-01-20
+738,nm2584600,2024-01-20,2024-01-20,,Julianne Hough,Rock of Ages,1988-07-20
+739,nm0935653,2024-01-20,2024-01-20,,Ray Winstone,The Departed,1957-02-19
+740,nm0176869,2024-01-20,2024-01-20,,Steve Coogan,Philomena,1965-10-14
+741,nm0891895,2024-01-20,2024-01-20,,Paz Vega,Spanglish,1976-01-02
+742,nm2442289,2024-01-20,2024-01-20,,Gina Carano,The Mandalorian,
+743,nm2088803,2024-01-20,2024-01-20,,Yvonne Strahovski,Stateless,1982-07-30
+744,nm1022566,2024-01-20,2024-01-20,,Liz White,Unforgotten,1979-11-05
+745,nm0000996,2024-01-20,2024-01-20,,LeVar Burton,Star Trek: Generations,1957-02-16
+746,nm1268158,2024-01-20,2024-01-20,,Dania Ramirez,X-Men: The Last Stand,1979-11-08
+747,nm0005211,2024-01-20,2024-01-20,,Danica McKellar,The Wonder Years,1975-01-03
+748,nm0004266,2024-01-20,2024-01-20,,Anne Hathaway,Les Misérables,1982-11-12
+749,nm0122466,2024-01-20,2024-01-20,,Olivia Burnette,The Quick and the Dead,1977-03-24
+750,nm0888674,2024-01-20,2024-01-20,,Sarah Vandenbergh,Inbetweeners,1972-10-09
+751,nm0001136,2024-01-20,2024-01-20,,Bruce Dern,Nebraska,1936-06-04
+752,nm0279545,2024-01-20,2024-01-20,,Isla Fisher,Wedding Crashers,1976-02-03
+753,nm0001558,2024-01-20,2024-01-20,,Mr. T,Rocky III,1952-05-21
+754,nm0001448,2024-01-20,2024-01-20,,Jessica Lange,Tootsie,1949-04-20
+755,nm0372388,2024-01-20,2024-01-20,,Tim Healy,A Perfect Spy,1952-01-29
+756,nm0491357,2024-01-20,2024-01-20,,Dan Lauria,The Spirit,1947-04-12
+757,nm0752436,2024-01-20,2024-01-20,,Blanchard Ryan,Open Water,
+758,nm0001326,2024-01-20,2024-01-20,,Josh Hartnett,Lucky Number Slevin,1978-07-21
+759,nm0886107,2024-01-20,2024-01-20,,Laurien Van den Broeck,Moonlight,1988-02-29
+760,nm0182839,2024-01-20,2024-01-20,,Marion Cotillard,La Môme,1975-09-30
+761,nm0000566,2024-01-20,2024-01-20,,Julia Ormond,My Week with Marilyn,1965-01-04
+762,nm0885840,2024-01-20,2024-01-20,,Emily VanCamp,Revenge,1986-05-12
+763,nm0812133,2024-01-20,2024-01-20,,Rena Sofer,Keeping the Faith,1968-12-02
+764,nm0000302,2024-01-20,2024-01-20,,Jacqueline Bisset,Bullitt,1944-09-13
+765,nm0001744,2024-01-20,2024-01-20,,Tom Sizemore,Saving Private Ryan,1961-11-29
+766,nm0206257,2024-01-20,2024-01-20,,Rosario Dawson,Rent,1979-05-09
+767,nm4248775,2024-01-20,2024-01-20,,Sabrina Carpenter,Emergency,1999-05-11
+768,nm0000162,2024-01-20,2024-01-20,,Anne Heche,Six Days Seven Nights,1969-05-25
+769,nm0005283,2024-01-20,2024-01-20,,Jacqueline Obradors,Six Days Seven Nights,
+770,nm0365140,2024-01-20,2024-01-20,,Naomie Harris,Moonlight,1976-09-06
+771,nm0339304,2024-01-20,2024-01-20,,Bruce Greenwood,Star Trek,1956-08-12
+772,nm0000170,2024-01-20,2024-01-20,,Milla Jovovich,Le cinquième élément,1975-12-17
+773,nm1727304,2024-01-20,2024-01-20,,Domhnall Gleeson,Ex Machina,1983-05-12
+774,nm0000313,2024-01-20,2024-01-20,,Jeff Bridges,The Big Lebowski,1949-12-04
+775,nm0005251,2024-01-20,2024-01-20,,Carrie-Anne Moss,The Matrix,1967-08-21
+776,nm0695084,2024-01-20,2024-01-20,,Michael Praed,Robin of Sherwood,1960-04-01
+777,nm0626362,2024-01-21,2024-01-21,,James Nesbitt,The Hobbit: An Unexpected Journey,1965-01-15
+778,nm5397459,2024-01-20,2024-01-20,,Daisy Ridley,Star Wars: Episode VII - The Force Awakens,1992-04-10
+779,nm0002139,2024-01-20,2024-01-20,,Judd Hirsch,The Fabelmans,1935-03-15
+780,nm4972453,2024-01-20,2024-01-20,,Olivia Cooke,Ready Player One,1993-12-27
+781,nm0001303,2024-01-20,2024-01-20,,Carla Gugino,Watchmen,1971-08-29
+782,nm0578949,2024-01-20,2024-01-20,,Eva Mendes,The Other Guys,1974-03-05
+783,nm0001006,2024-01-20,2024-01-20,,John Candy,"Planes, Trains & Automobiles",1950-10-31
+784,nm0000435,2024-01-20,2024-01-20,,Daryl Hannah,Wall Street,1960-12-03
+785,nm0000222,2024-01-20,2024-01-20,,Brooke Shields,The Blue Lagoon,1965-05-31
+786,nm0115161,2024-01-20,2024-01-20,,Emily Browning,A Series of Unfortunate Events,1988-12-07
+787,nm1227814,2024-01-20,2024-01-20,,Vanessa Hudgens,High School Musical 3: Senior Year,1988-12-14
+788,nm0005485,2024-01-20,2024-01-20,,Tiffani Thiessen,Alexa & Katie,1974-01-23
+789,nm1500155,2024-01-20,2024-01-20,,Robert Pattinson,Twilight,1986-05-13
+790,nm0000369,2024-01-20,2024-01-20,,Matt Dillon,There's Something About Mary,1964-02-18
+791,nm0000331,2024-01-20,2024-01-20,,Chevy Chase,Memoirs of an Invisible Man,1943-10-08
+792,nm1549582,2024-01-20,2024-01-20,,Zoé Héran,Tomboy,1999-02-02
+793,nm3381295,2024-01-20,2024-01-20,,Alexandra Shipp,X-Men: Apocalypse,1991-07-16
+794,nm1985859,2024-01-20,2024-01-20,,Mia Wasikowska,Alice in Wonderland,1989-10-25
+795,nm0000708,2024-01-20,2024-01-20,,Billy Zane,Titanic,1966-02-24
+796,nm0000453,2024-01-20,2024-01-20,,Ian Holm,The Lord of the Rings: The Return of the King,1931-09-12
+797,nm1137209,2024-01-20,2024-01-20,,Tatiana Maslany,Orphan Black,1985-09-22
+798,nm0005026,2024-01-20,2024-01-20,,Kelly Hu,The Scorpion King,1968-02-13
+799,nm0001882,2024-01-20,2024-01-20,,Olivia d'Abo,Conan the Destroyer,1969-01-22
+800,nm1072555,2024-01-20,2024-01-20,,Morena Baccarin,Deadpool,1979-06-02
+801,nm1083271,2024-01-20,2024-01-20,,Megan Fox,Transformers,1986-05-16
+802,nm0000172,2024-01-20,2024-01-20,,Harvey Keitel,Reservoir Dogs,1939-05-13
+803,nm0376826,2024-01-20,2024-01-20,,Monic Hendrickx,Unfinished Sky,1966-12-03
+804,nm0601553,2024-01-20,2024-01-20,,Mandy Moore,A Walk to Remember,1984-04-10
+805,nm0758608,2024-01-20,2024-01-20,,Peter Sallis,The Curse of the Were-Rabbit,1921-02-01
+806,nm0015196,2024-01-20,2024-01-20,,Malin Akerman,Watchmen,1978-05-12
+807,nm0001082,2024-01-20,2024-01-20,,Billy Crudup,Almost Famous,1968-07-08
+808,nm0000675,2024-01-20,2024-01-20,,Jeanne Tripplehorn,Basic Instinct,1963-06-10
+809,nm0798971,2024-01-20,2024-01-20,,Sarah Silverman,Wreck-It Ralph,1970-12-01
+810,nm0778831,2024-01-20,2024-01-20,,Andrew Scott,All of Us Strangers,1976-10-21
+811,nm0000026,2024-01-20,2024-01-20,,Cary Grant,North by Northwest,1904-01-18
+812,nm0001570,2024-01-20,2024-01-20,,Edward Norton,Fight Club,1969-08-18
+813,nm0001314,2024-01-20,2024-01-20,,John Hannah,Four Weddings and a Funeral,1962-04-23
+814,nm0742146,2024-01-20,2024-01-20,,Michael Rosenbaum,Guardians of the Galaxy Vol. 3,1972-07-11
+815,nm0000130,2024-01-20,2024-01-20,,Jamie Lee Curtis,Halloween,1958-11-22
+816,nm0000246,2024-01-20,2024-01-20,,Bruce Willis,Die Hard,1955-03-19
+817,nm0000634,2024-01-20,2024-01-20,,Peter Sellers,Being There,1925-09-08
+818,nm0000531,2024-01-20,2024-01-20,,Frances McDormand,Fargo,1957-06-23
+819,nm0578853,2024-01-20,2024-01-20,,Ben Mendelsohn,Rogue One,1969-04-03
+820,nm0001472,2024-01-20,2024-01-20,,Jet Li,Huo Yuan Jia,1963-04-26
+821,nm0000527,2024-01-20,2024-01-20,,Walter Matthau,The Odd Couple,1920-10-01
+822,nm0631490,2024-01-20,2024-01-20,,Bill Nighy,Love Actually,1949-12-12
+823,nm0001354,2024-01-20,2024-01-20,,Ciarán Hinds,Belfast,1953-02-09
+824,nm0785227,2024-01-20,2024-01-20,,Andy Serkis,War for the Planet of the Apes,1964-04-20
+825,nm0001567,2024-01-20,2024-01-20,,Connie Nielsen,Gladiator,1965-07-03
+826,nm0001745,2024-01-20,2024-01-20,,Stellan Skarsgård,Good Will Hunting,1951-06-13
+827,nm0001523,2024-01-20,2024-01-20,,Natascha McElhone,Ronin,1969-12-14
+828,nm0376602,2024-01-20,2024-01-20,,Shirley Henderson,24 Hour Party People,1965-11-24
+829,nm0001794,2024-01-20,2024-01-20,,Henry Thomas,E.T. the Extra-Terrestrial,1971-09-09
+830,nm0188871,2024-01-20,2024-01-20,,Mackenzie Crook,Pirates of the Caribbean: The Curse of the Black Pearl,1971-09-29
+831,nm5896355,2024-01-20,2024-01-20,,Anya Taylor-Joy,The Queen's Gambit,1996-04-16
+832,nm0275486,2024-01-20,2024-01-20,,Tina Fey,Date Night,1970-05-18
+833,nm1092227,2024-01-20,2024-01-20,,Sienna Miller,G.I. Joe: The Rise of Cobra,1981-12-28
+834,nm0086883,2024-01-20,2024-01-20,,Jolene Blalock,Enterprise,1975-03-05
+835,nm0914612,2024-01-20,2024-01-20,,Emma Watson,The Perks of Being a Wallflower,1990-04-15
+836,nm3918035,2024-01-20,2024-01-20,,Zendaya,Spider-Man: Homecoming,1996-09-01
+837,nm0000155,2024-01-20,2024-01-20,,Whoopi Goldberg,Ghost,1955-11-13
+838,nm1785339,2024-01-20,2024-01-20,,Rami Malek,Bohemian Rhapsody,1981-05-12
+839,nm0005442,2024-01-20,2024-01-20,,Amy Smart,Starship Troopers,1976-03-26
+840,nm7444538,2024-01-20,2024-01-20,,Daniah De Villiers,Meerkat Maantuig,
+841,nm0425005,2024-01-20,2024-01-20,,Dwayne Johnson,Black Adam,1972-05-02
+842,nm0005109,2024-01-20,2024-01-20,,Mila Kunis,Black Swan,1983-08-14
+843,nm0766837,2024-01-20,2024-01-20,,Jennifer Saunders,Absolutely Fabulous,1958-07-06
+844,nm0038650,2024-01-20,2024-01-20,,Leslie Ash,Men Behaving Badly,1960-02-19
+845,nm0050959,2024-01-20,2024-01-20,,Pedro Pascal,The Last of Us,1975-04-02
+846,nm0834974,2024-01-20,2024-01-20,,Gwyneth Strong,Only Fools and Horses....,1959-12-02
+847,nm0209496,2024-01-20,2024-01-20,,John de Lancie,Crank: High Voltage,1948-03-20
+848,nm5012337,2024-01-20,2024-01-20,,Nicole Leach,Tosh.0,1979-05-10
+849,nm0000729,2024-01-20,2024-01-20,,Casey Affleck,Manchester by the Sea,1975-08-12
+850,nm0001519,2024-01-20,2024-01-20,,Ian McDiarmid,Star Wars: Episode III - Revenge of the Sith,1944-08-11
+851,nm0000195,2024-01-20,2024-01-20,,Bill Murray,Lost in Translation,1950-09-21
+852,nm0001494,2024-01-20,2024-01-20,,Ralph Macchio,The Karate Kid Part III,1961-11-04
+853,nm0001430,2024-01-20,2024-01-20,,Jack Klugman,12 Angry Men,1922-04-27
+854,nm0752699,2024-01-20,2024-01-20,,Mark Ryan,Transformers: The Last Knight,1956-06-07
+855,nm5557379,2024-01-20,2024-01-20,,Chloe East,The Fabelmans,2001-02-16
+856,nm2632878,2024-01-20,2024-01-20,,Kimberley Nixon,"Angus, Thongs and Perfect Snogging",1985-09-24
+857,nm0567356,2024-01-20,2024-01-20,,Martine McCutcheon,Love Actually,1976-05-14
+858,nm0004812,2024-01-20,2024-01-20,,Lynda Carter,Wonder Woman,1951-07-24
+859,nm0000662,2024-01-20,2024-01-20,,Kiefer Sutherland,24,1966-12-21
+860,nm0252961,2024-01-20,2024-01-20,,Idris Elba,Beasts of No Nation,1972-09-06
+861,nm0000532,2024-01-20,2024-01-20,,Malcolm McDowell,A Clockwork Orange,1943-06-13
+862,nm0000678,2024-01-20,2024-01-20,,Kathleen Turner,Romancing the Stone,1954-06-19
+863,nm0000051,2024-01-20,2024-01-20,,James Mason,Lolita,1909-05-15
+864,nm8023748,2024-01-20,2024-01-20,,Helena Zengel,News of the World,2008-06-10
+865,nm1269983,2024-01-20,2024-01-20,,Krysten Ritter,Jessica Jones,
+866,nm0910607,2024-01-20,2024-01-20,,Christoph Waltz,Django Unchained,1956-10-04
+867,nm0000207,2024-01-20,2024-01-20,,Christina Ricci,Casper,1980-02-12
+868,nm0000036,2024-01-20,2024-01-20,,Buster Keaton,The General,1895-10-04
+869,nm0565250,2024-01-20,2024-01-20,,Melissa McCarthy,The Heat,1970-08-26
+870,nm0000849,2024-01-20,2024-01-20,,Javier Bardem,Skyfall,1969-03-01
+871,nm0001640,2024-01-20,2024-01-20,,Richard Pryor,Superman III,1940-12-01
+872,nm0842770,2024-01-20,2024-01-20,,Tilda Swinton,We Need to Talk About Kevin,1960-11-05
+873,nm0001364,2024-01-20,2024-01-20,,Bob Hoskins,The Long Good Friday,1942-10-26
+874,nm0000496,2024-01-20,2024-01-20,,Juliette Lewis,Cape Fear,1973-06-21
+875,nm0000225,2024-01-20,2024-01-20,,Christian Slater,Very Bad Things,1969-08-18
+876,nm0000378,2024-01-20,2024-01-20,,Minnie Driver,Circle of Friends,1970-01-31
+877,nm0000652,2024-01-20,2024-01-20,,James Spader,The Blacklist,1960-02-07
+878,nm0001467,2024-01-20,2024-01-20,,Jared Leto,Dallas Buyers Club,1971-12-26
+879,nm0001671,2024-01-20,2024-01-20,,Diana Rigg,Last Night in Soho,1938-07-20
+880,nm0000577,2024-01-20,2024-01-20,,George Peppard,Breakfast at Tiffany's,1928-10-01
+881,nm0000030,2024-01-20,2024-01-20,,Audrey Hepburn,Breakfast at Tiffany's,1929-05-04
+882,nm0001816,2024-01-20,2024-01-20,,Robert Vaughn,The Magnificent Seven,1932-11-22
+883,nm1981893,2024-01-20,2024-01-20,,Riz Ahmed,Sound of Metal,1982-12-01
+884,nm0255362,2024-01-20,2024-01-20,,Gad Elmaleh,Hors de prix,1971-04-19
+885,nm4314990,2024-01-20,2024-01-20,,Danielle Deadwyler,Station Eleven,1982-05-03
+886,nm0705356,2024-01-20,2024-01-20,,Daniel Radcliffe,Harry Potter and the Order of the Phoenix,1989-07-23
+887,nm0004418,2024-01-20,2024-01-20,,Kajol,Fanaa,1974-08-05
+888,nm0951148,2024-01-20,2024-01-20,,Odette Annable,Cloverfield,1985-05-10
+889,nm3038143,2024-01-20,2024-01-20,,Emily Atack,Iron Sky: The Coming Race,1989-12-18
+890,nm1069803,2024-01-20,2024-01-20,,Stephanie McIntosh,Neighbours,1985-07-05
+891,nm1261997,2024-01-20,2024-01-20,,Justin Hartley,This Is Us,1977-01-29
+892,nm1433549,2024-01-20,2024-01-20,,Kelly Adams,Bronson,1979-10-16
+893,nm0695560,2024-01-20,2024-01-20,,Victoria Pratt,Mutant X,1970-12-18
+894,nm0001757,2024-01-20,2024-01-20,,Kevin Sorbo,Let There Be Light,1958-09-24
+895,nm3822462,2024-01-20,2024-01-20,,Rila Fukushima,The Wolverine,
+896,nm1154749,2024-01-20,2024-01-20,,Sofia Boutella,Kingsman: The Secret Service,1982-04-03
+897,nm0005286,2024-01-20,2024-01-20,,Haley Joel Osment,The Sixth Sense,1988-04-10
+898,nm0004802,2024-01-21,2024-01-21,,Linda Cardellini,Scooby-Doo,1975-06-25
+899,nm0001264,2024-01-20,2024-01-20,,Sarah Michelle Gellar,Buffy the Vampire Slayer,1977-04-14
+900,nm0001488,2024-01-20,2024-01-20,,Kelly Lynch,Drugstore Cowboy,1959-01-31
+901,nm0000257,2024-01-21,2024-01-21,,Alan Alda,M*A*S*H,1936-01-28
+902,nm0001471,2024-01-20,2024-01-20,,Jerry Lewis,The Nutty Professor,1926-03-16
+903,nm0001015,2024-01-20,2024-01-20,,Robert Carlyle,The Full Monty,1961-04-14
+904,nm0001958,2024-01-20,2024-01-20,,Dirk Bogarde,The Servant,1921-03-28
+905,nm0001512,2024-01-20,2024-01-20,,Mary Elizabeth Mastrantonio,The Abyss,1958-11-17
+906,nm0000003,2024-01-20,2024-01-20,,Brigitte Bardot,Le mépris,1934-09-28
+907,nm0000182,2024-01-20,2024-01-20,,Jennifer Lopez,Hustlers,1969-07-24
+908,nm0177639,2024-01-20,2024-01-20,,Jennifer Coolidge,A Mighty Wind,1961-06-01
+909,nm0000613,2024-01-20,2024-01-20,,Joely Richardson,Nip/Tuck,1965-01-09
+910,nm0001767,2024-01-20,2024-01-20,,Imelda Staunton,Vera Drake,1956-01-09
+911,nm0056187,2024-01-20,2024-01-20,,Sacha Baron Cohen,Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan,1971-10-13
+912,nm0205749,2024-01-20,2024-01-20,,Peter Davison,Doctor Who,1951-04-13
+913,nm0000423,2024-01-20,2024-01-20,,Serena Grandi,La grande bellezza,1958-03-23
+914,nm1566474,2024-01-20,2024-01-20,,Julianna Guill,The Resident,1987-07-07
+915,nm0020739,2024-01-20,2024-01-20,,Krista Allen,The Bold and the Beautiful,
+916,nm1275259,2024-01-20,2024-01-20,,Alexandra Daddario,Baywatch,1986-03-16
+917,nm0000011,2024-01-20,2024-01-20,,Gary Cooper,High Noon,1901-05-07
+918,nm1998498,2024-01-20,2024-01-20,,Helena Mattsson,Surrogates,1984-03-30
+919,nm0913822,2024-01-20,2024-01-20,,Ken Watanabe,The Last Samurai,1959-10-21
+920,nm3889676,2024-01-20,2024-01-20,,Clara Augarde,Un poison violent,1995-05-08
+921,nm0609845,2024-01-20,2024-01-20,,Anson Mount,Crossroads,1973-02-25
+922,nm0000193,2024-01-20,2024-01-20,,Demi Moore,G.I. Jane,1962-11-11
+923,nm0859503,2024-01-20,2024-01-20,,Sean Patrick Thomas,Till,
+924,nm0001086,2024-01-20,2024-01-20,,Alan Cumming,The Anniversary Party,1965-01-27
+925,nm0388382,2024-01-20,2024-01-20,,Tyler Hoechlin,Road to Perdition,1987-09-11
+926,nm0427728,2024-01-20,2024-01-20,,Cherry Jones,The Village,1956-11-21
+927,nm0001377,2024-01-20,2024-01-20,,Olivia Hussey,Romeo and Juliet,1951-04-17
+928,nm2569728,2024-01-20,2024-01-20,,Anna Raadsveld,Timboektoe,1990-05-22
+929,nm0756203,2024-01-20,2024-01-20,,Ludivine Sagnier,Lupin,1979-07-03
+930,nm0097008,2024-01-20,2024-01-20,,Susanne Bormann,Der Baader Meinhof Komplex,1979-08-02
+931,nm0785680,2024-01-20,2024-01-20,,Léopoldine Serre,Les misérables,1988-07-14
+932,nm1206855,2024-01-20,2024-01-20,,Delta Goodrem,Neighbours,1984-11-09
+933,nm0315466,2024-01-20,2024-01-20,,Samia Longchambon,Coronation Street,1982-07-13
+934,nm2204178,2024-01-20,2024-01-20,,Tenoch Huerta,Black Panther: Wakanda Forever,1981-01-29
+935,nm0295547,2024-01-20,2024-01-20,,Rachel Friend,Neighbours,1970-01-08
+936,nm0725982,2024-01-20,2024-01-20,,Joanne Ridley,Me and My Girl,1970-03-23
+937,nm0005535,2024-01-20,2024-01-20,,Estella Warren,Planet of the Apes,1978-12-23
+938,nm0108951,2024-01-20,2024-01-20,,Anne-Sophie Briest,Natalie - Endstation Babystrich,1974-03-21
+939,nm7160580,2024-01-20,2024-01-20,,Déborah Krey,L'art du crime,1989-12-09
+940,nm0000643,2024-01-20,2024-01-20,,Tom Skerritt,Alien,1933-08-25
+941,nm0749081,2024-01-20,2024-01-20,,Sara Rue,Pearl Harbor,1979-01-26
+942,nm2395937,2024-01-20,2024-01-20,,Brooklyn Decker,Just Go with It,1987-04-12
+943,nm1886602,2024-01-20,2024-01-20,,Miles Teller,Whiplash,1987-02-20
+944,nm0517046,2024-01-20,2024-01-20,,Tiziana Lodato,L'uomo delle stelle,1976-11-10
+945,nm3358233,2024-01-20,2024-01-20,,Ashley Hinshaw,Chronicle,1988-12-11
+946,nm1036670,2024-01-20,2024-01-20,,Mel Lisboa,Presença de Anita,1982-01-17
+947,nm0346708,2024-01-20,2024-01-20,,Gloria Guida,Blue Jeans,1955-11-19
+948,nm0000177,2024-01-20,2024-01-20,,Kevin Kline,Wild Wild West,1947-10-24
+949,nm0127080,2024-01-20,2024-01-20,,Jessica Boehrs,EuroTrip,1980-03-05
+950,nm0314505,2024-01-20,2024-01-20,,Louise Germaine,Sharpe,
+951,nm0000526,2024-01-20,2024-01-20,,Samantha Mathis,Broken Arrow,1970-05-12
+952,nm8908771,2024-01-20,2024-01-20,,Millie Gibson,Doctor Who,2004-06-19
+953,nm0001682,2024-01-20,2024-01-20,,Mickey Rooney,It's a Mad Mad Mad Mad World,1920-09-23
+954,nm0935541,2024-01-21,2024-01-21,,Mary Elizabeth Winstead,10 Cloverfield Lane,1984-11-28
+955,nm0001871,2024-01-20,2024-01-20,,Pia Zadora,The Lonely Lady,1954-05-04
+956,nm0891786,2024-01-20,2024-01-20,,Alexa PenaVega,Spy Kids 2: Island of Lost Dreams,1988-08-27
+957,nm0000114,2024-01-20,2024-01-20,,Steve Buscemi,Fargo,1957-12-13
+958,nm0668139,2024-01-20,2024-01-20,,Sara Paxton,The Innkeepers,
+959,nm1301095,2024-01-20,2024-01-20,,Jennifer Metcalfe,Hollyoaks,
+960,nm0111639,2024-01-20,2024-01-20,,Kelly Brook,Piranha 3D,1979-11-23
+961,nm0000009,2024-01-20,2024-01-20,,Richard Burton,Who's Afraid of Virginia Woolf?,1925-11-10
+962,nm0000242,2024-01-20,2024-01-20,,Mark Wahlberg,The Fighter,1971-06-05
+963,nm0915840,2024-01-20,2024-01-20,,Dennis Weaver,Touch of Evil,1924-06-04
+964,nm0333163,2024-01-20,2024-01-20,,Marina de Graaf,Vrouwenvleugel,1959-12-16
+965,nm0000619,2024-01-20,2024-01-20,,Tim Roth,Rob Roy,1961-05-14
+966,nm0000063,2024-01-20,2024-01-20,,Anthony Quinn,Alexis Zorbas,1915-04-21
+967,nm0619700,2024-01-20,2024-01-20,,Jimmy Nail,Crocodile Shoes,1954-03-16
+968,nm8543451,2024-01-20,2024-01-20,,Noée Abita,Slalom,1999-03-18
+969,nm3016197,2024-01-20,2024-01-20,,Ana Mulvoy Ten,American Crime,1992-05-08
+970,nm0001292,2024-01-20,2024-01-20,,Erin Gray,Buck Rogers in the 25th Century,1950-01-07
+971,nm0000273,2024-01-20,2024-01-20,,Alan Arkin,Argo,1934-03-26
+972,nm0000771,2024-01-20,2024-01-20,,Lysette Anthony,Dracula: Dead and Loving It,1963-09-26
+973,nm2400045,2024-01-20,2024-01-20,,Nina Dobrev,The Perks of Being a Wallflower,1989-01-09
+974,nm0000022,2024-01-20,2024-01-20,,Clark Gable,It Happened One Night,1901-02-01
+975,nm5057169,2024-01-20,2024-01-20,,Thomasin McKenzie,Jojo Rabbit,2000-07-26
+976,nm1837588,2024-01-20,2024-01-20,,Taylor Spreitler,Days of Our Lives,1993-10-23
+977,nm0918858,2024-01-20,2024-01-20,,Kevin Weisman,Alias,
+978,nm1056947,2024-01-20,2024-01-20,,Lee Mack,Not Going Out,1968-08-04
+979,nm3154303,2024-01-20,2024-01-20,,Timothée Chalamet,Call Me by Your Name,1995-12-27
+980,nm0799706,2024-01-20,2024-01-20,,Chelan Simmons,Tucker and Dale vs Evil,1982-10-29
+981,nm0929179,2024-01-20,2024-01-20,,Melissa Wilkes,The Raggedy Rawney,
+982,nm0023832,2024-01-20,2024-01-20,,Mathieu Amalric,Le scaphandre et le papillon,1965-10-25
+983,nm0706505,2024-01-20,2024-01-20,,John S. Ragin,Earthquake,1929-05-05
+984,nm1645304,2024-01-20,2024-01-20,,James Kyson,Preacher,
+985,nm0666753,2024-01-20,2024-01-20,,Andrew Paul,Scum,1961-03-17
+986,nm3645691,2024-01-20,2024-01-20,,Finn Jones,Iron Fist,1988-03-24
+987,nm0191370,2024-01-20,2024-01-20,,Melinda Culea,Star Trek: The Next Generation,1955-05-05
+988,nm1325222,2024-01-21,2024-01-21,,Stacey Cadman,Mile High,1979-05-23
+989,nm4248765,2024-01-21,2024-01-21,,Lauren Ridloff,Eternals,1978-04-06
+990,nm7107447,2024-01-21,2024-01-21,,Lara McDonnell,Belfast,2003-11-07
+991,nm9096847,2024-01-21,2024-01-21,,Thuso Mbedu,The Woman King,1991-07-08
+992,nm3031063,2024-01-20,2024-01-20,,Katherine McNamara,Shadowhunters: The Mortal Instruments,
+993,nm1670601,2024-01-21,2024-01-21,,Tom Pelphrey,Mank,1982-07-28
+994,nm0773884,2024-01-20,2024-01-20,,John Schneider,The Dukes of Hazzard,1960-04-08
+995,nm0255204,2024-01-20,2024-01-20,,Jennifer Ellison,The Phantom of the Opera,1983-05-30
+996,nm0883480,2024-01-20,2024-01-20,,Holly Valance,Taken,1983-05-11
+997,nm0005431,2024-01-20,2024-01-20,,Henry Simmons,Cherish the Day,
+998,nm0374865,2024-01-20,2024-01-20,,Simon Helberg,Florence Foster Jenkins,1980-12-09
+999,nm1165660,2024-01-20,2024-01-20,,T.R. Knight,The Flight Attendant,1973-03-26
+1000,nm0103785,2024-01-21,2024-01-21,,Zach Braff,Garden State,1975-04-06

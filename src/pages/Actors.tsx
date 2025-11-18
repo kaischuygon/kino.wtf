@@ -24,7 +24,7 @@ const InfoModal = () => {
         </button>
         <dialog id="infoModal" className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Info</h3>
+                <h3 className="font-bold text-lg">🎭 Actors</h3>
                 <p className="py-4">
                     Guess the actor based on their filmography. The hints are based on their top 6 credits
                     (in reverse order) as well as other trivia.
