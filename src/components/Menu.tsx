@@ -13,8 +13,8 @@ export default function Menu() {
         <ul
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-3 w-max p-2 shadow">
-            {routes.map(route =>
-                <li>
+            {routes.map((route, i) =>
+                <li key={i}>
                     <Link
                         className={["btn btn-ghost", location === route.link ? 'btn-active' : ''].join('')}
                         to={route.link}

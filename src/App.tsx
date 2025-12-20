@@ -9,10 +9,10 @@ export default function App() {
   return (
     <div className="grid grid-rows-[0fr_1fr_0fr] h-screen w-md mx-auto">
       <Navbar />
-      <article className="border-x border-base-300">
+      <article>
         <Routes>
-          {routes.map(route =>
-            <Route path={route.link} element={route.component} />
+          {routes.map((route, i) =>
+            <Route key={i} path={route.link} element={route.component} />
           )}
         </Routes>
       </article>

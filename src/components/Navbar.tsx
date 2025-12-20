@@ -2,7 +2,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import Menu from "./Menu";
 
 export default function Navbar() {
-    return <nav className="navbar border-b border-x border-base-300">
+    return <nav className="navbar border rounded-box border-base-300 bg-base-200">
         <div className="navbar-start">
             <Menu />
         </div>

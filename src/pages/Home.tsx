@@ -18,8 +18,8 @@ export default function Home() {
             Play now and bookmark&nbsp;<kbd className="kbd kbd-sm">ctrl</kbd> + <kbd className="kbd kbd-sm">D</kbd>&nbsp;this page to play daily.
         </p>
         <hr className="border-base-300" />
-        {routes.filter(route => route.link !== '/').map(route =>
-            <a className="btn btn-block btn-xl justify-start text-left" href={route.link}>
+        {routes.filter(route => route.link !== '/').map((route, i) =>
+            <a key={i} className="btn btn-block btn-xl justify-start text-left" href={route.link} >
                 <div className="flex items-center gap-2">
                     <div className="text-4xl">
                         {route.emoji}

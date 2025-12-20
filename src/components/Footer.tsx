@@ -1,7 +1,7 @@
 import { FaCoffee, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
-    return <footer className="p-2 border-t border-x border-base-300 text-sm">
+    return <footer className="p-2 text-sm border rounded-box border-base-300 bg-base-200">
         <div className="flex justify-center">
             &copy; 2025&nbsp;
             <a href="https://www.zephy.dev" className="link link-primary" rel="noopen norefferer" target="_blank">
