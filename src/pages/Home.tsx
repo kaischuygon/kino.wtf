@@ -1,4 +1,4 @@
-import routes from "../routes";
+import RouteLinks from "../components/RouteLinks";
 
 export default function Home() {
     return <section id="homepage" className="p-2 flex flex-col gap-2">
@@ -10,21 +10,7 @@ export default function Home() {
             Play now and bookmark this page to play daily.
         </p>
         <hr className="border-base-300" />
-        {routes.filter(route => route.link !== '/').map((route, i) =>
-            <a key={i} className="btn btn-block btn-xl justify-start text-left" href={route.link} >
-                <div className="flex items-center gap-4">
-                    <div className="text-4xl">
-                        {route.emoji}
-                    </div>
-                    <div>
-                        <h2 className="font-display">{route.title}</h2>
-                        <p className="text-xs">
-                            {route.description}
-                        </p>
-                    </div>
-                </div>
-            </a>
-        )}
+        <RouteLinks />
         <div className="btn btn-ghost btn-block btn-disabled">
             More games coming! Check back soon.
         </div>

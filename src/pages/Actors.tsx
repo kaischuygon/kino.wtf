@@ -7,6 +7,7 @@ import useModal from "../hooks/useModal";
 import ExpandableModal from "../components/ExpandableModal";
 import Countdown from "../components/Countdown";
 import { calculateWinPercentage } from "../helpers/gameHelpers";
+import RouteLinks from "../components/RouteLinks";
 interface gameStats {
     gamesPlayed: number;
     gamesWon: number;
@@ -131,7 +132,7 @@ function ShareButton({guesses, day, answer}: {guesses: string[], day: number, an
             .catch((error) => console.log('Error copying to clipboard', error));
     }
 
-    return <button ref={button} className="btn btn-primary" onClick={() => handleClick()}>
+    return <button ref={button} className="btn btn-primary shadow" onClick={() => handleClick()}>
         Share
     </button>
 }
@@ -253,30 +254,48 @@ export default function Actors() {
 
     return <>
         <GameNavigation stats={stats} />
-        <section className="p-2 text-sm flex flex-col gap-2">
+        <section className="flex flex-col gap-2 text-sm my-2">
             {gameOver && <>
-                <h2 className="font-display text-center text-2xl">
-                    {success ? (
-                        "🎉 You won! 🎉"
-                    ) : (
-                        "😔 You lost. 😔"
-                    )}
-                </h2>
+                <div className="card card-side bg-base-200 shadow">
+                    <figure className="w-1/3">
+                        <ExpandableModal>
+                            <img src={answer.Headshot} alt={answer.Name} />
+                        </ExpandableModal>
+                    </figure>
+                    <div className="card-body text-center">
+                        <h2 className="font-display card-title justify-center">
+                            {success ? (
+                                "🎉 You won! 🎉"
+                            ) : (
+                                "😔 You lost 😔"
+                            )}
+                        </h2>
+                        <p>
+                            The answer was: <a className="link link-primary" href={answer.URL} rel="noopen noreferrer" target="_blank">{answer.Name}</a>
+                        </p>
+                        <p>
+                            Next game in:
+                        </p>
+                        <p>
+                            <Countdown />
+                        </p>
+                    </div>
+                </div>
 
                 <DisplayStats stats={stats} />
 
                 <ShareButton guesses={guesses} day={day} answer={answer} />
 
-                <div className="mt-4 text-center">
-                    <Countdown />
-                </div>
+                <h3 className="text-lg text-center">More games:</h3>
+                <RouteLinks />
+
             </>}
 
             <h2><b>Films:</b>&nbsp;({guesses.length + 1 > 6 ? "6" : guesses.length + 1}/6)</h2>
             <div className="grid grid-cols-3 gap-2">
                 {answer?.Credits.map((credit, i) =>
-                    <ExpandableModal disabled={guesses.length < i && !gameOver}>
-                        <div key={i} className={["card shadow bg-base-200", guesses.length < i && !gameOver ? "**:opacity-0 select-none" : ""].join(" ")}>
+                    <ExpandableModal key={i} disabled={guesses.length < i && !gameOver}>
+                        <div className={["card shadow bg-base-200", guesses.length < i && !gameOver ? "**:opacity-0 select-none" : ""].join(" ")}>
                             <figure>
                                 <img src={credit.image} alt={credit.title} />
                             </figure>
@@ -299,7 +318,7 @@ export default function Actors() {
                 )}
             </ul>
 
-            <form onSubmit={e => { e.preventDefault(); onGuess(guess); }} className="w-full join">
+            <form onSubmit={e => { e.preventDefault(); onGuess(guess); }} className="w-full join shadow">
                 <input type="search" placeholder="Guess an actor" disabled={guesses.length === 6 || gameOver} className="input join-item w-full" list="actors" value={guess} onChange={e => setGuess(e.target.value)} autoFocus/>
                 <datalist id="actors">
                     {choices.map((a, i) => <option key={i} value={a.Name} />)}
@@ -324,7 +343,7 @@ export default function Actors() {
                 ))}
             </ul>
 
-            <button className="btn btn-error block mx-auto" disabled={guesses.length === 6 || gameOver} onClick={handleGiveUp}>Give up</button>
+            <button className="btn btn-error mx-auto shadow" disabled={guesses.length === 6 || gameOver} onClick={handleGiveUp}>Give up</button>
         </section>
     </>
 }

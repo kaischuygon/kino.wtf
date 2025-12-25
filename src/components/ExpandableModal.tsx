@@ -3,10 +3,10 @@ import useModal from "../hooks/useModal";
 
 interface Props {
     children: React.ReactElement<{ onClick?: unknown, className?: string, disabled?: boolean }, string>;
-    disabled: boolean;
+    disabled?: boolean;
 }
 
-export default function ExpandableModal({children, disabled}: Props) {
+export default function ExpandableModal({children, disabled=false}: Props) {
     const {Modal: ExpandedModal, open: openExpandedModal } = useModal();
 
     return <>
