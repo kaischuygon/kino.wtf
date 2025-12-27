@@ -95,11 +95,11 @@ def get_actor_info(actor_id:str):
     """
     actors = []
     logger.info(f"Getting actor details for {actor_id}")
-    url = f"https://api.themoviedb.org/3/find/{actor_id}?external_source=imdb_id"
+    url = f"https://api.themoviedb.org/3/find/{actor_id}?external_source=imdb_id&language=en-US"
 
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer {}".format(TMDB_API_TOKEN)
+        "Authorization": "Bearer {}".format(TMDB_API_TOKEN),
     }
 
     response = requests.get(url, headers=headers)
@@ -158,10 +158,10 @@ def get_actor_info(actor_id:str):
 
 def get_top_rated_actors(limit:int = 20):
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
-        # Load the top 1000 actors from the file top1000actors.csv
+        # Load the actors from imdb list export
         actor_ids = []
-        df = pd.read_csv('top1000actors.csv')
-        for index, row in df.iterrows():
+        df = pd.read_csv('kino-actors.csv')
+        for _, row in df.iterrows():
             actor_ids.append(row['Const'])
             
         results = executor.map(get_actor_info, actor_ids[:limit])
