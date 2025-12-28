@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getTimeUntilMidnight, getTimeUntilNextWeek, type Countdown } from "../helpers/gameHelpers";
 
-export default function Countdown({frequency="daily"}: {frequency:string}) {
-    const [timeUntilReset, setTimeUntilReset] = useState<Countdown>({days: 0, hours: 0, minutes: 0, seconds: 0});
+export default function Countdown({frequency="daily"}: {frequency:"daily"|"weekly"}) {
+    const init = frequency === "weekly" ? getTimeUntilNextWeek() : getTimeUntilMidnight();
+    const [timeUntilReset, setTimeUntilReset] = useState<Countdown>(init);
 
     // countdown every 1 second
     useEffect(() => {
@@ -13,9 +14,9 @@ export default function Countdown({frequency="daily"}: {frequency:string}) {
         return () => {
             clearInterval(intervalId);
 
-            setTimeUntilReset({days: 0, hours: 0, minutes: 0, seconds: 0});
+            setTimeUntilReset(init);
         }
-    }, [frequency]);
+    }, [init, frequency]);
 
     return <span className="countdown font-mono text-2xl text-center">
         {timeUntilReset.days ? <>

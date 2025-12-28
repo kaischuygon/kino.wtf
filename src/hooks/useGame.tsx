@@ -27,7 +27,7 @@ interface Game {
     }[];
 }
 
-export default function useGame({route, games, frequency="daily"}: {route: Route, games: Game[], frequency?: string}) {
+export default function useGame({route, games, frequency="daily"}: {route: Route, games: Game[], frequency?: "daily"|"weekly"}) {
     const [guess, setGuess] = useState<string>("");
     const [guesses, setGuesses] = useState<string[]>([]);
     const [success, setSuccess] = useState<boolean>(false);
