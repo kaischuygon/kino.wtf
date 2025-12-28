@@ -1,3 +1,4 @@
+import { formatCamelCase } from "../helpers/gameHelpers";
 import routes from "../routes";
 
 export default function RouteLinks() {
@@ -8,7 +9,7 @@ export default function RouteLinks() {
                     {route.emoji}
                 </div>
                 <div>
-                    <h2 className="font-display">{route.title}</h2>
+                    <h2 className="font-display">{formatCamelCase(route.title)}</h2>
                     <p className="text-xs">
                         {route.description}
                     </p>

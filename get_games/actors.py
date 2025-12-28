@@ -4,7 +4,7 @@
     This script scrapes top most popular actors and their top 6 credits in the US region from TMDb and exports the data to a JSON file for the web app to use.
 
     Creates:
-        actors.json - a JSON file containing the actor's name, year, URL, TMDb ID, actors, and poster
+        actors.json - a JSON file containing the list of Game objects as defined in TODO
 
 
     Install dependencies:
@@ -83,6 +83,37 @@ ch.setFormatter(CustomFormatter())
 
 logger.addHandler(ch)
 
+def contains_none_value(nested_dict):
+    """
+    Recursively check if any value in a nested dictionary is None.
+
+    Args:
+        nested_dict (dict): The dictionary to check.
+
+    Returns:
+        bool: True if a None value is found, False otherwise.
+    """
+    # Iterate over all values in the dictionary
+    for value in nested_dict.values():
+        if value is None:
+            # Found a None value, return True immediately
+            return True
+        elif isinstance(value, dict):
+            # If the value is a dictionary, recurse into it
+            if contains_none_value(value):
+                return True
+        elif isinstance(value, list):
+            # Also handle nested lists that might contain dictionaries or None
+            for item in value:
+                if item is None:
+                    return True
+                elif isinstance(item, dict):
+                    if contains_none_value(item):
+                        return True
+    
+    # No None values found in this level or any nested levels
+    return False
+
 def get_actor_info(actor_id:str):
     """
         Gets the actors details from TMDb from IMDb ID
@@ -120,39 +151,65 @@ def get_actor_info(actor_id:str):
         elif details['gender'] == 3:
             gender = 'Non-binary'
         else:
-            gender = None
-        known_for = []
-        for credit in details['movie_credits']['cast'][:6]:
-            if credit.get('poster_path') and credit.get('release_date'):
-                known_for.append({
-                    'title': credit['title'],
-                    'year': int(credit['release_date'][:4]),
-                    'image': f"https://image.tmdb.org/t/p/w500{credit['poster_path']}"
-                })
-        known_for.reverse()
-        actor_obj ={
-            'Name': details['name'],
-            'URL': f'https://themoviedb.org/person/{details["id"]}',
-            'TMDb ID': details['id'],
-            'Headshot': f"https://image.tmdb.org/t/p/w500{details['profile_path']}" if details['profile_path'] else None,
-            'Credits': known_for,
-            # Hints are genre(s), director, release year
-            'Hints' : {
-                'Place of Birth': details['place_of_birth'],
-                'Birthdate': details['birthday'],
-                'Gender': gender,
-            }
+            gender = 'Not specified'
+        hints = []
+        credit_count = 0
+        # sort credit by popularity (most popular first)
+        for credit in sorted(details['movie_credits']['cast'], key=lambda credit: credit['popularity'] if credit.get('popularity') else 0, reverse=True):
+            if credit_count == 6:
+                break
+            if credit.get('poster_path') and credit.get('release_date') and credit.get('title'):
+                # Ignore documentary or TV-Film credits
+                if any(int(genre) in [99, 10770] for genre in credit['genre_ids']):
+                    logger.warning('Skipping %s\'s credit %s due to genre(s) %s', details['name'], credit['title'], credit['genre_ids'])
+                else: 
+                    hints.append({
+                        'title': credit['title'],
+                        'image': f"https://image.tmdb.org/t/p/w500{credit['poster_path']}",
+                        'year': int(credit['release_date'][:4]),
+                    })
+                    credit_count += 1
+        hints.reverse()
+        game_obj ={
+            'answer': {
+                'id': int(details['id']),
+                'title': details['name'],
+                'image': f"https://image.tmdb.org/t/p/w500{details['profile_path']}" if details['profile_path'] else None,
+                'URL': f'https://themoviedb.org/person/{details['id']}',
+            },
+            'hints': hints,
+            'trivia': [
+                {
+                    'label': 'Place of Birth',
+                    'value': details['place_of_birth']
+                },
+                {
+                    'label': 'Birthdate',
+                    'value': details['birthday']
+                },
+                {
+                    'label': 'Gender',
+                    'value': gender
+                },
+            ]
         }
 
+        actor_name = game_obj['answer']['title']
+
         # If any of the keys are missing, dont add the actor
-        if not all(actor_obj.values()) or not all(actor_obj['Hints'].values()):
-            logger.info(f"Missing values for actor {actor_obj['Name']}, skipping")
+        if contains_none_value(game_obj):
+            logger.warning("Missing values for actor {}, skipping".format(actor_name))
             continue
         # If credits list is not 6 long, dont add the actor
-        if len(actor_obj['Credits']) != 6:
-            logger.info(f"Actor {actor_obj['Name']} does not have 6 credits, skipping")
+        if len(game_obj['hints']) != 6:
+            logger.warning("Actor {} does not have 6 credits, skipping".format(actor_name))
             continue
-        actors.append(actor_obj)
+        # If trivia list is not 3 long, don't add the actor
+        if len(game_obj['trivia']) != 3:
+            logger.warning("Actor {} does not have enough trivia, skipping".format(actor_name))
+            continue
+        
+        actors.append(game_obj)
 
     return actors
 

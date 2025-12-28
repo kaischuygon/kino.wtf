@@ -2,25 +2,27 @@ import { FaBars } from "react-icons/fa";
 import routes from "../routes";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { formatCamelCase } from "../helpers/gameHelpers";
 
 export default function Menu() {
     const [location, setLocation] = useState(window.location.pathname);
 
     return <div className="dropdown">
-        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+        <button tabIndex={0} className="btn btn-ghost btn-circle">
             <FaBars />
-        </div>
+        </button>
         <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-3 w-max p-2 shadow">
+            className="menu dropdown-content bg-base-100 z-1 w-max p-2 rounded-box shadow max-h-[50vh] overflow-auto flex-nowrap"
+        >
             {routes.map((route, i) =>
                 <li key={i}>
                     <Link
-                        className={["btn btn-ghost", location === route.link ? 'btn-active' : ''].join('')}
+                        className={["btn btn-ghost", location === route.link ? "btn-active" : ""].join("\x20")}
                         to={route.link}
                         onClick={() => setLocation(route.link)}
                     >
-                        {route.emoji}&nbsp;{route.title}
+                        {route.emoji}&nbsp;{formatCamelCase(route.title)}
                     </Link>
                 </li>
             )}

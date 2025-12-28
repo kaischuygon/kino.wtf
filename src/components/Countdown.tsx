@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
-import { getTimeUntilMidnight, type Countdown } from "../helpers/gameHelpers";
+import { getTimeUntilMidnight, getTimeUntilNextWeek, type Countdown } from "../helpers/gameHelpers";
 
-export default function Countdown() {
-    const [timeUntilMidnight, setTimeUntilMidnight] = useState<Countdown>(getTimeUntilMidnight());
+export default function Countdown({frequency="daily"}: {frequency:string}) {
+    const [timeUntilReset, setTimeUntilReset] = useState<Countdown>({days: 0, hours: 0, minutes: 0, seconds: 0});
 
     // countdown every 1 second
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setTimeUntilMidnight(getTimeUntilMidnight());
+            setTimeUntilReset(frequency === "weekly" ? getTimeUntilNextWeek() : getTimeUntilMidnight());
         }, 1000);
 
         return () => {
             clearInterval(intervalId);
 
-            setTimeUntilMidnight(getTimeUntilMidnight());
+            setTimeUntilReset({days: 0, hours: 0, minutes: 0, seconds: 0});
         }
-    }, []);
+    }, [frequency]);
 
     return <span className="countdown font-mono text-2xl text-center">
-        <span style={{"--value": timeUntilMidnight.hours} as React.CSSProperties } aria-live="polite" aria-label="counter">12</span>h
-        <span style={{"--value": timeUntilMidnight.minutes} as React.CSSProperties } aria-live="polite" aria-label="counter">59</span>m
-        <span style={{"--value": timeUntilMidnight.seconds} as React.CSSProperties } aria-live="polite" aria-label="counter">59</span>s
+        {timeUntilReset.days ? <>
+            <span style={{"--value": timeUntilReset.days} as React.CSSProperties } aria-live="polite" aria-label="counter">0</span>d
+        </> : <></>}
+        <span style={{"--value": timeUntilReset.hours} as React.CSSProperties } aria-live="polite" aria-label="counter">12</span>h
+        <span style={{"--value": timeUntilReset.minutes} as React.CSSProperties } aria-live="polite" aria-label="counter">59</span>m
+        <span style={{"--value": timeUntilReset.seconds} as React.CSSProperties } aria-live="polite" aria-label="counter">59</span>s
     </span>
 }
