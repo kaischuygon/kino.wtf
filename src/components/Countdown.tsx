@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTimeUntilMidnight, getTimeUntilNextWeek, type Countdown } from "../helpers/gameHelpers";
 
-export default function Countdown({frequency="daily"}: {frequency:"daily"|"weekly"}) {
+export default function Countdown({frequency="daily"}: {frequency:"daily"|"weekly"|null}) {
     const init = frequency === "weekly" ? getTimeUntilNextWeek() : getTimeUntilMidnight();
     const [timeUntilReset, setTimeUntilReset] = useState<Countdown>(init);
 

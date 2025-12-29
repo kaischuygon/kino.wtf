@@ -1,12 +1,15 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useEffectEvent, useMemo, useState } from "react";
 
 import ExpandableModal from "../components/ExpandableModal";
 import Countdown from "../components/Countdown";
 import RouteLinks from "../components/RouteLinks";
-import type { gameStats } from "../components/DisplayStats";
 import DisplayStats from "../components/DisplayStats";
 import ShareButton from "../components/ShareButton";
+import GuessBox from "../components/Guessbox";
+
 import { getDaysSince, getWeeksSince } from "../helpers/gameHelpers";
+
+import type { gameStats } from "../components/DisplayStats";
 import type { Route } from "../routes";
 
 interface Game {
@@ -27,7 +30,7 @@ interface Game {
     }[];
 }
 
-export default function useGame({route, games, frequency="daily"}: {route: Route, games: Game[], frequency?: "daily"|"weekly"}) {
+export default function useGame({route, games}: {route: Route, games: Game[]}) {
     const [guess, setGuess] = useState<string>("");
     const [guesses, setGuesses] = useState<string[]>([]);
     const [success, setSuccess] = useState<boolean>(false);
@@ -40,32 +43,32 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
     const [gameOver, setGameOver] = useState<boolean>(false);
 
     // Daily game to guess
-    const today = new Date();
-    const start = new Date(2025, 11, 23);
+    const today = useMemo(() => new Date(), []);
+    const start = useMemo(() => new Date(2025, 0, 0), []);
     // Get the index of game (changes daily or weekly depending on frequency)
-    const game_index = frequency === "weekly" ? (
+    const game_index = route.frequency === "weekly" ? (
         getWeeksSince(start, today)
     ) : (
         // Defaults to daily
         getDaysSince(start, today)
     );
     const game: Game = games[game_index % games.length];
-    const answerChoices: string[] = games.map(g => g.answer.title);
+    // const answerChoices: string[] = games.map(g => g.answer.title);
 
     /**
      * Load state from localStorage
      */
     const loadState = useEffectEvent(() => {
-        const savedState = localStorage.getItem(`${name}_game_state`);
+        const savedState = localStorage.getItem(`${route.title}_game_state`);
         if (savedState) {
             const state = JSON.parse(savedState);
-            if (state.lastUpdated === new Date().getDate()) {
+            if (state.lastUpdated === (route.frequency === "weekly" ? getWeeksSince(start, today) : getDaysSince(start, today))) {
                 setGuesses(state.guesses);
                 setSuccess(state.success);
                 setGameOver(state.gameOver);
             } else {
                 // Reset state if it was saved on another day
-                localStorage.removeItem(`${name}_game_state`);
+                localStorage.removeItem(`${route.title}_game_state`);
             }
         }
     });
@@ -77,7 +80,7 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
 
         // cleanup
         return () => {
-            setGuess("");
+            setGuess('');
             setGuesses([]);
             setSuccess(false);
             setStats({
@@ -100,13 +103,13 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
         const state = {
             guesses: guesses,
             success: success,
-            lastUpdated: new Date().getDate(),
+            lastUpdated: route.frequency === "weekly" ? getWeeksSince(start, today) : getDaysSince(start, today),
             gameOver: gameOver
         };
 
         localStorage.setItem(`${route.title}_game_state`, JSON.stringify(state));
 
-    }, [guesses, success, gameOver, game, route]);
+    }, [guesses, success, gameOver, game, route, start, today]);
 
     // Update stats as the game progresses
     function updateStats() {
@@ -153,7 +156,7 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
                 <div className="card card-side bg-base-200 shadow">
                     <figure className="w-1/3">
                         <ExpandableModal>
-                            <img src={game.answer.image} alt={game.answer.title} />
+                            <img src={game.answer.image} alt={game.answer.title} className="aspect-2/3 h-full" />
                         </ExpandableModal>
                     </figure>
                     <div className="card-body text-center">
@@ -171,7 +174,7 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
                             Next game in:
                         </p>
                         <p>
-                            <Countdown frequency={frequency} />
+                            <Countdown frequency={route.frequency} />
                         </p>
                     </div>
                 </div>
@@ -180,28 +183,28 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
 
                 <ShareButton guesses={guesses} day={game_index % games.length + 1} answer={game.answer.title} route={route} />
 
-                <h2 className="text-xl font-bold text-center text-secondary">More games:</h2>
+                <h2 className="text-xl font-medium text-center">More games:</h2>
                 <RouteLinks />
 
             </>}
 
-            <h4><b>Films:</b>&nbsp;({guesses.length + 1 > 6 ? "6" : guesses.length + 1}/6)</h4>
+            <h4><b>Hints:</b>&nbsp;({guesses.length + 1 > 6 ? "6" : guesses.length + 1}/6)</h4>
             <div className="grid grid-cols-3 gap-2">
                 {game?.hints.map((hint, i) =>
                     <ExpandableModal key={i} disabled={guesses.length < i && !gameOver}>
                         <div className={["card", guesses.length < i && !gameOver ? "**:opacity-0 select-none" : ""].join("\x20")}>
                             <figure>
-                                <img src={hint.image} alt={hint.title} />
+                                <img src={hint.image} alt={hint.title} className="aspect-2/3 h-full" />
                             </figure>
                             <div className="card-body text-center p-1">
-                                {hint.title} {hint.year ? `(${hint.year})` : <></>}
+                                {hint.title}&nbsp;{hint.year ? `(${hint.year})` : ''}
                             </div>
                         </div>
                     </ExpandableModal>
                 )}
             </div>
 
-            <h4><b>Hints:</b>&nbsp;({Math.ceil(guesses.length / 2)}/3)</h4>
+            <h4><b>Trivia:</b>&nbsp;({Math.ceil(guesses.length / 2)}/3)</h4>
             <ul className="flex flex-wrap gap-2 justify-center">
                 {game.trivia?.map((t, i) =>
                     <li key={i} className={["badge shadow max-w-full h-fit text-center", Math.ceil(guesses.length / 2) <= i && !gameOver ? "badge-soft **:opacity-0 select-none" : "badge-info"].join("\x20")}>
@@ -213,10 +216,8 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
             </ul>
 
             <form onSubmit={e => { e.preventDefault(); onGuess(guess.trim()); }} className="w-full join">
-                <input type="search" placeholder="Enter a guess..." disabled={guesses.length === 6 || gameOver} className="input join-item w-full" list="choices" value={guess} onChange={e => setGuess(e.target.value)} autoFocus />
-                <datalist id="choices">
-                    {answerChoices.map((a, i) => <option key={i} value={a} />)}
-                </datalist>
+                <GuessBox options={games.map(g => g?.answer?.title).filter(g => g)} disabled={guesses.length === 6 || gameOver} state={guess} setState={setGuess} />
+                
                 <button className={["btn join-item", guess ? "btn-accent" : "btn-warning"].join("\x20")} disabled={guesses.length === 6 || gameOver}>
                     {guess ? "Guess" : "Skip"}
                 </button>
@@ -227,6 +228,7 @@ export default function useGame({route, games, frequency="daily"}: {route: Route
                 {[...Array(6)].map((_, i) => {
                     let style = "badge-soft w-10";
                     let text = "";
+                    
                     if (guesses[i]?.toLowerCase() === game.answer.title.toLowerCase()) {
                         style = "badge-success";
                         text = guesses[i];

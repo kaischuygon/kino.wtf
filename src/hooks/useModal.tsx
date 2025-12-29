@@ -11,7 +11,7 @@ export default function useModal() {
 
                 <div className="modal-action">
                     <form method="dialog">
-                        <button className="btn btn-secondary shadow">Close</button>
+                        <button tabIndex={0} className="btn shadow">Close</button>
                     </form>
                 </div>
             </div>
@@ -21,9 +21,13 @@ export default function useModal() {
         </dialog>
     );
 
+    const OpenModal = () => dialogElement.current?.showModal()
+    const CloseModal = () => dialogElement.current?.close()
+
     return {
         Modal,
-        open: () => dialogElement.current?.showModal(),
-        close: () => dialogElement.current?.close(),
+        open: OpenModal,
+        close: CloseModal,
+        toggle: () => dialogElement.current?.open ? CloseModal() : OpenModal()
     };
 }

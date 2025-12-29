@@ -41,34 +41,41 @@ const themes = [
 ]
 
 export default function ThemeSwitcher() {
-    const [active, setActive] = useState("");
+    const [active, setActive] = useState(localStorage.getItem("theme") || "");
 
     useEffect(() => {
         themeChange(false);
         // 👆 false parameter is required for react project
-        
-        // eslint-disable-next-line
-        setActive(document.documentElement.getAttribute("data-theme") || "");
     }, []);
 
     return <div className="dropdown dropdown-end">
         <button tabIndex={0} className="btn btn-ghost btn-circle tooltip tooltip-bottom" data-tip="Change theme">
             <FaPalette />
         </button>
-        <ul 
-            tabIndex={-1} 
-            className="menu menu-sm dropdown-content bg-base-100 z-1 w-max p-2 rounded-box shadow max-h-[50vh] overflow-auto flex-nowrap"
+        <ul
+            tabIndex={-1}
+            className="menu menu-sm w-max dropdown-content bg-base-100 z-1 p-2 rounded-field shadow max-h-[50vh] overflow-auto flex-nowrap"
         >
             {themes.map((theme, i) =>
                 <li key={i}>
-                    <input
-                        type="radio"
-                        name="theme-dropdown"
-                        className={["btn btn-ghost", theme === active ? "btn-active" : ""].join("\x20")}
+                    <button
+                        className={["btn btn-sm w-full", theme === active ? "btn-primary" : "btn-ghost"].join("\x20")}
                         aria-label={theme}
                         value={theme}
-                        onClick={() => setActive(theme)}
-                        data-set-theme={theme} />
+                        onClick={() => {
+                            document.documentElement.setAttribute("data-theme", theme);
+                            localStorage.setItem("theme", theme);
+                            setActive(theme);
+                        }}
+                    >
+                        <div data-theme={theme} className="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-field p-1 border border-base-300">
+                            <div className="bg-base-content size-1 rounded-selector" />
+                            <div className="bg-primary size-1 rounded-selector" />
+                            <div className="bg-secondary size-1 rounded-selector" />
+                            <div className="bg-accent size-1 rounded-selector" />
+                        </div>
+                        {theme}
+                    </button>
                 </li>
             )}
         </ul>

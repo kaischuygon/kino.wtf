@@ -17,12 +17,12 @@ function GameNavigation({ stats }: { stats: gameStats }) {
     return <nav className="navbar">
         <div className="navbar-start">
             <StatsModal>
-                <h2 className="font-bold text-xl mb-4 text-secondary"><FaChartBar className="inline" />&nbsp;Stats</h2>
+                <h2 className="font-bold text-xl mb-4 text-primary"><FaChartBar className="inline" />&nbsp;Stats</h2>
                 <div className="text-center">
                     <DisplayStats stats={stats} />
                 </div>
             </StatsModal>
-            <button className="btn btn-ghost btn-circle tooltip" data-tip="Stats" onClick={() => openStatsModal()}>
+            <button className="btn btn-circle tooltip" data-tip="Stats" onClick={() => openStatsModal()}>
                 <FaChartBar />
             </button>
         </div>
@@ -30,11 +30,11 @@ function GameNavigation({ stats }: { stats: gameStats }) {
             🎭&nbsp;Actors
         </h2>
         <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle tooltip" data-tip="About" onClick={() => openAboutModal()}>
+            <button className="btn btn-circle tooltip" data-tip="About" onClick={() => openAboutModal()}>
                 <FaInfoCircle />
             </button>
             <AboutModal>
-                <h2 className="font-bold text-xl mb-4 text-secondary"><FaInfoCircle className="inline" />&nbsp;About</h2>
+                <h2 className="font-bold text-xl mb-4 text-primary"><FaInfoCircle className="inline" />&nbsp;About</h2>
                 <div className="flex flex-col gap-2">
                     <p>
                         Guess the actor based on their filmography. The hints are based on their top 6 credits

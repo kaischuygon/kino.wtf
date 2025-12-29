@@ -16,7 +16,7 @@ export default function ExpandableModal({children, disabled=false}: Props) {
 
         {React.isValidElement(children) ? React.cloneElement(children, {
             onClick: () => disabled ? null : openExpandedModal(),
-            className: [children.props?.className, disabled ? "!cursor-not-allowed btn-soft" : "cursor-pointer", "btn shadow h-full m-0 p-0"].filter(Boolean).join("\x20"),
+            className: [children.props?.className, "btn shadow h-full m-0 p-0 font-normal", disabled ? "!cursor-not-allowed btn-soft" : "cursor-pointer"].filter(Boolean).join("\x20"),
         }) : (
             {children}
         )}

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { type Route } from "../routes";
+import { routeLookup, type Route } from "../routes";
 import { formatCamelCase } from "../helpers/gameHelpers";
 
 export default function ShareButton({guesses, day, answer, route}: {guesses: string[], day: number, answer: string, route:Route}) {
@@ -14,7 +14,7 @@ export default function ShareButton({guesses, day, answer, route}: {guesses: str
     const guessCount = `${guesses[guesses.length] !== answer.toLowerCase() ? "X" : guesses.length}/6`;
     const game = `${route.emoji}\x20KINO\x20${formatCamelCase(route.title)}`;
     const num = `﹟${day}`;
-    const link = `🍿\x20${window.location}`;
+    const link = `${routeLookup("home")}\x20${window.location}`;
 
     const result = `${game}\x20${num}\n${score}\x20${guessCount}\n${link}`;
 
