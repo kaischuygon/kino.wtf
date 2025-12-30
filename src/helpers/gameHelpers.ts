@@ -1,3 +1,5 @@
+import type { Route } from "../routes";
+
 export interface Countdown {
     days?: number,
     hours: number,
@@ -19,7 +21,7 @@ export interface Countdown {
  *  - minutes: number — remaining whole minutes after hours are removed (0–59)
  *  - seconds: number — remaining whole seconds after minutes are removed (0–59)
  */
-export function getTimeUntilMidnight() {
+export function getTimeUntilMidnight(): Countdown {
     const now = new Date();
     const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
     const diffMs = midnight.getTime() - now.getTime();
@@ -48,7 +50,7 @@ export function getTimeUntilMidnight() {
  * @returns {Countdown} An object containing integer `days`, `hours`, `minutes`, and `seconds` representing the time remaining
  *                     until next Monday 00:00:00 in local time.
  */
-export function getTimeUntilNextWeek() {
+export function getTimeUntilNextWeek(): Countdown {
 
     const now = new Date();
 
@@ -186,4 +188,32 @@ export function getDaysSince(startDate: Date, currentDate: Date) {
     const days = Math.floor(diffMs / MS_PER_DAY);
 
     return Math.max(0, days);
+}
+
+/**
+ * Calculates the game index based on the current date and the game's frequency.
+ *
+ * For weekly games, returns the number of weeks elapsed since the start date (January 0, 2025).
+ * For daily games (or any other frequency), returns the number of days elapsed since the start date.
+ *
+ * The start date is fixed at January 0, 2025, serving as the epoch for game indexing.
+ * This ensures consistent game progression regardless of when the function is called.
+ *
+ * @param route - The route object containing the game's frequency setting ('weekly' or 'daily').
+ * @returns {number} The game index—either the number of weeks or days since the start date,
+ *                   depending on the route's frequency. Always non-negative (clamped to 0).
+ */
+export function getGameIndex(route: Route): number {
+    // Daily game to guess
+    const today = new Date();
+    const start = new Date(2025, 0, 0);
+    // Get the index of game (changes daily or weekly depending on frequency)
+    const game_index = route.frequency === "weekly" ? (
+        getWeeksSince(start, today)
+    ) : (
+        // Defaults to daily
+        getDaysSince(start, today)
+    );
+
+    return game_index;
 }

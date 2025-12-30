@@ -3,9 +3,10 @@ import useGame from "../hooks/useGame";
 import movies from "../../get_games/movies.json";
 import { getRoute } from "../routes";
 import GameNavigation from "../components/GameNavigation";
+import { getGameIndex } from "../helpers/gameHelpers";
 
 export default function Movies() {
-    const { GameBoard, stats } = useGame({route: getRoute("movies"), games: movies});
+    const { GameBoard, stats } = useGame({route: getRoute("movies"), games: movies, game_index: getGameIndex(getRoute("movies"))});
 
     const AboutContent = () => {
         return <>

@@ -3,9 +3,10 @@ import useGame from "../hooks/useGame";
 import directors from "../../get_games/directors.json";
 import { getRoute } from "../routes";
 import GameNavigation from "../components/GameNavigation";
+import { getGameIndex } from "../helpers/gameHelpers";
 
 export default function Directors() {
-    const { GameBoard, stats } = useGame({route: getRoute("directors"), games: directors});
+    const { GameBoard, stats } = useGame({route: getRoute("directors"), games: directors, game_index: getGameIndex(getRoute("directors"))});
 
     const AboutContent = () => {
         return <>

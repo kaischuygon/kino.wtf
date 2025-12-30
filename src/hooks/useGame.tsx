@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useMemo, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 
 import ExpandableModal from "../components/ExpandableModal";
 import Countdown from "../components/Countdown";
@@ -6,8 +6,6 @@ import RouteLinks from "../components/RouteLinks";
 import DisplayStats from "../components/DisplayStats";
 import ShareButton from "../components/ShareButton";
 import GuessBox from "../components/Guessbox";
-
-import { getDaysSince, getWeeksSince } from "../helpers/gameHelpers";
 
 import type { gameStats } from "../components/DisplayStats";
 import type { Route } from "../routes";
@@ -30,7 +28,7 @@ interface Game {
     }[];
 }
 
-export default function useGame({route, games}: {route: Route, games: Game[]}) {
+export default function useGame({route, games, game_index}: {route: Route, games: Game[], game_index: number}) {
     const [guess, setGuess] = useState<string>("");
     const [guesses, setGuesses] = useState<string[]>([]);
     const [success, setSuccess] = useState<boolean>(false);
@@ -42,16 +40,6 @@ export default function useGame({route, games}: {route: Route, games: Game[]}) {
     });
     const [gameOver, setGameOver] = useState<boolean>(false);
 
-    // Daily game to guess
-    const today = useMemo(() => new Date(), []);
-    const start = useMemo(() => new Date(2025, 0, 0), []);
-    // Get the index of game (changes daily or weekly depending on frequency)
-    const game_index = route.frequency === "weekly" ? (
-        getWeeksSince(start, today)
-    ) : (
-        // Defaults to daily
-        getDaysSince(start, today)
-    );
     const game: Game = games[game_index % games.length];
     // const answerChoices: string[] = games.map(g => g.answer.title);
 
@@ -62,7 +50,7 @@ export default function useGame({route, games}: {route: Route, games: Game[]}) {
         const savedState = localStorage.getItem(`${route.title}_game_state`);
         if (savedState) {
             const state = JSON.parse(savedState);
-            if (state.lastUpdated === (route.frequency === "weekly" ? getWeeksSince(start, today) : getDaysSince(start, today))) {
+            if (state.lastUpdated === game_index) {
                 setGuesses(state.guesses);
                 setSuccess(state.success);
                 setGameOver(state.gameOver);
@@ -103,13 +91,13 @@ export default function useGame({route, games}: {route: Route, games: Game[]}) {
         const state = {
             guesses: guesses,
             success: success,
-            lastUpdated: route.frequency === "weekly" ? getWeeksSince(start, today) : getDaysSince(start, today),
+            gameIndex: game_index,
             gameOver: gameOver
         };
 
         localStorage.setItem(`${route.title}_game_state`, JSON.stringify(state));
 
-    }, [guesses, success, gameOver, game, route, start, today]);
+    }, [guesses, success, gameOver, game, route, game_index]);
 
     // Update stats as the game progresses
     function updateStats() {
