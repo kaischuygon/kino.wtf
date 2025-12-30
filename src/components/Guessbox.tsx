@@ -13,7 +13,7 @@ export default function GuessBox({options, state, setState, disabled=false}:{opt
         <Combobox 
             value={state} 
             virtual={{ options: filteredOptions.length > 0 ? filteredOptions : [query] }} 
-            onChange={(value) => setState(value?.replace(/[^a-zA-Z\s]/g, '') ?? "")} 
+            onChange={(value) => setState(value ?? "")} 
             onClose={() => setQuery('')}
         >
             <ComboboxInput
@@ -28,7 +28,7 @@ export default function GuessBox({options, state, setState, disabled=false}:{opt
             />
             <ComboboxOptions anchor="bottom" className="bg-base-200 rounded-field shadow p-1 flex flex-col w-(--input-width) max-h-30! border border-base-300 empty:invisible">
                 {({ option: option }) => (
-                    <ComboboxOption value={option} className="btn btn-ghost btn-sm font-normal w-full justify-start p-1 data-focus:btn-active! z-0">
+                    <ComboboxOption value={option} className="btn btn-ghost btn-sm h-fit text-left font-normal w-full justify-start p-1 data-focus:btn-active! z-0">
                         {option}
                     </ComboboxOption>
                 )}
