@@ -1,13 +1,13 @@
 import { calculateWinPercentage } from "../helpers/gameHelpers";
 
-export interface gameStats {
+export interface GameStats {
     gamesPlayed: number;
     gamesWon: number;
     streak: number;
     maxStreak: number;
 }
 
-export default function DisplayStats({stats}:{stats: gameStats}) {
+export default function DisplayStats({stats}:{stats: GameStats}) {
     return <div className="stats shadow flex-wrap bg-base-200 w-full">
         <div className="stat place-items-center">
             <div className="stat-title">Wins</div>

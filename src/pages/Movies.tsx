@@ -6,7 +6,9 @@ import GameNavigation from "../components/GameNavigation";
 import { getGameIndex } from "../helpers/gameHelpers";
 
 export default function Movies() {
-    const { GameBoard, stats } = useGame({route: getRoute("movies"), games: movies, game_index: getGameIndex(getRoute("movies"))});
+    const route = getRoute("movies");
+    const gameIndex = getGameIndex(route);
+    const { GameBoard, stats } = useGame({route: route, games: movies, gameIndex: gameIndex});
 
     const AboutContent = () => {
         return <>

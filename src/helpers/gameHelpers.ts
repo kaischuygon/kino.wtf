@@ -206,7 +206,7 @@ export function getDaysSince(startDate: Date, currentDate: Date) {
 export function getGameIndex(route: Route): number {
     // Daily game to guess
     const today = new Date();
-    const start = new Date(2025, 0, 0);
+    const start = new Date(2026, 0, 0);
     // Get the index of game (changes daily or weekly depending on frequency)
     const game_index = route.frequency === "weekly" ? (
         getWeeksSince(start, today)

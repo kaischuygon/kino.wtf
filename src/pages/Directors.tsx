@@ -6,7 +6,9 @@ import GameNavigation from "../components/GameNavigation";
 import { getGameIndex } from "../helpers/gameHelpers";
 
 export default function Directors() {
-    const { GameBoard, stats } = useGame({route: getRoute("directors"), games: directors, game_index: getGameIndex(getRoute("directors"))});
+    const route = getRoute("directors");
+    const gameIndex = getGameIndex(route);
+    const { GameBoard, stats } = useGame({route: route, games: directors, gameIndex: gameIndex});
 
     const AboutContent = () => {
         return <>

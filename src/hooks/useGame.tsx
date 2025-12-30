@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import ExpandableModal from "../components/ExpandableModal";
 import Countdown from "../components/Countdown";
@@ -7,7 +7,7 @@ import DisplayStats from "../components/DisplayStats";
 import ShareButton from "../components/ShareButton";
 import GuessBox from "../components/Guessbox";
 
-import type { gameStats } from "../components/DisplayStats";
+import type { GameStats } from "../components/DisplayStats";
 import type { Route } from "../routes";
 
 interface Game {
@@ -28,83 +28,115 @@ interface Game {
     }[];
 }
 
-export default function useGame({route, games, game_index}: {route: Route, games: Game[], game_index: number}) {
-    const [guess, setGuess] = useState<string>("");
-    const [guesses, setGuesses] = useState<string[]>([]);
-    const [success, setSuccess] = useState<boolean>(false);
-    const [stats, setStats] = useState<gameStats>({
-        gamesPlayed: 0,
-        gamesWon: 0,
-        streak: 0,
-        maxStreak: 0,
-    });
-    const [gameOver, setGameOver] = useState<boolean>(false);
+interface GameState {
+    guess:string,
+    guesses:string[],
+    gameOver:0|1|2, // 0 game not over, 1 game over fail, 2 game over success
+    gameIndex: number
+}
 
-    const game: Game = games[game_index % games.length];
-    // const answerChoices: string[] = games.map(g => g.answer.title);
+export default function useGame({route, games, gameIndex}: {route: Route, games: Game[], gameIndex: number}) {
+    const savedState: GameState = useMemo(() => {
+        const defaultState: GameState = {
+            guess: "",
+            guesses: [],
+            gameOver: 0,
+            gameIndex: gameIndex
+        };
 
-    /**
-     * Load state from localStorage
-     */
-    const loadState = useEffectEvent(() => {
-        const savedState = localStorage.getItem(`${route.title}_game_state`);
-        if (savedState) {
-            const state = JSON.parse(savedState);
-            if (state.lastUpdated === game_index) {
-                setGuesses(state.guesses);
-                setSuccess(state.success);
-                setGameOver(state.gameOver);
+        const key = `${route.title}_game_state`;
+        const raw = localStorage.getItem(key);
+        if (!raw) return defaultState;
+
+        try {
+            const parsed = JSON.parse(raw);
+            if(parsed?.gameIndex === gameIndex) {
+                return {
+                    guess: typeof parsed?.guess === "string" ? parsed.guess : "",
+                    guesses: Array.isArray(parsed?.guesses) ? parsed.guesses : [],
+                    gameOver: typeof parsed?.gameOver === "number" ? parsed?.gameOver : 0,
+                    gameIndex: typeof parsed?.gameIndex === "number" ? parsed?.gameIndex : gameIndex
+                }
             } else {
-                // Reset state if it was saved on another day
-                localStorage.removeItem(`${route.title}_game_state`);
+                localStorage.removeItem(key);
+                return defaultState;
             }
+        } catch {
+            localStorage.removeItem(key);
+            return defaultState;
         }
-    });
+    }, [route, gameIndex]);
 
-    // on page load
+    
+    const savedStats: GameStats = useMemo(() => {
+        const defaultStats: GameStats = {
+            gamesPlayed: 0,
+            gamesWon: 0,
+            streak: 0,
+            maxStreak: 0
+        };
+
+        const key = `${route.title}_stats`;
+        const raw = localStorage.getItem(key);
+        if (!raw) return defaultStats;
+
+        try {
+            const parsed = JSON.parse(raw);
+            return {
+                gamesPlayed: Number.isFinite(parsed?.gamesPlayed) ? parsed.gamesPlayed : 0,
+                gamesWon: Number.isFinite(parsed?.gamesWon) ? parsed.gamesWon : 0,
+                streak: Number.isFinite(parsed?.streak) ? parsed.streak : 0,
+                maxStreak: Number.isFinite(parsed?.maxStreak) ? parsed.maxStreak : 0
+            };
+        } catch {
+            localStorage.removeItem(key);
+            return defaultStats;
+        }
+    }, [route]);
+
+    const [guess, setGuess] = useState<string>(savedState.guess);
+    const [guesses, setGuesses] = useState<string[]>(savedState.guesses);
+    const [gameOver, setGameOver] = useState<0|1|2>(savedState.gameOver);
+    const [stats, setStats] = useState<GameStats>(savedStats);
+
+    const game: Game = games[gameIndex % games.length];
+
     useEffect(() => {
-        // load state
-        loadState();
-
         // cleanup
         return () => {
-            setGuess('');
-            setGuesses([]);
-            setSuccess(false);
-            setStats({
-                gamesPlayed: 0,
-                gamesWon: 0,
-                streak: 0,
-                maxStreak: 0,
-            });
-            setGameOver(false);
+            setGuess(savedState.guess);
+            setGuesses(savedState.guesses);
+            setGameOver(savedState.gameOver);
+            setStats(savedStats);
         }
-    }, []);
+    }, [savedState, savedStats]);
 
     // Save stats to localStorage whenever they change
     useEffect(() => {
         localStorage.setItem(`${route.title}_stats`, JSON.stringify(stats));
     }, [stats, route]);
 
+    // Save state to localStorage whenever it changes
     useEffect(() => {
         // Save state to localStorage on state changes
         const state = {
+            guess: guess,
             guesses: guesses,
-            success: success,
-            gameIndex: game_index,
+            gameIndex: gameIndex,
             gameOver: gameOver
         };
 
         localStorage.setItem(`${route.title}_game_state`, JSON.stringify(state));
 
-    }, [guesses, success, gameOver, game, route, game_index]);
+    }, [guess, guesses, gameOver, game, route, gameIndex]);
 
-    // Update stats as the game progresses
-    function updateStats() {
+    // Update stats when the game is over
+    function updateStats(gameStatus: number) {
         const newGamesPlayed = stats.gamesPlayed + 1;
-        const newGamesWon = success ? stats.gamesWon + 1 : stats.gamesWon;
-        const newStreak = success ? stats.streak + 1 : 0;
+        const newGamesWon = gameStatus === 2 ? stats.gamesWon + 1 : stats.gamesWon;
+        const newStreak = gameStatus === 2 ? stats.streak + 1 : 0;
         const newMaxStreak = newStreak > stats.maxStreak ? newStreak : stats.maxStreak;
+        
         setStats({
             gamesPlayed: newGamesPlayed,
             gamesWon: newGamesWon,
@@ -117,14 +149,13 @@ export default function useGame({route, games, game_index}: {route: Route, games
     function onGuess(newGuess: string) {
         setGuesses(g => [...g, newGuess]);
 
+        // check if game is over
         if (newGuess.toLowerCase() === game.answer.title.toLowerCase()) {
-            setSuccess(true);
-            updateStats();
-            setGameOver(true);
+            setGameOver(2);
+            updateStats(2);
         } else if (guesses.length === 5) {
-            setSuccess(false);
-            updateStats();
-            setGameOver(true);
+            setGameOver(1);
+            updateStats(1);
         }
 
         setGuess('');
@@ -132,15 +163,14 @@ export default function useGame({route, games, game_index}: {route: Route, games
 
     function handleGiveUp() {
         setGuesses(g => [...g, ...Array.from({ length: 6 - g.length }, () => "")])
-        setSuccess(false);
-        updateStats();
-        setGameOver(true);
+        updateStats(1);
+        setGameOver(1);
         setGuess('');
     };
 
     const GameBoard: React.FC = () => (
         <section className="flex flex-col gap-2 text-sm my-2">
-            {gameOver && <>
+            {gameOver > 0 && <>
                 <div className="card card-side bg-base-200 shadow">
                     <figure className="w-1/3">
                         <ExpandableModal>
@@ -149,10 +179,10 @@ export default function useGame({route, games, game_index}: {route: Route, games
                     </figure>
                     <div className="card-body text-center">
                         <h2 className="font-display card-title justify-center">
-                            {success ? (
-                                "🎉 You won! 🎉"
-                            ) : (
+                            {gameOver == 1 ? (
                                 "😔 You lost 😔"
+                            ) : (
+                                "🎉 You won! 🎉"
                             )}
                         </h2>
                         <p>
@@ -169,7 +199,7 @@ export default function useGame({route, games, game_index}: {route: Route, games
 
                 <DisplayStats stats={stats} />
 
-                <ShareButton guesses={guesses} day={game_index % games.length + 1} answer={game.answer.title} route={route} />
+                <ShareButton guesses={guesses} day={gameIndex + 1} answer={game.answer.title} route={route} />
 
                 <h2 className="text-xl font-medium text-center">More games:</h2>
                 <RouteLinks />
@@ -204,9 +234,9 @@ export default function useGame({route, games, game_index}: {route: Route, games
             </ul>
 
             <form onSubmit={e => { e.preventDefault(); onGuess(guess.trim()); }} className="w-full join">
-                <GuessBox options={games.map(g => g?.answer?.title).filter(g => g)} disabled={guesses.length === 6 || gameOver} state={guess} setState={setGuess} />
+                <GuessBox options={games.map(g => g?.answer?.title).filter(g => g)} disabled={guesses.length === 6 || gameOver > 0} state={guess} setState={setGuess} />
                 
-                <button className={["btn join-item", guess ? "btn-accent" : "btn-warning"].join("\x20")} disabled={guesses.length === 6 || gameOver}>
+                <button className={["btn join-item", guess ? "btn-accent" : "btn-warning"].join("\x20")} disabled={guesses.length === 6 || gameOver > 0}>
                     {guess ? "Guess" : "Skip"}
                 </button>
             </form>
@@ -234,7 +264,7 @@ export default function useGame({route, games, game_index}: {route: Route, games
                 })}
             </ul>
 
-            <button className="btn btn-error mx-auto shadow" disabled={guesses.length === 6 || gameOver} onClick={handleGiveUp}>Give up</button>
+            <button className="btn btn-error mx-auto shadow" disabled={guesses.length === 6 || gameOver > 0} onClick={handleGiveUp}>Give up</button>
         </section>
     );
 
