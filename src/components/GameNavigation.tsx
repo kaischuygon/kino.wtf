@@ -1,10 +1,10 @@
 import { FaChartBar, FaInfoCircle } from "react-icons/fa";
 import useModal from "../hooks/useModal";
 import { type Route } from "../routes";
-import type { gameStats } from "./DisplayStats";
+import type { GameStats } from "./DisplayStats";
 import DisplayStats from "./DisplayStats";
 
-export default function GameNavigation({ stats, AboutContent, route }: { stats: gameStats, AboutContent:React.FC, route: Route }) {
+export default function GameNavigation({ stats, AboutContent, route }: { stats: GameStats, AboutContent:React.FC, route: Route }) {
     const { Modal: StatsModal, open: openStatsModal } = useModal();
     const { Modal: AboutModal, open: openAboutModal } = useModal();
     
