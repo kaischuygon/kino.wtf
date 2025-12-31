@@ -23,22 +23,8 @@ If you want to test how a new day's (or week's) game appears without waiting for
 - Same-tab quick helper (recommended during development):
 
 ```javascript
-// In the browser console for the app page (development builds only)
-window.__simulateNextDay && window.__simulateNextDay('movies')
-window.__simulateNextDay && window.__simulateNextDay('actors')
-window.__simulateNextDay && window.__simulateNextDay('directors')
+// In the browser console for the each game page (development builds only)
+window.__simulateNextBoundary()
 ```
 
 This helper is attached in development builds and will update localStorage and dispatch a `storage` event so the page reacts immediately.
-
-- Multi-tab real event (works in any environment):
-
-```javascript
-// In tab A
-localStorage.setItem('movies_stats', JSON.stringify({ __simulatedAt: Date.now() }));
-// Tab B (another tab with the app open) will receive a StorageEvent and update automatically.
-```
-
-Notes:
-- `localStorage.setItem` in the same tab does not trigger a `storage` event for that tab — use the injected `window.__simulateNextDay` helper to simulate the event in the same tab.
-- Weekly routes (e.g., if you configure a `weekly` route) use the same helper — supply the route title string (for example, `directors`).
