@@ -3,12 +3,16 @@ import useGame from "../hooks/useGame";
 import actors from "../../get_games/actors.json";
 import { getRoute } from "../routes";
 import GameNavigation from "../components/GameNavigation";
-import { getGameIndex } from "../helpers/gameHelpers";
+import useGameIndex from "../hooks/useGameIndex";
 
 export default function Actors() {
     const route = getRoute("actors");
-    const gameIndex = getGameIndex(route);
-    const { GameBoard, stats } = useGame({route: route, games: actors, gameIndex: gameIndex});
+    // `useGameIndex` updates automatically at midnight/weekly boundary and
+    // when storage events occur. For dev testing, see README or use
+    // `window.__simulateNextBoundary()` in the browser console on this page.
+    const gameIndex = useGameIndex(route);
+
+    const { GameBoard, stats } = useGame(route, actors, gameIndex);
 
     const AboutContent = () => {
         return <>

@@ -1,13 +1,17 @@
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from "@headlessui/react";
 import { useState } from "react";
+import Fuse from 'fuse.js'
+
 
 export default function GuessBox({options, state, setState, disabled=false}:{options:string[], state:string, setState: React.Dispatch<React.SetStateAction<string>>, disabled?:boolean}) {
     const [query, setQuery] = useState("");
 
+    const fuse = new Fuse(options, {ignoreDiacritics: true, threshold: 0.2});
+
     const filteredOptions =
         query === ''
             ? options
-            : options.filter((g) => g.toLowerCase().includes(query.toLowerCase()));
+            : fuse.search(query).map(s => s.item);
 
     return (
         <Combobox 

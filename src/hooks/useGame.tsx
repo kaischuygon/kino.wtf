@@ -35,7 +35,7 @@ interface GameState {
     gameIndex: number
 }
 
-export default function useGame({route, games, gameIndex}: {route: Route, games: Game[], gameIndex: number}) {
+export default function useGame(route: Route, games: Game[], gameIndex: number) {
     const savedState: GameState = useMemo(() => {
         const defaultState: GameState = {
             guess: "",
@@ -143,7 +143,7 @@ export default function useGame({route, games, gameIndex}: {route: Route, games:
             streak: newStreak,
             maxStreak: newMaxStreak
         });
-    }
+    };
 
     // Listen for guesses
     function onGuess(newGuess: string) {
@@ -163,8 +163,8 @@ export default function useGame({route, games, gameIndex}: {route: Route, games:
 
     function handleGiveUp() {
         setGuesses(g => [...g, ...Array.from({ length: 6 - g.length }, () => "")])
-        updateStats(1);
         setGameOver(1);
+        updateStats(1);
         setGuess('');
     };
 
