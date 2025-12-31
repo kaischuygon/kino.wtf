@@ -13,7 +13,7 @@ export default function ShareButton({guesses, day, answer, route}: {guesses: str
             g.trim() === ""
         ) ? "🟨" : "🟥"
     ), ...Array(6 - guesses.length).fill("⬛")].join("");
-    const guessCount = `${guesses[guesses.length] !== answer.toLowerCase() ? "X" : guesses.length}/6`;
+    const guessCount = `${!guesses.map(g => g.toLowerCase().trim()).includes(answer.toLowerCase().trim()) ? "X" : guesses.length}/6`;
     const link = `🍿\x20${window.location}`;
 
     const result = `${game}\x20${num}\n${score}\x20${guessCount}\n${link}`;
