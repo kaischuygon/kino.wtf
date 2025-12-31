@@ -34,8 +34,8 @@ export default function Movies() {
         </>
     };
 
-    return <>
+    return <section id="movies" className="p-2">
         <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("movies")} />
         <GameBoard />
-    </>
+    </section>
 }

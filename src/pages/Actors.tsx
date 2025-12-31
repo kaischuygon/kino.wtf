@@ -34,8 +34,8 @@ export default function Actors() {
         </>
     }
 
-    return <>
+    return <section id="actors" className="p-2">
         <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("actors")} />
         <GameBoard />
-    </>
+    </section>
 }

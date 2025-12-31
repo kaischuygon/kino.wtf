@@ -8,9 +8,9 @@ export default function GameNavigation({ stats, AboutContent, route }: { stats: 
     const { Modal: StatsModal, open: openStatsModal } = useModal();
     const { Modal: AboutModal, open: openAboutModal } = useModal();
     
-    return <nav className="navbar">
+    return <nav className="navbar p-0">
         <div className="navbar-start">
-            <button className="btn btn-circle tooltip" data-tip="Stats" onClick={() => openStatsModal()}>
+            <button className="btn btn-ghost btn-square tooltip tooltip-right sm:tooltip-top" data-tip="Stats" onClick={() => openStatsModal()}>
                 <FaChartBar />
             </button>
             <StatsModal>
@@ -24,7 +24,7 @@ export default function GameNavigation({ stats, AboutContent, route }: { stats: 
             {route.emoji}&nbsp;{route.title}
         </h2>
         <div className="navbar-end">
-            <button className="btn btn-circle tooltip" data-tip="About" onClick={() => openAboutModal()}>
+            <button className="btn btn-ghost btn-square tooltip tooltip-left sm:tooltip-top" data-tip="About" onClick={() => openAboutModal()}>
                 <FaInfoCircle />
             </button>
             <AboutModal>

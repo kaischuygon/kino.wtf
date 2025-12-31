@@ -49,12 +49,12 @@ export default function ThemeSwitcher() {
     }, []);
 
     return <div className="dropdown dropdown-end">
-        <button tabIndex={0} className="btn btn-ghost btn-circle tooltip tooltip-bottom" data-tip="Change theme">
+        <button tabIndex={0} className="btn btn-ghost btn-square tooltip tooltip-left sm:tooltip-bottom" data-tip="Change theme">
             <FaPalette />
         </button>
         <ul
             tabIndex={-1}
-            className="menu menu-sm w-max dropdown-content bg-base-100 z-1 p-2 rounded-field shadow max-h-[50vh] overflow-auto flex-nowrap"
+            className="menu menu-sm w-max dropdown-content bg-base-100 border border-base-300 z-1 p-2 rounded-field shadow max-h-[50vh] overflow-auto flex-nowrap"
         >
             {themes.map((theme, i) =>
                 <li key={i}>

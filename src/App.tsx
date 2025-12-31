@@ -7,7 +7,7 @@ import routes from './routes';
 
 export default function App() {
   return (
-    <div className="grid grid-rows-[0fr_1fr_0fr] h-screen w-md mx-auto">
+    <div className="grid grid-rows-[0fr_1fr_0fr] h-screen sm:w-md mx-auto">
       <Navbar />
       <article>
         <Routes>

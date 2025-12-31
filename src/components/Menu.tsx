@@ -8,12 +8,12 @@ export default function Menu() {
     const [location, setLocation] = useState(window.location.pathname);
 
     return <div className="dropdown dropdown-start">
-        <button tabIndex={0} className="btn btn-ghost btn-circle">
+        <button tabIndex={0} className="btn btn-ghost btn-square">
             <FaBars />
         </button>
         <ul
             tabIndex={-1}
-            className="menu dropdown-content bg-base-100 z-1 w-max p-2 rounded-field shadow max-h-[50vh] overflow-auto flex-nowrap"
+            className="menu w-max dropdown-content bg-base-100 border border-base-300 z-1 p-2 rounded-field shadow max-h-[50vh] overflow-auto flex-nowrap"
         >
             {routes.map((route, i) =>
                 <li key={i}>

@@ -9,3 +9,22 @@
     --font-display: "Rubik Mono One", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, "Noto Color Emoji";
     --font-sans: "Rubik", ui-sans-serif, system-ui, sans-serif, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+
+/* Prevent horizontal overflow on small screens */
+:root, html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure media and other elements don't exceed container width */
+img, video, canvas, iframe, svg, table, pre {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Keep long words / badges from forcing overflow */
+* {
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}

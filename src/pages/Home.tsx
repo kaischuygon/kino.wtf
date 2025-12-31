@@ -2,9 +2,8 @@ import RouteLinks from "../components/RouteLinks";
 
 export default function Home() {
     return <section id="homepage" className="p-2 flex flex-col gap-2">
-        <h2 className="font-semibold">About</h2>
         <p className="text-sm">
-            Kino is a collection of daily games for movie lovers. 
+            Kino.wtf is a collection of daily games for movie lovers. 
         </p>
         <p className="text-sm">
             Play now and bookmark this page to play daily.

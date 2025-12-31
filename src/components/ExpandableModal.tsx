@@ -10,7 +10,7 @@ export default function ExpandableModal({children, disabled=false}: Props) {
     const {Modal: ExpandedModal, open: openExpandedModal } = useModal();
 
     return <>
-        <ExpandedModal className="max-h-[95vh]">
+        <ExpandedModal>
             {children}
         </ExpandedModal>
 

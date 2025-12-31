@@ -215,7 +215,9 @@ export default function useGame({route, games, gameIndex}: {route: Route, games:
                                 <img src={hint.image} alt={hint.title} className="aspect-2/3 h-full" />
                             </figure>
                             <div className="card-body text-center p-1">
-                                {hint.title}&nbsp;{hint.year ? `(${hint.year})` : ''}
+                                <span className="text-wrap">
+                                    {hint.title}{hint.year ? `\x20(${hint.year})` : ''}
+                                </span>
                             </div>
                         </div>
                     </ExpandableModal>
@@ -236,7 +238,7 @@ export default function useGame({route, games, gameIndex}: {route: Route, games:
             <form onSubmit={e => { e.preventDefault(); onGuess(guess.trim()); }} className="w-full join">
                 <GuessBox options={games.map(g => g?.answer?.title).filter(g => g)} disabled={guesses.length === 6 || gameOver > 0} state={guess} setState={setGuess} />
                 
-                <button className={["btn join-item", guess ? "btn-accent" : "btn-warning"].join("\x20")} disabled={guesses.length === 6 || gameOver > 0}>
+                <button className={["btn join-item", guess ? "btn-primary" : "btn-soft"].join("\x20")} disabled={guesses.length === 6 || gameOver > 0}>
                     {guess ? "Guess" : "Skip"}
                 </button>
             </form>

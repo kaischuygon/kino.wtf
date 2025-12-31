@@ -38,6 +38,7 @@ import concurrent.futures
 import argparse
 import pandas as pd
 import html
+from datetime import date
 
 def escape_html(json_data):
     if isinstance(json_data, dict):
@@ -279,6 +280,9 @@ def get_person_info(imdb_id:str):
                 break
             if credit.get('poster_path') and credit.get('release_date') and credit.get('title'):
                 # Ignore documentary or TV-Film credits
+                if credit['release_date'] > date.today().isoformat():
+                    logger.warning('Skipping %s\'s credit %s since release date is in the future', details['name'], credit['title'])
+                    continue
                 if any(int(genre) in [99, 10770] for genre in credit['genre_ids']):
                     logger.warning('Skipping %s\'s credit %s due to genre(s) %s', details['name'], credit['title'], credit['genre_ids'])
                 else: 
@@ -378,4 +382,4 @@ if __name__ == "__main__":
     with open(output_filename, 'w', encoding='utf-8') as outfile:
         outfile.write(data_json)
 
-    logger.info("Sucessfully fetched {} {} Game objects to {}".format(len(data), args.type, output_filename))
+    logger.info("Sucessfully fetched {} {} Game objects and exported to {}".format(len(data), args.type, output_filename))

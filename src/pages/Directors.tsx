@@ -34,8 +34,8 @@ export default function Directors() {
         </>
     }
 
-    return <>
+    return <section id="directors" className="p-2">
         <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("directors")} />
         <GameBoard />
-    </>
+    </section>
 }
