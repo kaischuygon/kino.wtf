@@ -179,7 +179,8 @@ def get_movie_info(imdb_id:str):
             if actor.get('profile_path') and actor.get('name'):
                 hints.append({
                     'title': actor['name'],
-                    'image': f"https://image.tmdb.org/t/p/w500{actor['profile_path']}" if actor.get('profile_path') else None
+                    'link': f"https://themoviedb.org/person/{actor['id']}",
+                    'image': f"https://image.tmdb.org/t/p/w500{actor['profile_path']}" if actor.get('profile_path') else None,
                 })
         
         # reverse hints so the game gets easier the more hints are revealed
@@ -289,6 +290,7 @@ def get_person_info(imdb_id:str):
                     hints.append({
                         'title': credit['title'],
                         'image': f"https://image.tmdb.org/t/p/w500{credit['poster_path']}" if credit.get('poster_path') else None,
+                        'link': f"https://themoviedb.org/movie/{credit['id']}",
                         'year': int(credit['release_date'][:4]),
                     })
                     credit_count += 1

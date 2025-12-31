@@ -20,6 +20,7 @@ interface Game {
     hints: {
         title: string;
         image: string;
+        link: string;
         year?: number;
     }[];
     trivia: {
@@ -215,9 +216,15 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
                                 <img src={hint.image} alt={hint.title} className="aspect-2/3 h-full" />
                             </figure>
                             <div className="card-body text-center p-1">
-                                <span className="text-wrap">
-                                    {hint.title}{hint.year ? `\x20(${hint.year})` : ''}
-                                </span>
+                                {gameOver > 0 ? (
+                                    <a className="text-wrap link" href={hint.link} rel="noopen norefferer" target="_blank">
+                                        {hint.title}{hint.year ? `\x20(${hint.year})` : ''}
+                                    </a>
+                                ) : (
+                                    <span className="text-wrap">
+                                        {hint.title}{hint.year ? `\x20(${hint.year})` : ''}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </ExpandableModal>
