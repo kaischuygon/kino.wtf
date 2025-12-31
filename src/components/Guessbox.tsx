@@ -28,7 +28,7 @@ export default function GuessBox({options, state, setState, disabled=false}:{opt
                 onChange={(event) => {event.preventDefault(); setQuery(event?.target.value)}}
                 placeholder="Enter a guess..."
                 disabled={disabled}
-                autoFocus
+                autoFocus={window.innerWidth < 640 ? false : true}
             />
             <ComboboxOptions anchor="bottom" className="bg-base-200 rounded-field shadow p-1 flex flex-col w-(--input-width) max-h-30! border border-base-300 empty:invisible">
                 {({ option: option }) => (
