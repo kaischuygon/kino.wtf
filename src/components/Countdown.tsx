@@ -8,15 +8,13 @@ export default function Countdown({frequency="daily"}: {frequency:"daily"|"weekl
     // countdown every 1 second
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setTimeUntilReset(init);
+            setTimeUntilReset(frequency === "weekly" ? getTimeUntilNextWeek() : getTimeUntilMidnight());
         }, 1000);
 
         return () => {
             clearInterval(intervalId);
-
-            setTimeUntilReset(init);
         }
-    }, [init]);
+    }, [frequency]);
 
     return <span className="countdown font-mono text-2xl text-center">
         {timeUntilReset.days ? <>
