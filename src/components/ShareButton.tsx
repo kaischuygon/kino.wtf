@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { type Route } from "../routes";
 import { formatCamelCase } from "../helpers/gameHelpers";
+import { FaCopy, FaShare } from "react-icons/fa";
 
 export default function ShareButton({guesses, day, answer, route}: {guesses: string[], day: number, answer: string, route:Route}) {
     const button = useRef<HTMLButtonElement | null>(null);
@@ -18,17 +19,43 @@ export default function ShareButton({guesses, day, answer, route}: {guesses: str
 
     const result = `${game}\x20${num}\n${score}\x20${guessCount}\n${link}`;
 
-    function handleClick() {
+    const canShare = () => {
+        try {
+            return navigator?.canShare({
+                title: game,
+                text: result
+            });
+        } catch {
+            return false;
+        }
+    } 
+
+    function share() {
+        if (canShare()) {
+            navigator?.share({
+                title: game,
+                text: result,
+            }).catch((error) => console.error('Error sharing', error));
+            return;
+        } else {
+            copyToClipboard()
+        }
+
+    }
+
+    function copyToClipboard() {
+        // try to use the share API
+
         navigator.clipboard.writeText(result)
             .then(() => {
                 console.info('Copied to clipboard');
                 if (button.current) {
                     // use textContent to avoid parsing HTML and ensure safe update
-                    button.current.classList.add('swap-active')
+                    button.current.classList.add('swap-active');
                     // Reset button text after 2 seconds
                     setTimeout(() => {
                         if (button.current) {
-                            button.current.classList.remove('swap-active')
+                            button.current.classList.remove('swap-active');
                         }
                     }, 2000);
                 }
@@ -36,8 +63,23 @@ export default function ShareButton({guesses, day, answer, route}: {guesses: str
             .catch((error) => console.error('Error copying to clipboard', error));
     }
 
-    return <button ref={button} className="btn btn-primary shadow swap" onClick={() => handleClick()}>
-        <div className="swap-off">Share</div>
-        <div className="swap-on">Copied!</div>
-    </button>
+    return <div className="flex gap-2">
+        <button ref={button} className="flex-1 btn btn-primary shadow swap" onClick={copyToClipboard}>
+            <span className="swap">
+                <span className="swap-off">
+                    <FaCopy className="inline mr-1" />
+                    Copy
+                </span>
+                <span className="swap-on">
+                    <FaCopy className="inline mr-1" />
+                    Copied!
+                </span>
+            </span>
+        </button>
+        {canShare() && (
+            <button className="flex-1 btn btn-primary shadow" onClick={share}>
+                <FaShare /> Share
+            </button>
+        )}
+    </div>
 }

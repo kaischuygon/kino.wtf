@@ -8,7 +8,7 @@ export interface GameStats {
 }
 
 export default function DisplayStats({stats}:{stats: GameStats}) {
-    return <div className="stats shadow flex-wrap bg-base-200 w-full">
+    return <div className="stats shadow flex-wrap bg-base-200 w-full grid-cols-2">
         <div className="stat place-items-center">
             <div className="stat-title">Wins</div>
             <div className="stat-value">{stats.gamesWon}</div>
