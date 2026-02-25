@@ -39,7 +39,7 @@ export default function Actors() {
     }
 
     return <section id="actors" className="p-2">
-        <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("actors")} />
+        <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("actors")} gameIndex={gameIndex} />
         <GameBoard />
     </section>
 }

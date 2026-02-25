@@ -4,7 +4,7 @@ import { type Route } from "../routes";
 import type { GameStats } from "./DisplayStats";
 import DisplayStats from "./DisplayStats";
 
-export default function GameNavigation({ stats, AboutContent, route }: { stats: GameStats, AboutContent:React.FC, route: Route }) {
+export default function GameNavigation({ stats, AboutContent, route, gameIndex }: { stats: GameStats, AboutContent:React.FC, route: Route, gameIndex: number }) {
     const { Modal: StatsModal, open: openStatsModal } = useModal();
     const { Modal: AboutModal, open: openAboutModal } = useModal();
     
@@ -21,7 +21,7 @@ export default function GameNavigation({ stats, AboutContent, route }: { stats: 
             </StatsModal>
         </div>
         <h2 className="navbar-center font-display text-xl">
-            {route.emoji}&nbsp;{route.title}
+            {route.emoji}&nbsp;{route.title}&nbsp;#{gameIndex + 1}
         </h2>
         <div className="navbar-end">
             <button className="btn btn-ghost btn-square tooltip tooltip-left sm:tooltip-top" data-tip="About" onClick={() => openAboutModal()}>

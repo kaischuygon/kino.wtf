@@ -38,7 +38,7 @@ export default function Movies() {
     };
 
     return <section id="movies" className="p-2">
-        <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("movies")} />
+        <GameNavigation stats={stats} AboutContent={AboutContent} route={getRoute("movies")} gameIndex={gameIndex} />
         <GameBoard />
     </section>
 }

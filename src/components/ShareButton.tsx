@@ -7,7 +7,7 @@ export default function ShareButton({guesses, day, answer, route}: {guesses: str
     const button = useRef<HTMLButtonElement | null>(null);
 
     const game = `${route.emoji}\x20KINO\x20${formatCamelCase(route.title)}`;
-    const num = `﹟${day}`;
+    const num = `#${day}`;
     const score = [...guesses.map((g) => (
             g.trim().toLowerCase() === answer.trim().toLowerCase()
         ) ? "🟩" : (
