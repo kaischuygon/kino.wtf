@@ -41,7 +41,7 @@ const themes = [
 ]
 
 export default function ThemeSwitcher() {
-    const [active, setActive] = useState(localStorage.getItem("theme") || "");
+    const [active, setActive] = useState(() => typeof window !== 'undefined' ? localStorage.getItem("theme") || "" : "");
 
     useEffect(() => {
         themeChange(false);
@@ -63,6 +63,7 @@ export default function ThemeSwitcher() {
                         aria-label={theme}
                         value={theme}
                         onClick={() => {
+                            if (typeof document === 'undefined') return;
                             document.documentElement.setAttribute("data-theme", theme);
                             localStorage.setItem("theme", theme);
                             setActive(theme);

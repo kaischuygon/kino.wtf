@@ -1,9 +1,12 @@
 import { formatCamelCase } from "../helpers/gameHelpers";
 import routes from "../routes";
+import { Link, useRouterState } from "@tanstack/react-router";
 
 export default function RouteLinks() {
-    return routes.filter(route => ![window.location.pathname, "/"].includes(route.link)).map((route, i) =>
-        <a key={i} className="btn btn-block btn-xl justify-start text-left shadow h-full p-2 font-normal" href={route.link} >
+    const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+    return routes.filter(route => ![pathname, "/"].includes(route.link)).map((route, i) =>
+        <Link key={i} className="btn btn-block btn-xl justify-start text-left shadow h-full p-2 font-normal" to={route.link} >
             <div className="flex items-center gap-2 w-full">
                 <div className="text-4xl">
                     {route.emoji}
@@ -22,6 +25,6 @@ export default function RouteLinks() {
                     </p>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }

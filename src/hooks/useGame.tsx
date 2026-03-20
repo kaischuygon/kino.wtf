@@ -38,12 +38,15 @@ interface GameState {
 
 export default function useGame(route: Route, games: Game[], gameIndex: number) {
     const savedState: GameState = useMemo(() => {
+        const canUseStorage = typeof window !== 'undefined';
         const defaultState: GameState = {
             guess: "",
             guesses: [],
             gameOver: 0,
             gameIndex: gameIndex
         };
+
+        if (!canUseStorage) return defaultState;
 
         const key = `${route.title}_game_state`;
         const raw = localStorage.getItem(key);
@@ -70,12 +73,15 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
 
     
     const savedStats: GameStats = useMemo(() => {
+        const canUseStorage = typeof window !== 'undefined';
         const defaultStats: GameStats = {
             gamesPlayed: 0,
             gamesWon: 0,
             streak: 0,
             maxStreak: 0
         };
+
+        if (!canUseStorage) return defaultStats;
 
         const key = `${route.title}_stats`;
         const raw = localStorage.getItem(key);
@@ -114,11 +120,13 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
 
     // Save stats to localStorage whenever they change
     useEffect(() => {
+        if (typeof window === 'undefined') return;
         localStorage.setItem(`${route.title}_stats`, JSON.stringify(stats));
     }, [stats, route]);
 
     // Save state to localStorage whenever it changes
     useEffect(() => {
+        if (typeof window === 'undefined') return;
         // Save state to localStorage on state changes
         const state = {
             guess: guess,
@@ -187,7 +195,7 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
                             )}
                         </h2>
                         <p>
-                            The answer was: <a className="link link-primary" href={game.answer.URL} rel="noopen noreferrer" target="_blank">{game.answer.title}</a>
+                            The answer was: <a className="link link-primary" href={game.answer.URL} rel="noopener noreferrer" target="_blank">{game.answer.title}</a>
                         </p>
                         <p>
                             Next game in:
@@ -217,7 +225,7 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
                             </figure>
                             <div className="card-body text-center p-1">
                                 {gameOver > 0 ? (
-                                    <a className="text-wrap link" href={hint.link} rel="noopen norefferer" target="_blank">
+                                    <a className="text-wrap link" href={hint.link} rel="noopener noreferrer" target="_blank">
                                         {hint.title}{hint.year ? `\x20(${hint.year})` : ''}
                                     </a>
                                 ) : (

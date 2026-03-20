@@ -1,6 +1,7 @@
 import ThemeSwitcher from "./ThemeSwitcher";
 import Menu from "./Menu";
 import { getRoute } from "../routes";
+import { Link } from "@tanstack/react-router";
 
 export default function Navbar() {
     return <nav className="navbar border rounded-box border-base-300 bg-base-200 w-full">
@@ -8,9 +9,9 @@ export default function Navbar() {
             <Menu />
         </div>
         <div className="navbar-center">
-            <a className="btn btn-ghost text-xl font-display" href="/">
+            <Link className="btn btn-ghost text-xl font-display" to="/">
                 {getRoute('home').emoji}&nbsp;Kino.wtf
-            </a>
+            </Link>
         </div>
         <div className="navbar-end">
             <ThemeSwitcher />

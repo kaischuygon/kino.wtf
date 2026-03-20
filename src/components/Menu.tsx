@@ -1,11 +1,10 @@
 import { FaBars } from "react-icons/fa";
 import routes from "../routes";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { formatCamelCase } from "../helpers/gameHelpers";
 
 export default function Menu() {
-    const [location, setLocation] = useState(window.location.pathname);
+    const pathname = useRouterState({ select: (state) => state.location.pathname });
 
     return <div className="dropdown dropdown-start">
         <button tabIndex={0} className="btn btn-ghost btn-square">
@@ -18,10 +17,9 @@ export default function Menu() {
             {routes.map((route, i) =>
                 <li key={i}>
                     <Link
-                        className={["btn w-full", location === route.link ? "btn-primary" : "btn-ghost"].join("\x20")}
+                        className={["btn w-full", pathname === route.link ? "btn-primary" : "btn-ghost"].join("\x20")}
                         aria-label={route.title}
                         to={route.link}
-                        onClick={() => setLocation(route.link)}
                     >
                         {route.emoji}&nbsp;{formatCamelCase(route.title)}
                     </Link>
