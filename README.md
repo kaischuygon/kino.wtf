@@ -68,7 +68,7 @@ The generated route tree is written to src/routeTree.gen.ts by the TanStack tool
 
 ### Prerequisites
 
-- Node.js 22.12+
+- Node.js 22.13+
 - Yarn 1.x
 
 ### Install
