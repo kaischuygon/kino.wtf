@@ -6,6 +6,7 @@ import RouteLinks from "../components/RouteLinks";
 import DisplayStats from "../components/DisplayStats";
 import ShareButton from "../components/ShareButton";
 import GuessBox from "../components/Guessbox";
+import LoadingImage from "../components/LoadingImage";
 
 import type { GameStats } from "../components/DisplayStats";
 import type { Route } from "../routes";
@@ -183,7 +184,12 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
                 <div className="card card-side bg-base-200 shadow">
                     <figure className="w-1/3">
                         <ExpandableModal>
-                            <img src={game.answer.image} alt={game.answer.title} className="aspect-2/3 h-full" />
+                            <LoadingImage
+                                key={game.answer.image}
+                                src={game.answer.image}
+                                alt={game.answer.title}
+                                wrapperClassName="w-full"
+                            />
                         </ExpandableModal>
                     </figure>
                     <div className="card-body text-center">
@@ -220,8 +226,13 @@ export default function useGame(route: Route, games: Game[], gameIndex: number) 
                 {game?.hints.map((hint, i) =>
                     <ExpandableModal key={i} disabled={guesses.length < i && !gameOver}>
                         <div className={["card", guesses.length < i && !gameOver ? "**:opacity-0 select-none" : ""].join("\x20")}>
-                            <figure>
-                                <img src={hint.image} alt={hint.title} className="aspect-2/3 h-full" />
+                            <figure className="w-full">
+                                <LoadingImage
+                                    key={hint.image}
+                                    src={hint.image}
+                                    alt={hint.title}
+                                    wrapperClassName="w-full"
+                                />
                             </figure>
                             <div className="card-body text-center p-1">
                                 {gameOver > 0 ? (
