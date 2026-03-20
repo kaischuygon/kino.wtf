@@ -5,6 +5,7 @@ import Fuse from 'fuse.js'
 
 export default function GuessBox({options, state, setState, disabled=false}:{options:string[], state:string, setState: React.Dispatch<React.SetStateAction<string>>, disabled?:boolean}) {
     const [query, setQuery] = useState("");
+    const shouldAutoFocus = typeof window !== 'undefined' ? window.innerWidth >= 640 : false;
 
     const fuse = new Fuse(options, {ignoreDiacritics: true, threshold: 0.2});
 
@@ -28,7 +29,7 @@ export default function GuessBox({options, state, setState, disabled=false}:{opt
                 onChange={(event) => {event.preventDefault(); setQuery(event?.target.value)}}
                 placeholder="Enter a guess..."
                 disabled={disabled}
-                autoFocus={window.innerWidth < 640 ? false : true}
+                autoFocus={shouldAutoFocus}
             />
             <ComboboxOptions anchor="bottom" className="bg-base-200 rounded-field shadow p-1 flex flex-col w-(--input-width) max-h-30! border border-base-300 empty:invisible">
                 {({ option: option }) => (

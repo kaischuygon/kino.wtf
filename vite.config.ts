@@ -1,8 +1,29 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  build: {
+    // These routes intentionally ship large static JSON datasets.
+    chunkSizeWarningLimit: 750,
+  },
+  resolve: {
+    tsconfigPaths: true,
+  },
+  plugins: [
+    tailwindcss(),
+    tanstackStart({
+      srcDirectory: 'src',
+      spa: {
+        enabled: true,
+        prerender: {
+          crawlLinks: true,
+        },
+      },
+      prerender: {
+        failOnError: false,
+      },
+    }),
+  ],
 })

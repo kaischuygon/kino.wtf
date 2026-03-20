@@ -1,60 +1,75 @@
-# get_movies
+# get_games
 
-This folder contains helper scripts used to fetch movie and actor data from The Movie Database (TMDb) for the web app.
+Utilities for generating the movie/actor/director game datasets used by the app.
 
-## Purpose
+## What this folder contains
 
-- `movies.py`: Scrapes top-rated movies and exports `movies.json`.
-- `actors.py`: Scrapes actors (from `top1000actors.csv`) and exports `actors.json`.
+- `fetch_games.py`: Main data-fetch script that reads IMDb seed CSVs and enriches data from TMDb.
+- `kino-actors.csv`, `kino-movies.csv`, `kino-directors.csv`: Input seed lists (IMDb IDs).
+- `actors.json`, `movies.json`, `directors.json`: Output game datasets consumed by the frontend.
+- `requirements.txt`: Python dependencies for the data tooling.
+- `op.env`: Optional 1Password CLI env-file with TMDb token reference.
 
 ## Prerequisites
 
-- Python 3.9+ (or your project's supported Python)
-- Install required Python packages:
+- Python 3.9+
+- A TMDb API bearer token in `TMDB_API_TOKEN`
+- Optional: 1Password CLI (`op`) if you use secrets via `op.env`
 
-```
+Install dependencies:
+
+```sh
 pip install -r requirements.txt
 ```
 
-- 1Password CLI (op) v2 installed and signed in. Follow the 1Password docs to install and sign in (eg. `op signin`).
+## Token configuration
 
-## Notes about `op.env`
+`fetch_games.py` reads `TMDB_API_TOKEN` from environment variables (and calls `load_dotenv()`).
 
-This repo includes an `op.env` file containing the 1Password URI for the TMDb token:
+If you use `op.env`, the value is an op URI placeholder, for example:
 
-```
+```sh
 TMDB_API_TOKEN="op://Private/TMDb/credential"
 ```
 
-That line is an op URI placeholder and is not automatically expanded by `dotenv`. The scripts call `load_dotenv()` and then read `TMDB_API_TOKEN` from the environment. To actually provide a usable token you must resolve the op URI with the 1Password CLI and either export it into your shell or write the resolved value into an env file.
+Use `op run` so the placeholder is resolved at runtime.
 
-## Recommended way to run the scripts (with 1Password cli)
+## Usage
 
-```sh
-# Run the scripts (use --limit to limit pages/ids)
-op run --env-file "op.env" -- python actors.py --limit 5 # limits to 5 results
-op run --env-file "op.env" -- python actors.py # use scraper default
-```
-
-## Command examples
-
-- Run only 2 pages of movies (fast test):
+From this directory:
 
 ```sh
-op run --env-file "op.env" -- python movies.py --limit 2
+# actors dataset
+python fetch_games.py --file kino-actors.csv --type person --output actors.json --limit 1000
+
+# movies dataset
+python fetch_games.py --file kino-movies.csv --type title --output movies.json --limit 1000
+
+# directors dataset
+python fetch_games.py --file kino-directors.csv --type person --director true --output directors.json --limit 1000
 ```
 
-- Run 10 actors (fast test):
+With 1Password CLI:
 
 ```sh
-op run --env-file "op.env" -- python actors.py --limit 10
+op run --env-file "op.env" -- python fetch_games.py --file kino-actors.csv --type person --output actors.json --limit 10
 ```
+
+## Arguments
+
+- `--file` (required): input CSV filename of IMDb IDs
+- `--type` (required): `title` or `person`
+- `--output` (required): output JSON filename
+- `--limit` (optional): max entries to process
+- `--director` (optional): when true and type is `person`, uses directing credits
 
 ## Security
 
-- Do not commit real API tokens to the repository or push `.env` files containing secrets.
+- Never commit real API tokens.
+- Keep secret values out of source-controlled `.env` files.
 
 ## Troubleshooting
 
-- If `op` returns an error, sign in using the 1Password CLI (`op signin`) and retry.
-- If `load_dotenv()` is not picking up values, ensure your credential is saved in 1password properly or update op.env appropriately.
+- `401` / auth errors: verify `TMDB_API_TOKEN` is set and valid.
+- `op` errors: run `op signin` and retry.
+- Empty or low-result datasets: verify the CSV input IDs and increase `--limit`.

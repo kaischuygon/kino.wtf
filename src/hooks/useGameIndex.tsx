@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import type { Route } from "../routes";
 import { getGameIndex } from "../helpers/gameHelpers";
 
+function parseStoredGameIndex(raw: string | null): number | undefined {
+    if (!raw) return undefined;
+    try {
+        const parsed = JSON.parse(raw);
+        return typeof parsed?.gameIndex === "number" ? parsed.gameIndex : undefined;
+    } catch {
+        return undefined;
+    }
+}
+
 /**
  * useGameIndex
  *
@@ -25,8 +35,10 @@ export default function useGameIndex(route: Route) {
         // listen for storage changes from other tabs
         const onStorage = (e: StorageEvent) => {
             if (!e.key) return;
-            if (e.key.startsWith(`${route.title}_`)) 
-                update(JSON.parse(e.newValue || "")?.gameIndex);
+            if (e.key.startsWith(`${route.title}_`)) {
+                const nextIndex = parseStoredGameIndex(e.newValue);
+                if (typeof nextIndex === "number") update(nextIndex);
+            }
         };
 
         window.addEventListener("storage", onStorage);
@@ -56,7 +68,7 @@ export function simulateNextBoundary() {
     // (matches the defaults used by `useGame`) and will load the next game's index.
     try {
         const stateKey = `${routeTitle}_game_state`;
-        const currentIndex = JSON.parse(localStorage.getItem(stateKey) || "")?.gameIndex;
+        const currentIndex = parseStoredGameIndex(localStorage.getItem(stateKey)) ?? -1;
         const nextIndex = currentIndex + 1;
 
         const defaultState = {
@@ -89,7 +101,7 @@ export function simulateNextBoundary() {
 
 // Attach helper to window in non-production for convenience
 declare global {
-    interface Window { __simulateNextBoundary?: () => number }
+    interface Window { __simulateNextBoundary?: () => number | undefined }
 }
 
 if (typeof window !== 'undefined' && (import.meta)?.env?.MODE !== "production") {
