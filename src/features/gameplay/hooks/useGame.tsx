@@ -105,7 +105,8 @@ export default function useGame(
 ) {
   const { user, isConfigured } = useAuth();
   const gameMode = toGameMode(route.title);
-  const currentStatsBootstrapKey = isConfigured && user && gameMode ? `${user.id}:${gameMode}` : null;
+  const currentStatsBootstrapKey =
+    isConfigured && user && gameMode ? `${user.id}:${gameMode}` : null;
   const currentCompletionBootstrapKey =
     isConfigured && user && gameMode ? `${user.id}:${gameMode}:${gameIndex}` : null;
 
@@ -182,7 +183,9 @@ export default function useGame(
   const [stats, setStats] = useState<GameStats>(savedStats);
   const [isSyncPending, setIsSyncPending] = useState<boolean>(savedStateSnapshot.syncPending);
   const [statsBootstrapReadyKey, setStatsBootstrapReadyKey] = useState<string | null>(null);
-  const [completionBootstrapReadyKey, setCompletionBootstrapReadyKey] = useState<string | null>(null);
+  const [completionBootstrapReadyKey, setCompletionBootstrapReadyKey] = useState<string | null>(
+    null,
+  );
   const completionAlreadyAccountedRef = useRef<boolean>(savedStateSnapshot.gameOver > 0);
   const initialRemoteStatsRef = useRef<GameStats | null>(null);
   const remoteStateRef =
@@ -724,7 +727,9 @@ export default function useGame(
       </form>
 
       {!isCompletionHydrated ? (
-        <p className="text-xs text-base-content/70 text-center">Checking cloud completion state...</p>
+        <p className="text-xs text-base-content/70 text-center">
+          Checking cloud completion state...
+        </p>
       ) : null}
 
       <h4>

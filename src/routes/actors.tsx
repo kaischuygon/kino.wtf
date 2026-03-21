@@ -78,10 +78,10 @@ function ActorsGame({ gameIndex }: { gameIndex: number }) {
       />
       {gameMode ? (
         <LeaderboardModal>
-             <h2 className="font-bold text-xl mb-4 text-primary">
-               <FaTrophy className="inline" />
-               &nbsp;Leaderboard
-             </h2>
+          <h2 className="font-bold text-xl mb-4 text-primary">
+            <FaTrophy className="inline" />
+            &nbsp;Leaderboard
+          </h2>
           <GameLeaderboard
             enabled={isConfigured}
             gameMode={gameMode}

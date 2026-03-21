@@ -105,16 +105,18 @@ export default function GameLeaderboard({
 
   const shouldAppendMyPlacement = Boolean(
     showCurrentUserPlacement &&
-      myPlacement &&
-      myPlacement.rank > 5 &&
-      (userId ? !visibleUserIds.has(userId) : true),
+    myPlacement &&
+    myPlacement.rank > 5 &&
+    (userId ? !visibleUserIds.has(userId) : true),
   );
 
   if (!enabled) {
     return (
       <div className="card bg-base-200 shadow">
         <div className="card-body p-3 text-center">
-          <p className="text-sm text-base-content/70">Leaderboard is unavailable in local-only mode.</p>
+          <p className="text-sm text-base-content/70">
+            Leaderboard is unavailable in local-only mode.
+          </p>
         </div>
       </div>
     );

@@ -5,24 +5,24 @@ This folder contains SQL scripts used for leaderboard development and visual tes
 ## Files
 
 - `leaderboard_auth_users_seed.sql`
-Creates synthetic email users in `auth.users` (pattern: `leaderboard_seed_###@kino.wtf`).
+  Creates synthetic email users in `auth.users` (pattern: `leaderboard_seed_###@kino.wtf`).
 
 - `leaderboard_dev_seed.sql`
-Creates mixed outcomes in `public.played_games` across a rolling window of game indexes using existing auth users:
+  Creates mixed outcomes in `public.played_games` across a rolling window of game indexes using existing auth users:
 - daily modes (`actors`, `movies`): current + previous 13 indexes
 - weekly mode (`directors`): current + previous 5 indexes
-This also avoids local timezone/DST off-by-one gaps during frontend testing.
-It now seeds additional edge cases, including:
+  This also avoids local timezone/DST off-by-one gaps during frontend testing.
+  It now seeds additional edge cases, including:
 - wins with variable guess counts (1..6)
 - losses with all skipped guesses ("give up" style)
 - losses with mixed wrong guesses and skips
 
 - `leaderboard_seed_cleanup.sql`
-Removes seeded leaderboard rows and seeded synthetic users.
+  Removes seeded leaderboard rows and seeded synthetic users.
 
 - `game_stats_backfill_from_archive.sql`
-Recomputes `public.game_stats` from `public.played_games` for all users and modes.
-Use this if stats/history ever drift (for example after manual SQL or older seed runs).
+  Recomputes `public.game_stats` from `public.played_games` for all users and modes.
+  Use this if stats/history ever drift (for example after manual SQL or older seed runs).
 
 ## When to use
 

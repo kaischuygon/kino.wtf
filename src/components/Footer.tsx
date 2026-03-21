@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { FaCoffee, FaGithub } from 'react-icons/fa';
 
 export default function Footer() {
@@ -50,6 +51,18 @@ export default function Footer() {
           >
             Issues?
           </a>
+        </div>
+        &bull;
+        <div>
+          <Link to="/privacy" className="link link-primary">
+            Privacy
+          </Link>
+        </div>
+        &bull;
+        <div>
+          <Link to="/terms" className="link link-primary">
+            Terms
+          </Link>
         </div>
       </div>
     </footer>

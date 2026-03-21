@@ -124,13 +124,7 @@ function OAuthButtons({
         )}{' '}
         Discord
       </button>
-      <button
-        className="btn"
-        type="button"
-        disabled={disabled || true}
-        title="Planned: enable in Supabase providers when ready"
-        onClick={() => onOAuth('google')}
-      >
+      <button className="btn" type="button" disabled={disabled} onClick={() => onOAuth('google')}>
         {activeProvider === 'google' ? (
           <span className="loading loading-spinner loading-sm" />
         ) : (
@@ -613,7 +607,9 @@ function AuthPage() {
               {isSendingReset ? 'Sending...' : 'Send Password Reset Email'}
             </button>
           ) : null}
-          <p className="text-xs text-base-content/60">Password reset works for email/password accounts.</p>
+          <p className="text-xs text-base-content/60">
+            Password reset works for email/password accounts.
+          </p>
         </TabForm>
 
         <TabForm

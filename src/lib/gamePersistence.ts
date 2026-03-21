@@ -405,15 +405,13 @@ export async function loadGameLeaderboardPlacement(input: {
     throw error;
   }
 
-  const row = (data?.[0] ?? null) as
-    | {
-        rank: number;
-        user_id: string;
-        username: string | null;
-        guess_count: number;
-        finished_at: string;
-      }
-    | null;
+  const row = (data?.[0] ?? null) as {
+    rank: number;
+    user_id: string;
+    username: string | null;
+    guess_count: number;
+    finished_at: string;
+  } | null;
 
   if (!row) return null;
 
