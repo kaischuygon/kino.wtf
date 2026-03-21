@@ -1,10 +1,10 @@
-import type { Route } from "../routes";
+import type { Route } from '../routes';
 
 export interface Countdown {
-    days?: number,
-    hours: number,
-    minutes: number,
-    seconds: number
+  days?: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
 /**
@@ -22,15 +22,15 @@ export interface Countdown {
  *  - seconds: number — remaining whole seconds after minutes are removed (0–59)
  */
 export function getTimeUntilMidnight(): Countdown {
-    const now = new Date();
-    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-    const diffMs = midnight.getTime() - now.getTime();
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  const diffMs = midnight.getTime() - now.getTime();
 
-    const hours = Math.floor(diffMs / 1000 / 60 / 60);
-    const minutes = Math.floor((diffMs / 1000 / 60) % 60);
-    const seconds = Math.floor((diffMs / 1000) % 60);
+  const hours = Math.floor(diffMs / 1000 / 60 / 60);
+  const minutes = Math.floor((diffMs / 1000 / 60) % 60);
+  const seconds = Math.floor((diffMs / 1000) % 60);
 
-    return { hours: hours, minutes: minutes, seconds: seconds } as Countdown;
+  return { hours: hours, minutes: minutes, seconds: seconds } as Countdown;
 }
 
 /**
@@ -51,36 +51,34 @@ export function getTimeUntilMidnight(): Countdown {
  *                     until next Monday 00:00:00 in local time.
  */
 export function getTimeUntilNextWeek(): Countdown {
+  const now = new Date();
 
-    const now = new Date();
+  // Helper to get the local Monday at midnight for a given date (consistent with getWeeksSince)
+  const getMondayStart = (d: Date) => {
+    const copy = new Date(d);
+    copy.setHours(0, 0, 0, 0);
+    const day = copy.getDay(); // 0 = Sunday, 1 = Monday, ...
+    const daysSinceMonday = (day + 6) % 7;
+    copy.setDate(copy.getDate() - daysSinceMonday);
+    return copy;
+  };
 
-    // Helper to get the local Monday at midnight for a given date (consistent with getWeeksSince)
-    const getMondayStart = (d: Date) => {
-        const copy = new Date(d);
-        copy.setHours(0, 0, 0, 0);
-        const day = copy.getDay(); // 0 = Sunday, 1 = Monday, ...
-        const daysSinceMonday = (day + 6) % 7;
-        copy.setDate(copy.getDate() - daysSinceMonday);
-        return copy;
-    };
+  const thisMonday = getMondayStart(now);
+  const nextMonday = new Date(thisMonday);
+  nextMonday.setDate(thisMonday.getDate() + 7); // start of next week (Monday at 00:00:00)
 
-    const thisMonday = getMondayStart(now);
-    const nextMonday = new Date(thisMonday);
-    nextMonday.setDate(thisMonday.getDate() + 7); // start of next week (Monday at 00:00:00)
+  let diffMs = nextMonday.getTime() - now.getTime();
+  // Safety: if for any reason diff is negative, clamp to zero
+  if (diffMs < 0) diffMs = 0;
 
-    let diffMs = nextMonday.getTime() - now.getTime();
-    // Safety: if for any reason diff is negative, clamp to zero
-    if (diffMs < 0) diffMs = 0;
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
-    const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  const days = Math.floor(diffMs / MS_PER_DAY);
+  const hours = Math.floor((diffMs / 1000 / 60 / 60) % 24);
+  const minutes = Math.floor((diffMs / 1000 / 60) % 60);
+  const seconds = Math.floor((diffMs / 1000) % 60);
 
-    const days = Math.floor(diffMs / MS_PER_DAY);
-    const hours = Math.floor((diffMs / 1000 / 60 / 60) % 24);
-    const minutes = Math.floor((diffMs / 1000 / 60) % 60);
-    const seconds = Math.floor((diffMs / 1000) % 60);
-
-    return { days: days, hours: hours, minutes: minutes, seconds: seconds } as Countdown;
-
+  return { days: days, hours: hours, minutes: minutes, seconds: seconds } as Countdown;
 }
 
 /**
@@ -101,11 +99,13 @@ export function getTimeUntilNextWeek(): Countdown {
  *
  */
 export function formatCamelCase(str: string) {
-    return str
-        // Insert a space before all capital letters
-        .replace(/([A-Z])/g, ' $1')
-        // Uppercase the first character
-        .replace(/^./, str => str.toUpperCase());
+  return (
+    str
+      // Insert a space before all capital letters
+      .replace(/([A-Z])/g, ' $1')
+      // Uppercase the first character
+      .replace(/^./, (str) => str.toUpperCase())
+  );
 }
 
 /**
@@ -122,11 +122,11 @@ export function formatCamelCase(str: string) {
  * @returns A localized percent string representing the win rate (for example, "75%").
  */
 export function calculateWinPercentage(gamesWon: number, gamesPlayed: number) {
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'percent'
-    });
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'percent',
+  });
 
-    return formatter.format(gamesWon / gamesPlayed || 0);
+  return formatter.format(gamesWon / gamesPlayed || 0);
 }
 
 /**
@@ -135,32 +135,32 @@ export function calculateWinPercentage(gamesWon: number, gamesPlayed: number) {
  * same Monday-starting week as startDate; otherwise it's the number of whole weeks
  * that have passed (clamped to 0 if currentDate is before startDate).
  *
- * @param startDate 
- * @param currentDate 
+ * @param startDate
+ * @param currentDate
  */
 export function getWeeksSince(startDate: Date, currentDate: Date) {
-    const MS_PER_DAY = 24 * 60 * 60 * 1000;
-    const MS_PER_WEEK = 7 * MS_PER_DAY;
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  const MS_PER_WEEK = 7 * MS_PER_DAY;
 
-    const getMondayStart = (d: Date) => {
-        const copy = new Date(d);
-        // Normalize to local midnight to avoid partial-day offsets
-        copy.setHours(0, 0, 0, 0);
-        // getDay(): 0 = Sunday, 1 = Monday, ... 6 = Saturday
-        const day = copy.getDay();
-        // Compute how many days to go back to Monday (0 -> -6, 1 -> 0, 2 -> -1, ...)
-        const daysSinceMonday = (day + 6) % 7;
-        copy.setDate(copy.getDate() - daysSinceMonday);
-        return copy;
-    };
+  const getMondayStart = (d: Date) => {
+    const copy = new Date(d);
+    // Normalize to local midnight to avoid partial-day offsets
+    copy.setHours(0, 0, 0, 0);
+    // getDay(): 0 = Sunday, 1 = Monday, ... 6 = Saturday
+    const day = copy.getDay();
+    // Compute how many days to go back to Monday (0 -> -6, 1 -> 0, 2 -> -1, ...)
+    const daysSinceMonday = (day + 6) % 7;
+    copy.setDate(copy.getDate() - daysSinceMonday);
+    return copy;
+  };
 
-    const startMonday = getMondayStart(startDate);
-    const currentMonday = getMondayStart(currentDate);
+  const startMonday = getMondayStart(startDate);
+  const currentMonday = getMondayStart(currentDate);
 
-    const diffMs = currentMonday.getTime() - startMonday.getTime();
-    const weeks = Math.floor(diffMs / MS_PER_WEEK);
+  const diffMs = currentMonday.getTime() - startMonday.getTime();
+  const weeks = Math.floor(diffMs / MS_PER_WEEK);
 
-    return Math.max(0, weeks);
+  return Math.max(0, weeks);
 }
 
 /**
@@ -169,25 +169,25 @@ export function getWeeksSince(startDate: Date, currentDate: Date) {
  * The result is 0 if currentDate falls on the same day as startDate; otherwise it's
  * the number of whole days that have passed (clamped to 0 if currentDate is before startDate).
  *
- * @param startDate 
- * @param currentDate 
+ * @param startDate
+ * @param currentDate
  */
 export function getDaysSince(startDate: Date, currentDate: Date) {
-    const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
-    const normalizeToMidnight = (d: Date) => {
-        const copy = new Date(d);
-        copy.setHours(0, 0, 0, 0);
-        return copy;
-    };
+  const normalizeToMidnight = (d: Date) => {
+    const copy = new Date(d);
+    copy.setHours(0, 0, 0, 0);
+    return copy;
+  };
 
-    const start = normalizeToMidnight(startDate);
-    const current = normalizeToMidnight(currentDate);
+  const start = normalizeToMidnight(startDate);
+  const current = normalizeToMidnight(currentDate);
 
-    const diffMs = current.getTime() - start.getTime();
-    const days = Math.floor(diffMs / MS_PER_DAY);
+  const diffMs = current.getTime() - start.getTime();
+  const days = Math.floor(diffMs / MS_PER_DAY);
 
-    return Math.max(0, days);
+  return Math.max(0, days);
 }
 
 /**
@@ -204,16 +204,15 @@ export function getDaysSince(startDate: Date, currentDate: Date) {
  *                   depending on the route's frequency. Always non-negative (clamped to 0).
  */
 export function getGameIndex(route: Route): number {
-    // Daily game to guess
-    const today = new Date();
-    const start = new Date(2026, 0, 0);
-    // Get the index of game (changes daily or weekly depending on frequency)
-    const game_index = route.frequency === "weekly" ? (
-        getWeeksSince(start, today)
-    ) : (
-        // Defaults to daily
-        getDaysSince(start, today)
-    );
+  // Daily game to guess
+  const today = new Date();
+  const start = new Date(2026, 0, 0);
+  // Get the index of game (changes daily or weekly depending on frequency)
+  const game_index =
+    route.frequency === 'weekly'
+      ? getWeeksSince(start, today)
+      : // Defaults to daily
+        getDaysSince(start, today);
 
-    return game_index;
+  return game_index;
 }

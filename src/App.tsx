@@ -5,9 +5,9 @@ import Navbar from './components/Navbar';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="grid grid-rows-[0fr_1fr_0fr] h-screen sm:w-md md:w-lg lg:w-xl xl:w-2xl mx-auto">
+    <div className="grid grid-rows-[0fr_1fr_0fr] h-screen container mx-auto">
       <Navbar />
-      <article>{children}</article>
+      <article className="sm:w-md mx-auto">{children}</article>
       <Footer />
     </div>
   );

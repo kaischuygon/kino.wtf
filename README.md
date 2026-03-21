@@ -20,6 +20,9 @@ The app is built as a TanStack Start project with file-based routing and SPA pre
 - SPA mode with prerendered pages
 - Daily and weekly game cadences
 - Persisted progress and stats in localStorage
+- Optional cloud sync for signed-in users (Supabase)
+- Email/password auth + password reset flow
+- Discord OAuth sign-in, with Google/Apple planned
 - Shareable results and streak tracking
 - Theme switching with DaisyUI
 
@@ -41,9 +44,17 @@ The app is built as a TanStack Start project with file-based routing and SPA pre
 .
 |- src/
 |  |- routes/              # TanStack Start file routes
-|  |- components/          # Reusable UI components
-|  |- hooks/               # Game state and helper hooks
+|  |- features/            # Feature modules (gameplay, game-history)
+|  |  |- gameplay/
+|  |  |  |- components/    # Game-specific UI (GuessBox, stats, share, nav)
+|  |  |  |- hooks/         # Game-specific state hooks (useGame, useGameIndex)
+|  |  |- game-history/
+|  |     |- components/    # History modal and pagination
+|  |     |- hooks/         # History pagination helpers
+|  |- components/          # Shared app-level UI (Navbar, Footer, common modals)
+|  |- hooks/               # Shared app hooks (auth, generic modal state)
 |  |- helpers/             # Pure helpers (date/index selection logic)
+|  |- lib/                 # Integration and persistence modules
 |  |- router.tsx           # Router creation
 |  |- routeTree.gen.ts     # Auto-generated route tree
 |  |- routes.tsx           # Route metadata used by navigation/UI
@@ -107,6 +118,12 @@ yarn preview
 yarn lint
 ```
 
+### Test
+
+```sh
+yarn test
+```
+
 ## NPM Scripts
 
 - yarn dev: run local development server
@@ -120,7 +137,36 @@ yarn lint
 - Vite is configured with the TanStack Start plugin in vite.config.ts.
 - The project currently uses SPA mode with prerender crawling enabled.
 - Prerender output is generated during yarn build.
-- index.html is intentionally minimal. Document head metadata is declared in src/routes/__root.tsx.
+- index.html is intentionally minimal. Document head metadata is declared in src/routes/\_\_root.tsx.
+
+## Development Workflow
+
+### Frontend-only mode (no Supabase setup)
+
+If `.env` is missing or uses placeholder values from `.env.example`, the app still runs locally with localStorage-backed gameplay.
+
+Use this mode for:
+
+- UI work
+- gameplay logic updates
+- route and component refactors
+
+### Supabase-enabled mode
+
+Use this mode when developing auth, cloud sync, and archive persistence.
+
+1. Copy `.env.example` to `.env`
+2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY`
+3. Apply `supabase/schema.sql`
+4. Apply migrations in `supabase/migrations/` order
+
+### Dataset-generation mode
+
+Use this mode when refreshing `get_games/*.json` source data.
+
+1. Set up Python dependencies in `get_games/`
+2. Set `TMDB_API_TOKEN`
+3. Run `fetch_games.py` commands for actors/movies/directors
 
 ## Game Data
 
@@ -171,7 +217,7 @@ python fetch_games.py --file kino-directors.csv --type person --director true --
 In development builds, run this in the browser console on a game page:
 
 ```js
-window.__simulateNextBoundary()
+window.__simulateNextBoundary();
 ```
 
 This updates localStorage and dispatches a storage event so the page refreshes game index state immediately.
@@ -179,13 +225,91 @@ This updates localStorage and dispatches a storage event so the page refreshes g
 ## Deployment
 
 - Primary hosting target: Vercel
-- vercel.json rewrites all routes to / so prerendered SPA routing works in production.
+- vercel.json routes unmatched requests to `/_shell.html` so SPA prerendered routing works in production.
+
+## Auth and Database (Supabase)
+
+This project now supports low-maintenance auth and persistence using Supabase's free tier.
+
+### What is implemented
+
+- Email/password sign up and sign in
+- Password reset request + reset completion flow
+- Discord OAuth sign in
+- Google and Apple buttons are scaffolded in the UI as planned providers
+- Synced per-user:
+  - game stats
+  - in-progress game state
+  - played game archive
+
+### Environment variables
+
+Copy `.env.example` to `.env` and set values from your Supabase project:
+
+```sh
+cp .env.example .env
+```
+
+Required vars:
+
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_KEY
+
+### Database schema
+
+Run the SQL in `supabase/schema.sql` in the Supabase SQL editor.
+
+For versioned changes, use the migration files in `supabase/migrations/`.
+Apply them in filename order.
+
+Create a new timestamped migration file with:
+
+```sh
+yarn db:migration:new -- add_descriptive_name
+```
+
+Current baseline migration:
+
+- `supabase/migrations/202603200001_initial_auth_and_games.sql`
+
+Tables created:
+
+- `user_profiles`
+- `game_stats`
+- `game_states`
+- `played_games`
+
+The schema includes:
+
+- row-level security (RLS) enabled on all public tables
+- policies scoped to `auth.uid()` so users can only read/write their own data
+- trigger for creating a profile row on new auth users
+
+### Supabase provider setup
+
+In Supabase Authentication Providers:
+
+- Enable Email
+- Enable Discord and set client ID/secret
+- Set redirect URL(s) to include your local/dev and deployed auth callback URL:
+  - `http://localhost:5173/auth`
+  - `https://your-domain/auth`
+
+For planned providers:
+
+- Google and Apple can be enabled later in the same Providers panel.
 
 ## Troubleshooting
 
 - If build passes but route changes are missing, restart the dev server so route tree generation refreshes.
 - If theme changes do not persist, clear localStorage keys and reload.
 - If dataset generation fails, verify TMDB_API_TOKEN is set and valid.
+
+## Community and Security
+
+- Contributing guide: `CONTRIBUTING.md`
+- Security policy: `SECURITY.md`
+- License: `LICENSE`
 
 ## Credits
 

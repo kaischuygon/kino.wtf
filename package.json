@@ -1,7 +1,27 @@
 {
   "name": "kino.wtf",
+  "description": "Daily and weekly movie-themed guessing games built with TanStack Start, React, and Tailwind CSS.",
   "private": true,
   "version": "2.0.0",
+  "license": "MIT",
+  "author": "Kai Schuyler",
+  "keywords": [
+    "tanstack-start",
+    "tanstack-router",
+    "react",
+    "typescript",
+    "movie-game",
+    "wordle"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaischuygon/kino.wtf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kaischuygon/kino.wtf/issues"
+  },
+  "homepage": "https://github.com/kaischuygon/kino.wtf#readme",
+  "packageManager": "yarn@1.22.22",
   "type": "module",
   "engines": {
     "node": ">=22.13.0"
@@ -13,19 +33,25 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "format": "prettier --write .",
+    "format:check:src": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "format:check": "prettier --check .",
+    "db:migration:new": "node scripts/new-migration.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
+    "@supabase/supabase-js": "^2.99.3",
     "@tailwindcss/vite": "^4.2.2",
-    "@tanstack/router-core": "^1.168.1",
     "@tanstack/react-router": "^1.168.1",
     "@tanstack/react-router-devtools": "^1.166.10",
     "@tanstack/react-start": "^1.167.1",
+    "@tanstack/router-core": "^1.168.1",
     "fuse.js": "^7.1.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-icons": "^5.6.0",
+    "supabase": "^2.83.0",
     "tailwindcss": "^4.2.2",
     "theme-change": "^2.5.0"
   },
@@ -39,6 +65,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.1",
     "vite": "^8.0.1",

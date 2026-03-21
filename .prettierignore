@@ -1,0 +1,8 @@
+node_modules
+dist
+.output
+.tanstack
+env
+get_games/*.json
+supabase/.temp
+src/routeTree.gen.ts

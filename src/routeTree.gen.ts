@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as DirectorsRouteImport } from './routes/directors'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ArchiveRouteImport } from './routes/archive'
 import { Route as ActorsRouteImport } from './routes/actors'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +24,16 @@ const MoviesRoute = MoviesRouteImport.update({
 const DirectorsRoute = DirectorsRouteImport.update({
   id: '/directors',
   path: '/directors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchiveRoute = ArchiveRouteImport.update({
+  id: '/archive',
+  path: '/archive',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActorsRoute = ActorsRouteImport.update({
@@ -38,12 +50,16 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
+  '/archive': typeof ArchiveRoute
+  '/auth': typeof AuthRoute
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
+  '/archive': typeof ArchiveRoute
+  '/auth': typeof AuthRoute
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
 }
@@ -51,20 +67,31 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
+  '/archive': typeof ArchiveRoute
+  '/auth': typeof AuthRoute
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/actors' | '/directors' | '/movies'
+  fullPaths: '/' | '/actors' | '/archive' | '/auth' | '/directors' | '/movies'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/actors' | '/directors' | '/movies'
-  id: '__root__' | '/' | '/actors' | '/directors' | '/movies'
+  to: '/' | '/actors' | '/archive' | '/auth' | '/directors' | '/movies'
+  id:
+    | '__root__'
+    | '/'
+    | '/actors'
+    | '/archive'
+    | '/auth'
+    | '/directors'
+    | '/movies'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActorsRoute: typeof ActorsRoute
+  ArchiveRoute: typeof ArchiveRoute
+  AuthRoute: typeof AuthRoute
   DirectorsRoute: typeof DirectorsRoute
   MoviesRoute: typeof MoviesRoute
 }
@@ -83,6 +110,20 @@ declare module '@tanstack/react-router' {
       path: '/directors'
       fullPath: '/directors'
       preLoaderRoute: typeof DirectorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/archive': {
+      id: '/archive'
+      path: '/archive'
+      fullPath: '/archive'
+      preLoaderRoute: typeof ArchiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/actors': {
@@ -105,6 +146,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActorsRoute: ActorsRoute,
+  ArchiveRoute: ArchiveRoute,
+  AuthRoute: AuthRoute,
   DirectorsRoute: DirectorsRoute,
   MoviesRoute: MoviesRoute,
 }

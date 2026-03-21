@@ -25,3 +25,9 @@ dist-ssr
 
 # python virtual envs
 env
+
+# env file
+.env
+
+# Supabase local CLI metadata
+supabase/.temp/
