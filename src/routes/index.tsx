@@ -12,7 +12,9 @@ function Home() {
       <p className="text-sm">Play now and bookmark this page to play daily.</p>
       <hr className="border-base-300" />
       <RouteLinks />
-      <p className="text-sm text-center text-base-content mt-2">More games coming! Check back soon.</p>
+      <p className="text-sm text-center text-base-content mt-2">
+        More games coming! Check back soon.
+      </p>
     </section>
   );
 }
