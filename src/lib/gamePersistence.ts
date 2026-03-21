@@ -31,6 +31,31 @@ export interface PlayedGameRecord {
   finished_at: string;
 }
 
+export interface LeaderboardEntry {
+  rank: number;
+  userId: string;
+  username: string;
+  guessCount: number;
+  finishedAt: string;
+}
+
+export interface LeaderboardPage {
+  entries: LeaderboardEntry[];
+  totalCount: number;
+}
+
+export interface StatsIntegrityEntry {
+  gameMode: GameMode;
+  expected: GameStats;
+  actual: GameStats;
+  matches: boolean;
+}
+
+export interface StatsIntegrityReport {
+  entries: StatsIntegrityEntry[];
+  allMatch: boolean;
+}
+
 function isTransientDatabaseError(error: unknown) {
   if (!error || typeof error !== 'object') return false;
 
@@ -191,6 +216,212 @@ export async function loadPlayedGames(userId: string, limit = 200) {
     throw new Error(`Archive query failed: ${detail}`);
   }
   return data ?? [];
+}
+
+export async function loadPlayedGameForIndex(input: {
+  userId: string;
+  gameMode: GameMode;
+  gameIndex: number;
+}): Promise<PlayedGameRecord | null> {
+  if (!supabase) return null;
+
+  const { data, error } = await supabase
+    .from('played_games')
+    .select('id, game_mode, game_index, answer_title, did_win, guesses, finished_at')
+    .eq('user_id', input.userId)
+    .eq('game_mode', input.gameMode)
+    .eq('game_index', input.gameIndex)
+    .maybeSingle<PlayedGameRecord>();
+
+  if (error) {
+    if (isTransientDatabaseError(error)) return null;
+    throw error;
+  }
+
+  return data ?? null;
+}
+
+function buildStatsFromPlayedRecords(records: PlayedGameRecord[]): GameStats {
+  if (!records.length) {
+    return {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      streak: 0,
+      maxStreak: 0,
+    };
+  }
+
+  const ordered = [...records].sort((a, b) => {
+    if (a.game_index !== b.game_index) return a.game_index - b.game_index;
+    const left = new Date(a.finished_at).getTime();
+    const right = new Date(b.finished_at).getTime();
+    return left - right;
+  });
+
+  let gamesPlayed = 0;
+  let gamesWon = 0;
+  let streak = 0;
+  let maxStreak = 0;
+
+  for (const record of ordered) {
+    gamesPlayed += 1;
+    if (record.did_win) {
+      gamesWon += 1;
+      streak += 1;
+      if (streak > maxStreak) maxStreak = streak;
+    } else {
+      streak = 0;
+    }
+  }
+
+  return {
+    gamesPlayed,
+    gamesWon,
+    streak,
+    maxStreak,
+  };
+}
+
+export async function validateGameStatsIntegrity(userId: string): Promise<StatsIntegrityReport> {
+  const modes: GameMode[] = ['actors', 'movies', 'directors'];
+
+  const [played, statsByMode] = await Promise.all([
+    loadPlayedGames(userId, 2000),
+    Promise.all(
+      modes.map(async (mode) => {
+        const stats = await loadGameStats(userId, mode);
+        return {
+          mode,
+          stats: stats ?? {
+            gamesPlayed: 0,
+            gamesWon: 0,
+            streak: 0,
+            maxStreak: 0,
+          },
+        };
+      }),
+    ),
+  ]);
+
+  const entries: StatsIntegrityEntry[] = modes.map((mode) => {
+    const modePlayed = played.filter((entry) => entry.game_mode === mode);
+    const expected = buildStatsFromPlayedRecords(modePlayed);
+    const actual = statsByMode.find((item) => item.mode === mode)?.stats ?? {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      streak: 0,
+      maxStreak: 0,
+    };
+
+    const matches =
+      expected.gamesPlayed === actual.gamesPlayed &&
+      expected.gamesWon === actual.gamesWon &&
+      expected.streak === actual.streak &&
+      expected.maxStreak === actual.maxStreak;
+
+    return {
+      gameMode: mode,
+      expected,
+      actual,
+      matches,
+    };
+  });
+
+  return {
+    entries,
+    allMatch: entries.every((entry) => entry.matches),
+  };
+}
+
+export async function loadGameLeaderboardPage(input: {
+  gameMode: GameMode;
+  gameIndex: number;
+  page: number;
+  pageSize: number;
+}): Promise<LeaderboardPage> {
+  if (!supabase) {
+    return {
+      entries: [],
+      totalCount: 0,
+    };
+  }
+
+  const safePage = Math.max(1, Math.floor(input.page));
+  const safePageSize = Math.max(1, Math.floor(input.pageSize));
+
+  const { data, error } = await supabase.rpc('get_game_leaderboard_page', {
+    p_game_mode: input.gameMode,
+    p_game_index: input.gameIndex,
+    p_page: safePage,
+    p_page_size: safePageSize,
+  });
+
+  if (error) {
+    if (isTransientDatabaseError(error)) {
+      return {
+        entries: [],
+        totalCount: 0,
+      };
+    }
+    throw error;
+  }
+
+  const rows = (data ?? []) as Array<{
+    rank: number;
+    user_id: string;
+    username: string | null;
+    guess_count: number;
+    finished_at: string;
+    total_count: number;
+  }>;
+
+  return {
+    entries: rows.map((row) => ({
+      rank: Number(row.rank ?? 0),
+      userId: row.user_id,
+      username: row.username ?? 'unknown',
+      guessCount: Number(row.guess_count ?? 0),
+      finishedAt: row.finished_at,
+    })),
+    totalCount: Number(rows[0]?.total_count ?? 0),
+  };
+}
+
+export async function loadGameLeaderboardPlacement(input: {
+  gameMode: GameMode;
+  gameIndex: number;
+  userId: string;
+}): Promise<LeaderboardEntry | null> {
+  if (!supabase) return null;
+
+  const { data, error } = await supabase.rpc('get_game_leaderboard_placement', {
+    p_game_mode: input.gameMode,
+    p_game_index: input.gameIndex,
+    p_user_id: input.userId,
+  });
+
+  if (error) {
+    if (isTransientDatabaseError(error)) return null;
+    throw error;
+  }
+
+  const row = (data?.[0] ?? null) as {
+    rank: number;
+    user_id: string;
+    username: string | null;
+    guess_count: number;
+    finished_at: string;
+  } | null;
+
+  if (!row) return null;
+
+  return {
+    rank: Number(row.rank ?? 0),
+    userId: row.user_id,
+    username: row.username ?? 'unknown',
+    guessCount: Number(row.guess_count ?? 0),
+    finishedAt: row.finished_at,
+  };
 }
 
 export async function loadUserProfile(userId: string) {

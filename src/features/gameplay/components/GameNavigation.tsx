@@ -1,22 +1,32 @@
-import { FaChartBar, FaInfoCircle } from 'react-icons/fa';
+import { FaChartBar, FaInfoCircle, FaTrophy } from 'react-icons/fa';
 import useModal from '../../../hooks/useModal';
 import { type Route } from '../../../routes';
 import type { GameStats } from './DisplayStats';
 import DisplayStats from './DisplayStats';
 import GameHistoryModal from '../../game-history/components/GameHistoryModal';
+import useAuth from '../../../hooks/useAuth';
+import { toGameMode } from '../../../lib/gameMode';
+import GameLeaderboard from './GameLeaderboard';
 
 export default function GameNavigation({
   stats,
   AboutContent,
   route,
   gameIndex,
+  onOpenLeaderboard,
+  showInlineLeaderboardModal = true,
 }: {
   stats: GameStats;
   AboutContent: React.FC;
   route: Route;
   gameIndex: number;
+  onOpenLeaderboard?: () => void;
+  showInlineLeaderboardModal?: boolean;
 }) {
+  const { user, isConfigured } = useAuth();
+  const gameMode = toGameMode(route.title);
   const { Modal: StatsModal, open: openStatsModal } = useModal();
+  const { Modal: LeaderboardModal, open: openLeaderboardModal } = useModal();
   const { Modal: AboutModal, open: openAboutModal } = useModal();
 
   return (
@@ -38,8 +48,36 @@ export default function GameNavigation({
             <DisplayStats stats={stats} />
           </div>
         </StatsModal>
+        {gameMode ? (
+          <>
+            <button
+              className="btn btn-ghost btn-square tooltip tooltip-right sm:tooltip-top"
+              data-tip="Leaderboard"
+              onClick={() => (onOpenLeaderboard ? onOpenLeaderboard() : openLeaderboardModal())}
+            >
+              <FaTrophy />
+            </button>
+            {showInlineLeaderboardModal ? (
+              <LeaderboardModal>
+                <h2 className="font-bold text-xl mb-4 text-primary">
+                  <FaTrophy className="inline" />
+                  &nbsp;Leaderboard
+                </h2>
+                <GameLeaderboard
+                  enabled={isConfigured}
+                  gameMode={gameMode}
+                  gameIndex={gameIndex}
+                  userId={user?.id ?? null}
+                  pageSize={25}
+                  showPagination
+                  showTitle={false}
+                />
+              </LeaderboardModal>
+            ) : null}
+          </>
+        ) : null}
       </div>
-      <h2 className="navbar-center font-display text-xl">
+      <h2 className="navbar-center font-display text-lg">
         {route.emoji}&nbsp;{route.title}&nbsp;#{gameIndex + 1}
       </h2>
       <div className="navbar-end">

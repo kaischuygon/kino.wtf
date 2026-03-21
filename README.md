@@ -160,6 +160,31 @@ Use this mode when developing auth, cloud sync, and archive persistence.
 3. Apply `supabase/schema.sql`
 4. Apply migrations in `supabase/migrations/` order
 
+### Leaderboard Test Data (Supabase)
+
+For leaderboard UI testing (top 5, personal placement, modal pagination), use the seed scripts in `supabase/seed/`.
+
+Quick flow:
+
+```sh
+# 1) Apply pending migrations (includes leaderboard RPCs)
+npx supabase db push --yes
+
+# 2) Create synthetic auth users for realistic leaderboard volume
+npx supabase db query --linked -f supabase/seed/leaderboard_auth_users_seed.sql
+
+# 3) Seed mixed outcomes for a rolling index window (daily + weekly)
+npx supabase db query --linked -f supabase/seed/leaderboard_dev_seed.sql
+```
+
+Cleanup:
+
+```sh
+npx supabase db query --linked -f supabase/seed/leaderboard_seed_cleanup.sql
+```
+
+See `supabase/seed/README.md` for details.
+
 ### Dataset-generation mode
 
 Use this mode when refreshing `get_games/*.json` source data.

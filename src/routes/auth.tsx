@@ -124,13 +124,7 @@ function OAuthButtons({
         )}{' '}
         Discord
       </button>
-      <button
-        className="btn"
-        type="button"
-        disabled={disabled || true}
-        title="Planned: enable in Supabase providers when ready"
-        onClick={() => onOAuth('google')}
-      >
+      <button className="btn" type="button" disabled={disabled} onClick={() => onOAuth('google')}>
         {activeProvider === 'google' ? (
           <span className="loading loading-spinner loading-sm" />
         ) : (
@@ -169,6 +163,21 @@ function normalizeUsername(input: string): string {
 
 function isValidUsername(input: string): boolean {
   return /^[a-z0-9_]{3,32}$/.test(input);
+}
+
+function hasEmailIdentity(user: NonNullable<ReturnType<typeof useAuth>['user']>): boolean {
+  const appMeta = (user.app_metadata ?? {}) as { provider?: string; providers?: string[] };
+  const providers = Array.isArray(appMeta.providers) ? appMeta.providers : [];
+
+  if (providers.includes('email') || appMeta.provider === 'email') {
+    return true;
+  }
+
+  const identities = Array.isArray(user.identities)
+    ? user.identities
+    : ((user as { identities?: Array<{ provider?: string }> }).identities ?? []);
+
+  return identities.some((identity) => identity?.provider === 'email');
 }
 
 function AuthPage() {
@@ -330,6 +339,8 @@ function AuthPage() {
   }
 
   if (user) {
+    const canManagePassword = hasEmailIdentity(user);
+
     const handlePasswordUpdate = async (event: React.FormEvent) => {
       event.preventDefault();
       resetState();
@@ -489,23 +500,31 @@ function AuthPage() {
           </div>
         </div>
 
-        <div className="card bg-base-200 border border-base-300">
-          <div className="card-body">
-            <h2 className="font-display text-lg mb-3">Change Password</h2>
-            <form onSubmit={handlePasswordUpdate} className="flex flex-col gap-4">
-              <PasswordInput
-                id="account-new-password"
-                label="New Password"
-                value={newPassword}
-                onChange={setNewPassword}
-              />
-              <button className="btn btn-primary" type="submit" disabled={isUpdatingPassword}>
-                {isUpdatingPassword && <span className="loading loading-spinner loading-sm" />}
-                {isUpdatingPassword ? 'Saving...' : 'Save New Password'}
-              </button>
-            </form>
+        {canManagePassword ? (
+          <div className="card bg-base-200 border border-base-300">
+            <div className="card-body">
+              <h2 className="font-display text-lg mb-3">Change Password</h2>
+              <form onSubmit={handlePasswordUpdate} className="flex flex-col gap-4">
+                <PasswordInput
+                  id="account-new-password"
+                  label="New Password"
+                  value={newPassword}
+                  onChange={setNewPassword}
+                />
+                <button className="btn btn-primary" type="submit" disabled={isUpdatingPassword}>
+                  {isUpdatingPassword && <span className="loading loading-spinner loading-sm" />}
+                  {isUpdatingPassword ? 'Saving...' : 'Save New Password'}
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="alert alert-info">
+            <span>
+              This account uses OAuth sign-in only. Password changes are managed by your provider.
+            </span>
+          </div>
+        )}
 
         <div className="card bg-base-200 border border-error/40">
           <div className="card-body">
@@ -577,15 +596,20 @@ function AuthPage() {
             {isSigningIn && <span className="loading loading-spinner loading-sm" />}
             {isSigningIn ? 'Signing in...' : 'Sign In'}
           </button>
-          <button
-            className="btn btn-ghost"
-            type="button"
-            onClick={onResetRequest}
-            disabled={isSigningIn || isSendingReset}
-          >
-            {isSendingReset && <span className="loading loading-spinner loading-sm" />}
-            {isSendingReset ? 'Sending...' : 'Send Password Reset Email'}
-          </button>
+          {email.trim() ? (
+            <button
+              className="btn btn-ghost"
+              type="button"
+              onClick={onResetRequest}
+              disabled={isSigningIn || isSendingReset}
+            >
+              {isSendingReset && <span className="loading loading-spinner loading-sm" />}
+              {isSendingReset ? 'Sending...' : 'Send Password Reset Email'}
+            </button>
+          ) : null}
+          <p className="text-xs text-base-content/60">
+            Password reset works for email/password accounts.
+          </p>
         </TabForm>
 
         <TabForm

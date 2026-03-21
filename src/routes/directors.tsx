@@ -5,6 +5,11 @@ import GameHowToPlay from '../features/gameplay/components/GameHowToPlay';
 import useGame from '../features/gameplay/hooks/useGame';
 import useGameIndex from '../features/gameplay/hooks/useGameIndex';
 import { getRoute } from '../routes';
+import useModal from '../hooks/useModal';
+import useAuth from '../hooks/useAuth';
+import { toGameMode } from '../lib/gameMode';
+import GameLeaderboard from '../features/gameplay/components/GameLeaderboard';
+import { FaTrophy } from 'react-icons/fa';
 
 export const Route = createFileRoute('/directors')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -56,7 +61,10 @@ function Directors() {
 
 function DirectorsGame({ gameIndex }: { gameIndex: number }) {
   const route = getRoute('directors');
-  const { gameBoard, stats } = useGame(route, directors, gameIndex);
+  const { user, isConfigured } = useAuth();
+  const gameMode = toGameMode(route.title);
+  const { Modal: LeaderboardModal, open: openLeaderboardModal } = useModal();
+  const { gameBoard, stats } = useGame(route, directors, gameIndex, openLeaderboardModal);
 
   return (
     <section id="directors" className="p-2">
@@ -65,7 +73,26 @@ function DirectorsGame({ gameIndex }: { gameIndex: number }) {
         AboutContent={AboutContent}
         route={route}
         gameIndex={gameIndex}
+        onOpenLeaderboard={openLeaderboardModal}
+        showInlineLeaderboardModal={false}
       />
+      {gameMode ? (
+        <LeaderboardModal>
+          <h2 className="font-bold text-xl mb-4 text-primary">
+            <FaTrophy className="inline" />
+            &nbsp;Leaderboard
+          </h2>
+          <GameLeaderboard
+            enabled={isConfigured}
+            gameMode={gameMode}
+            gameIndex={gameIndex}
+            userId={user?.id ?? null}
+            pageSize={25}
+            showPagination
+            showTitle={false}
+          />
+        </LeaderboardModal>
+      ) : null}
       {gameBoard}
     </section>
   );

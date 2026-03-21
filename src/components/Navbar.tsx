@@ -107,7 +107,7 @@ export default function Navbar() {
             <div className="tooltip tooltip-bottom" data-tip="Sign in">
               <Link to="/auth" tabIndex={0} className="btn btn-ghost btn-sm btn-circle">
                 <div className="avatar avatar-placeholder">
-                  <div className="bg-neutral text-primary-content w-8 rounded-full">
+                  <div className="w-8 rounded-full">
                     <span className="text-xs">
                       <FaUser />
                     </span>
