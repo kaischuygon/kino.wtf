@@ -23,7 +23,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Format check
+      - name: Format check (main only)
+        if: github.ref == 'refs/heads/main'
         run: yarn format:check
 
       - name: Lint

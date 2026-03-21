@@ -20,9 +20,7 @@ function Home() {
       </div>
       <hr className="border-base-300" />
       <RouteLinks />
-      <p className="text-center text-base-content/50 mt-2">
-        New games coming soon ⌛
-      </p>
+      <p className="text-center text-base-content/50 mt-2">New games coming soon ⌛</p>
       <p className="text-xs text-center text-base-content/50 mt-2">
         Sign in to sync your progress and compete with friends.
       </p>
