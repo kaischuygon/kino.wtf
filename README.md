@@ -22,7 +22,7 @@ The app is built as a TanStack Start project with file-based routing and SPA pre
 - Persisted progress and stats in localStorage
 - Optional cloud sync for signed-in users (Supabase)
 - Email/password auth + password reset flow
-- Discord OAuth sign-in, with Google/Apple planned
+- Discord, Google, and GitHub OAuth sign-in
 - Shareable results and streak tracking
 - Theme switching with DaisyUI
 
@@ -160,6 +160,17 @@ Use this mode when developing auth, cloud sync, and archive persistence.
 3. Apply `supabase/schema.sql`
 4. Apply migrations in `supabase/migrations/` order
 
+### OAuth provider setup (Supabase)
+
+To use Google, Discord, or GitHub sign-in locally:
+
+1. In Supabase Dashboard, go to Authentication > Providers and enable the provider.
+2. In Supabase Dashboard, set Site URL to your app URL (for local dev: `http://localhost:3000`).
+3. Add Redirect URLs for local and production, including `/auth` (for example: `http://localhost:3000/auth`).
+4. In each external provider (Google/Discord/GitHub), configure its callback URL to the Supabase callback URL shown in the provider settings.
+
+For GitHub specifically, create an OAuth App in GitHub Developer Settings and paste the Client ID/Secret into Supabase's GitHub provider configuration.
+
 ### Leaderboard Test Data (Supabase)
 
 For leaderboard UI testing (top 5, personal placement, modal pagination), use the seed scripts in `supabase/seed/`.
@@ -260,8 +271,9 @@ This project now supports low-maintenance auth and persistence using Supabase's 
 
 - Email/password sign up and sign in
 - Password reset request + reset completion flow
-- Discord OAuth sign in
-- Google and Apple buttons are scaffolded in the UI as planned providers
+- Discord OAuth sign in (working)
+- Google OAuth sign in (working)
+- GitHub OAuth sign in (working)
 - Synced per-user:
   - game stats
   - in-progress game state
@@ -315,14 +327,10 @@ The schema includes:
 In Supabase Authentication Providers:
 
 - Enable Email
-- Enable Discord and set client ID/secret
+- Enable Discord, Google, and GitHub, and set each provider client ID/secret
 - Set redirect URL(s) to include your local/dev and deployed auth callback URL:
   - `http://localhost:5173/auth`
   - `https://your-domain/auth`
-
-For planned providers:
-
-- Google and Apple can be enabled later in the same Providers panel.
 
 ## Troubleshooting
 

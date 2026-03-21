@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
-import { FaApple, FaDiscord, FaGoogle } from 'react-icons/fa';
+import { FaDiscord, FaGithub } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import { deleteMyAccount, loadUserProfile, updateUserProfile } from '../lib/gamePersistence';
 
 export const Route = createFileRoute('/auth')({
@@ -9,6 +10,7 @@ export const Route = createFileRoute('/auth')({
 });
 
 type AuthTab = 'signin' | 'signup';
+type OAuthProvider = 'discord' | 'google' | 'github';
 
 // Reusable form components
 function EmailInput({
@@ -105,14 +107,14 @@ function OAuthButtons({
   activeProvider,
   disabled,
 }: {
-  onOAuth: (provider: 'discord' | 'google' | 'apple') => void;
-  activeProvider: 'discord' | 'google' | 'apple' | null;
+  onOAuth: (provider: OAuthProvider) => void;
+  activeProvider: OAuthProvider | null;
   disabled: boolean;
 }) {
   return (
     <div className="grid gap-2 sm:grid-cols-3">
       <button
-        className="btn bg-[#5865f2] text-[#e0e3ff]"
+        className="btn bg-[#5865f2] text-white hover:brightness-90 border-0"
         type="button"
         onClick={() => onOAuth('discord')}
         disabled={disabled}
@@ -124,27 +126,31 @@ function OAuthButtons({
         )}{' '}
         Discord
       </button>
-      <button className="btn" type="button" disabled={disabled} onClick={() => onOAuth('google')}>
+      <button
+        className="btn bg-gray-50 text-gray-900 hover:brightness-90 border-0"
+        type="button"
+        disabled={disabled}
+        onClick={() => onOAuth('google')}
+      >
         {activeProvider === 'google' ? (
           <span className="loading loading-spinner loading-sm" />
         ) : (
-          <FaGoogle />
+          <FcGoogle />
         )}{' '}
         Google
       </button>
       <button
-        className="btn"
+        className="btn bg-gray-950 text-white hover:brightness-125 border-0"
         type="button"
-        disabled={disabled || true}
-        title="Planned: enable in Supabase providers when ready"
-        onClick={() => onOAuth('apple')}
+        disabled={disabled}
+        onClick={() => onOAuth('github')}
       >
-        {activeProvider === 'apple' ? (
+        {activeProvider === 'github' ? (
           <span className="loading loading-spinner loading-sm" />
         ) : (
-          <FaApple />
+          <FaGithub />
         )}{' '}
-        Apple
+        GitHub
       </button>
     </div>
   );
@@ -152,6 +158,34 @@ function OAuthButtons({
 
 function handleError(error: unknown): string {
   return error instanceof Error ? error.message : 'An error occurred.';
+}
+
+function getOAuthSetupHint(error: unknown, provider: OAuthProvider): string | null {
+  if (!(error instanceof Error)) return null;
+
+  const message = error.message.toLowerCase();
+  const isLikelyOAuthSetupIssue = [
+    'provider is not enabled',
+    'unsupported provider',
+    'oauth',
+    'invalid client',
+    'redirect uri',
+    'redirect_url',
+    'redirect_to',
+    'invalid_request',
+  ].some((token) => message.includes(token));
+
+  if (!isLikelyOAuthSetupIssue) return null;
+
+  if (provider === 'github') {
+    return 'GitHub sign-in appears unconfigured. In Supabase Dashboard, enable GitHub under Authentication > Providers, then set GitHub Client ID/Secret and verify callback URL: https://<project-ref>.supabase.co/auth/v1/callback.';
+  }
+
+  if (provider === 'google') {
+    return 'Google sign-in appears unconfigured. In Supabase Dashboard, enable Google under Authentication > Providers, then set Google Client ID/Secret and verify callback URL: https://<project-ref>.supabase.co/auth/v1/callback.';
+  }
+
+  return 'Discord sign-in appears unconfigured. In Supabase Dashboard, enable Discord under Authentication > Providers, then set Discord Client ID/Secret and verify callback URL: https://<project-ref>.supabase.co/auth/v1/callback.';
 }
 
 function normalizeUsername(input: string): string {
@@ -200,6 +234,7 @@ function AuthPage() {
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [oauthSetupHint, setOauthSetupHint] = useState<string | null>(null);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
@@ -212,13 +247,14 @@ function AuthPage() {
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState('');
   const [oauthLoadingProvider, setOauthLoadingProvider] = useState<
-    'discord' | 'google' | 'apple' | null
+    'discord' | 'google' | 'github' | null
   >(null);
   const [isSigningOutAccount, setIsSigningOutAccount] = useState(false);
 
   const resetState = () => {
     setError(null);
     setMessage(null);
+    setOauthSetupHint(null);
   };
 
   useEffect(() => {
@@ -289,7 +325,7 @@ function AuthPage() {
     }
   };
 
-  const onOAuth = async (provider: 'discord' | 'google' | 'apple') => {
+  const onOAuth = async (provider: OAuthProvider) => {
     resetState();
     setOauthLoadingProvider(provider);
     try {
@@ -297,6 +333,7 @@ function AuthPage() {
       if (err) throw err;
     } catch (err) {
       setError(handleError(err));
+      setOauthSetupHint(getOAuthSetupHint(err, provider));
     } finally {
       setOauthLoadingProvider(null);
     }
@@ -572,11 +609,11 @@ function AuthPage() {
 
   return (
     <section className="p-3 flex flex-col gap-3">
-      <h1 className="text-2xl font-display">Sign In</h1>
+      <h1 className="text-2xl font-display">Sign in</h1>
       <div className="tabs tabs-lift">
         <TabForm
           id="signin"
-          label="Sign In"
+          label="Existing account"
           active={tab === 'signin'}
           onChange={setTab}
           onSubmit={onSubmit}
@@ -614,7 +651,7 @@ function AuthPage() {
 
         <TabForm
           id="signup"
-          label="Create Account"
+          label="New Account"
           active={tab === 'signup'}
           onChange={setTab}
           onSubmit={onSubmit}
@@ -667,6 +704,11 @@ function AuthPage() {
       {error && (
         <div className="alert alert-error">
           <span>{error}</span>
+        </div>
+      )}
+      {oauthSetupHint && (
+        <div className="alert alert-info">
+          <span>{oauthSetupHint}</span>
         </div>
       )}
 

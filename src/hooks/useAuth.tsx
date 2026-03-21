@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
-type OAuthProvider = 'discord' | 'google' | 'apple';
+type OAuthProvider = 'discord' | 'google' | 'github';
 
 export default function useAuth() {
   const [session, setSession] = useState<Session | null>(null);

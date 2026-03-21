@@ -19,9 +19,15 @@ export default function Navbar() {
         .then((p) => {
           setProfile(p);
 
-          if (p?.preferred_theme && typeof document !== 'undefined') {
-            document.documentElement.setAttribute('data-theme', p.preferred_theme);
-            localStorage.setItem('theme', p.preferred_theme);
+          if (typeof document !== 'undefined') {
+            // Keep local preference stable across HMR/remounts; fall back to profile theme.
+            const localTheme = localStorage.getItem('theme');
+            const nextTheme = localTheme || p?.preferred_theme || null;
+
+            if (nextTheme) {
+              document.documentElement.setAttribute('data-theme', nextTheme);
+              localStorage.setItem('theme', nextTheme);
+            }
           }
         })
         .catch(() => {
