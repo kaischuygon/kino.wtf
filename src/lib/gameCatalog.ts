@@ -26,7 +26,10 @@ function isValidGameData(value: unknown): value is GameData {
   return Boolean(game.answer?.title && Array.isArray(game.hints) && Array.isArray(game.trivia));
 }
 
-export async function loadPublicGameCatalog(input: { gameMode: GameMode; maxIndex?: number | null }) {
+export async function loadPublicGameCatalog(input: {
+  gameMode: GameMode;
+  maxIndex?: number | null;
+}) {
   if (!supabase) return [] as GameData[];
 
   const { data, error } = await supabase.rpc('get_public_game_catalog', {

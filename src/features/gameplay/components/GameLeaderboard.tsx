@@ -67,10 +67,7 @@ export default function GameLeaderboard({
     window.addEventListener(LEADERBOARD_UPDATED_EVENT, onLeaderboardUpdated as EventListener);
 
     return () => {
-      window.removeEventListener(
-        LEADERBOARD_UPDATED_EVENT,
-        onLeaderboardUpdated as EventListener,
-      );
+      window.removeEventListener(LEADERBOARD_UPDATED_EVENT, onLeaderboardUpdated as EventListener);
     };
   }, [gameIndex, gameMode]);
 
@@ -128,7 +125,7 @@ export default function GameLeaderboard({
         setEntries(pageData.entries);
         setTotalCount(pageData.totalCount);
         setMyPlacement(placementData);
-          refreshSucceeded = true;
+        refreshSucceeded = true;
       } catch {
         if (!mounted) return;
         setEntries([]);
@@ -141,7 +138,7 @@ export default function GameLeaderboard({
           if (wasEventRefresh) {
             eventRefreshPendingRef.current = false;
             setIsRefreshing(false);
-              setShowUpdatedState(refreshSucceeded);
+            setShowUpdatedState(refreshSucceeded);
           }
         }
       }
@@ -239,9 +236,7 @@ export default function GameLeaderboard({
             <div
               className={[
                 'flex items-center justify-between rounded-box border px-3 py-2 text-sm ring-1 ring-primary/40',
-                myPlacement.didWin
-                  ? 'border-primary bg-primary/10'
-                  : 'border-error/40 bg-error/10',
+                myPlacement.didWin ? 'border-primary bg-primary/10' : 'border-error/40 bg-error/10',
               ].join(' ')}
             >
               <span className="font-mono w-12">#{myPlacement.rank}</span>

@@ -26,7 +26,10 @@ export function clearStoredGameState(routeTitle: string, scopeKey?: string | nul
   localStorage.removeItem(gameStateStorageKey(routeTitle, scopeKey));
 }
 
-export function readStoredGameState(routeTitle: string, scopeKey?: string | null): StoredGameState | null {
+export function readStoredGameState(
+  routeTitle: string,
+  scopeKey?: string | null,
+): StoredGameState | null {
   if (typeof window === 'undefined') return null;
 
   const raw = localStorage.getItem(gameStateStorageKey(routeTitle, scopeKey));
@@ -49,7 +52,11 @@ export function readStoredGameState(routeTitle: string, scopeKey?: string | null
   }
 }
 
-export function writeStoredGameState(routeTitle: string, state: StoredGameState, scopeKey?: string | null) {
+export function writeStoredGameState(
+  routeTitle: string,
+  state: StoredGameState,
+  scopeKey?: string | null,
+) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(gameStateStorageKey(routeTitle, scopeKey), JSON.stringify(state));
 }

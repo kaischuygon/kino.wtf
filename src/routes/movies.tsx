@@ -135,7 +135,8 @@ function MoviesGame({ gameIndex }: { gameIndex: number }) {
       <section id="movies" className="p-2">
         <div className="alert alert-warning text-sm">
           <span>
-            Day #{gameIndex + 1} is not available yet. Latest available movies game is Day #{latestGameNumber}.
+            Day #{gameIndex + 1} is not available yet. Latest available movies game is Day #
+            {latestGameNumber}.
           </span>
         </div>
       </section>

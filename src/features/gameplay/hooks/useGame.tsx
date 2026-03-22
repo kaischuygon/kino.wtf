@@ -253,8 +253,7 @@ export default function useGame(
   const game: Game = games[gameIndex % games.length];
   const isCompletionHydrated =
     !currentCompletionBootstrapKey || completionBootstrapReadyKey === currentCompletionBootstrapKey;
-  const topFiveTitle =
-    gameIndex === latestGameIndex ? "Today's Top 5" : `Top 5`;
+  const topFiveTitle = gameIndex === latestGameIndex ? "Today's Top 5" : `Top 5`;
 
   useEffect(() => {
     let cancelled = false;
