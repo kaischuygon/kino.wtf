@@ -143,12 +143,13 @@ yarn test
 
 ### Frontend-only mode (no Supabase setup)
 
-If `.env` is missing or uses placeholder values from `.env.example`, the app still runs locally with localStorage-backed gameplay.
+If `.env` is missing or uses placeholder values from `.env.example`, the app shell still runs locally.
+Gameplay catalog is now DB-backed, so game routes require Supabase catalog data.
 
 Use this mode for:
 
 - UI work
-- gameplay logic updates
+- non-catalog gameplay logic updates
 - route and component refactors
 
 ### Supabase-enabled mode
@@ -198,15 +199,22 @@ See `supabase/seed/README.md` for details.
 
 ### Dataset-generation mode
 
-Use this mode when refreshing `get_games/*.json` source data.
+Use this mode when generating and appending new game catalog entries.
 
 1. Set up Python dependencies in `get_games/`
 2. Set `TMDB_API_TOKEN`
-3. Run `fetch_games.py` commands for actors/movies/directors
+3. Set `SUPABASE_URL` (or `VITE_SUPABASE_URL`) and `SUPABASE_SERVICE_ROLE_KEY`
+4. Run `fetch_games.py` with `--mode ... --write-db` to append entries
 
 ## Game Data
 
-The game datasets live in get_games as JSON files:
+Runtime gameplay catalog lives in Supabase tables:
+
+- `public.actor_games`
+- `public.movie_games`
+- `public.director_games`
+
+`get_games/*.json` files are maintained as tooling artifacts and bootstrap snapshots:
 
 - get_games/actors.json
 - get_games/movies.json
@@ -243,7 +251,22 @@ python fetch_games.py --file kino-actors.csv --type person --output actors.json 
 python fetch_games.py --file kino-movies.csv --type title --output movies.json --limit 1000
 
 # directors
-python fetch_games.py --file kino-directors.csv --type person --director true --output directors.json --limit 1000
+python fetch_games.py --file kino-directors.csv --type person --director --output directors.json --limit 1000
+```
+
+Append newly generated games to DB catalog tables:
+
+```sh
+cd get_games
+
+# actors
+python fetch_games.py --file kino-actors.csv --type person --output actors.json --limit 50 --mode actors --write-db
+
+# movies
+python fetch_games.py --file kino-movies.csv --type title --output movies.json --limit 50 --mode movies --write-db
+
+# directors
+python fetch_games.py --file kino-directors.csv --type person --director --output directors.json --limit 20 --mode directors --write-db
 ```
 
 ## Local Development Tips

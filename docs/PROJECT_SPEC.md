@@ -96,12 +96,17 @@ Rules:
 
 ### Game Data
 
-Static JSON datasets are generated in get_games and consumed by routes.
+Game catalogs are stored in Supabase tables (`actor_games`, `movie_games`, `director_games`) and
+read through a bounded public RPC (`get_public_game_catalog`).
+
+Legacy JSON files in `get_games/*.json` remain tooling artifacts and bootstrap sources, not runtime
+gameplay sources.
 
 Contract:
 
-- route decides game mode dataset
-- gameplay hooks operate on selected dataset entry
+- route decides game mode catalog source and selected index
+- gameplay hooks operate on selected catalog entry
+- runtime catalog reads must be capped to current index to prevent future-game exposure
 
 ### Local Draft State
 
@@ -189,8 +194,8 @@ Use when Supabase variables are absent or placeholders.
 
 Expected behavior:
 
-- app runs
-- gameplay persists locally
+- app shell and static pages run
+- gameplay routes show catalog-unavailable state (runtime catalog now comes from DB)
 - auth/remote sync gracefully degrade
 
 ### Supabase-enabled mode
@@ -210,6 +215,18 @@ Requirements:
 
 - Python dependencies in get_games
 - TMDB_API_TOKEN
+- SUPABASE_URL (or VITE_SUPABASE_URL) + SUPABASE_SERVICE_ROLE_KEY when appending to DB
+
+Workflow expectation:
+
+- run `fetch_games.py` with `--mode <actors|movies|directors> --write-db` to append new entries
+- or run `get_games/append_catalog.sh` for batch execution (supports dry-run, mode filtering, and buffer-check)
+- use `get_games/append_catalog.sh --status-only` for observability-only buffer reporting
+- production automation can use `.github/workflows/game-catalog-buffer.yml` for scheduled status + refill jobs
+- preserve existing game indexes/history; append from current max index in each mode table
+- avoid rewriting historical rows unless an intentional backfill/migration is planned
+- when game payload schema changes, version adapters in `fetch_games.py` (`--catalog-schema-version`)
+- pair schema changes with SQL/RPC migrations for any JSON path reads from `game_data`
 
 ## Testing and Validation Gate
 
@@ -245,6 +262,7 @@ When proposing or applying changes:
 - duplicating mode conversion and storage key logic across files
 - mixing local-draft and remote-canonical responsibilities without explicit merge rules
 - adding schema changes without migration + schema snapshot updates
+- shipping runtime gameplay that imports full future game catalogs into client bundles
 
 ## Decision Log Snapshot
 
