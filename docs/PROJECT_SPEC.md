@@ -274,6 +274,32 @@ For new deployments or manual refill:
 - dispatch ` Game Catalog Buffer` workflow from GitHub Actions → Run workflow button
 - or invoke locally: `get_games/append_catalog.sh --buffer-check` to test and append new games
 
+### Catalog immutability and recovery (v2.0.0+)
+
+Catalog tables are treated as append-only history ledgers, not mutable working tables.
+
+Rules:
+
+- `actor_games`, `movie_games`, and `director_games` are append-only in normal operation
+- update/delete/truncate operations are blocked by database triggers unless an explicit maintenance override is set
+- every insert into catalog tables is archived into `public.game_catalog_row_history`
+- any blocked truncate attempt records a full-table safety snapshot in `public.game_catalog_table_snapshots`
+- recovery source of truth is now Postgres history/snapshots, not `get_games/*.json`
+
+Maintenance override protocol (rare, migration-only):
+
+- use `SET LOCAL app.catalog_allow_mutation = 'on';` inside a controlled transaction
+- capture pre-change verification query output in migration notes or PR context
+- apply targeted mutation/backfill logic
+- run post-change verification for row counts and max indexes per mode
+- reset to normal mode by ending the transaction (LOCAL setting scope)
+
+LLM instruction:
+
+- do not propose `TRUNCATE`, broad `DELETE`, or index rewrites on catalog tables for routine operations
+- prefer append-only writes via get_games tooling
+- for corrections, create explicit forward-only migrations that preserve or reconstruct ordering with verification queries
+
 ## Testing, Formatting, and Validation Gate
 
 Before merging any changes to `main`:
