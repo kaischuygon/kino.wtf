@@ -2,7 +2,7 @@
   "name": "kino.wtf",
   "description": "Daily and weekly movie-themed guessing games built with TanStack Start, React, and Tailwind CSS.",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.0-rc.1",
   "license": "MIT",
   "author": "Kai Schuyler",
   "keywords": [
