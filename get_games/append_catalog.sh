@@ -103,7 +103,7 @@ LOW_BUFFER_DETECTED=false
 
 SUPABASE_URL_RESOLVED="${SUPABASE_URL:-${VITE_SUPABASE_URL:-}}"
 
-if [[ "$DRY_RUN" == false ]]; then
+if [[ "$DRY_RUN" == false && "$STATUS_ONLY" == false ]]; then
   if [[ -z "${TMDB_API_TOKEN:-}" ]]; then
     echo "Missing TMDB_API_TOKEN" >&2
     exit 1
