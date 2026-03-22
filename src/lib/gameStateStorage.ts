@@ -10,19 +10,26 @@ export interface StoredGameState extends LocalGameStateSnapshot {
   syncPending: boolean;
 }
 
-export function gameStateStorageKey(routeTitle: string) {
-  return `${routeTitle}_game_state`;
+function normalizeStorageScope(scopeKey?: string | null) {
+  const trimmed = typeof scopeKey === 'string' ? scopeKey.trim() : '';
+  if (!trimmed) return 'local';
+  return trimmed;
 }
 
-export function clearStoredGameState(routeTitle: string) {
+export function gameStateStorageKey(routeTitle: string, scopeKey?: string | null) {
+  const scope = normalizeStorageScope(scopeKey);
+  return `game_state:${routeTitle}:${scope}`;
+}
+
+export function clearStoredGameState(routeTitle: string, scopeKey?: string | null) {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(gameStateStorageKey(routeTitle));
+  localStorage.removeItem(gameStateStorageKey(routeTitle, scopeKey));
 }
 
-export function readStoredGameState(routeTitle: string): StoredGameState | null {
+export function readStoredGameState(routeTitle: string, scopeKey?: string | null): StoredGameState | null {
   if (typeof window === 'undefined') return null;
 
-  const raw = localStorage.getItem(gameStateStorageKey(routeTitle));
+  const raw = localStorage.getItem(gameStateStorageKey(routeTitle, scopeKey));
   if (!raw) return null;
 
   try {
@@ -37,12 +44,12 @@ export function readStoredGameState(routeTitle: string): StoredGameState | null 
       syncPending: parsed?.syncPending === true,
     };
   } catch {
-    clearStoredGameState(routeTitle);
+    clearStoredGameState(routeTitle, scopeKey);
     return null;
   }
 }
 
-export function writeStoredGameState(routeTitle: string, state: StoredGameState) {
+export function writeStoredGameState(routeTitle: string, state: StoredGameState, scopeKey?: string | null) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(gameStateStorageKey(routeTitle), JSON.stringify(state));
+  localStorage.setItem(gameStateStorageKey(routeTitle, scopeKey), JSON.stringify(state));
 }

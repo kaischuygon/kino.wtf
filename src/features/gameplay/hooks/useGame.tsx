@@ -14,6 +14,7 @@ import type { Route } from '../../../routes';
 import useAuth from '../../../hooks/useAuth';
 import {
   loadPlayedGameForIndex,
+  loadPlayedGames,
   loadGameState,
   loadGameStats,
   recordPlayedGame,
@@ -22,12 +23,14 @@ import {
   validateGameStatsIntegrity,
 } from '../../../lib/gamePersistence';
 import { toGameMode } from '../../../lib/gameMode';
+import { getGameIndex } from '../../../helpers/gameHelpers';
 import {
   clearStoredGameState,
   readStoredGameState,
   writeStoredGameState,
   type StoredGameState,
 } from '../../../lib/gameStateStorage';
+import { emitLeaderboardUpdated } from '../../../lib/leaderboardEvents';
 
 interface Game {
   answer: {
@@ -97,6 +100,45 @@ function normalizeWinningGuessesForDisplay(params: {
   return nextGuesses;
 }
 
+function buildCanonicalStatsFromModeHistory(params: {
+  records: Awaited<ReturnType<typeof loadPlayedGames>>;
+  gameMode: NonNullable<ReturnType<typeof toGameMode>>;
+}): GameStats {
+  const modeRecords = params.records
+    .filter((record) => record.game_mode === params.gameMode)
+    .sort((left, right) => {
+      if (left.game_index !== right.game_index) {
+        return left.game_index - right.game_index;
+      }
+      return new Date(left.finished_at).getTime() - new Date(right.finished_at).getTime();
+    });
+
+  let gamesPlayed = 0;
+  let gamesWon = 0;
+  let streak = 0;
+  let maxStreak = 0;
+
+  for (const record of modeRecords) {
+    gamesPlayed += 1;
+    if (record.did_win) {
+      gamesWon += 1;
+      streak += 1;
+      if (streak > maxStreak) {
+        maxStreak = streak;
+      }
+    } else {
+      streak = 0;
+    }
+  }
+
+  return {
+    gamesPlayed,
+    gamesWon,
+    streak,
+    maxStreak,
+  };
+}
+
 export default function useGame(
   route: Route,
   games: Game[],
@@ -105,6 +147,8 @@ export default function useGame(
 ) {
   const { user, isConfigured } = useAuth();
   const gameMode = toGameMode(route.title);
+  const latestGameIndex = getGameIndex(route);
+  const storageScopeKey = isConfigured ? (user?.id ?? 'signed_out') : 'local';
   const currentStatsBootstrapKey =
     isConfigured && user && gameMode ? `${user.id}:${gameMode}` : null;
   const currentCompletionBootstrapKey =
@@ -130,11 +174,11 @@ export default function useGame(
 
     if (!canUseStorage) return defaultState;
 
-    const parsed = readStoredGameState(route.title);
+    const parsed = readStoredGameState(route.title, storageScopeKey);
     if (!parsed) return defaultState;
 
     if (parsed.gameIndex !== gameIndex) {
-      clearStoredGameState(route.title);
+      clearStoredGameState(route.title, storageScopeKey);
       return defaultState;
     }
 
@@ -146,7 +190,7 @@ export default function useGame(
       updatedAt: parsed.updatedAt,
       syncPending: parsed.syncPending,
     };
-  }, [route, gameIndex]);
+  }, [gameIndex, route, storageScopeKey]);
 
   const savedStats: GameStats = useMemo(() => {
     const canUseStorage = typeof window !== 'undefined';
@@ -196,6 +240,7 @@ export default function useGame(
   const statsIntegrityCheckedKeyRef = useRef<string | null>(null);
   const localUpdatedAtRef = useRef<number>(savedStateSnapshot.updatedAt);
   const localSyncPendingRef = useRef<boolean>(savedStateSnapshot.syncPending);
+  const lastStorageScopeRef = useRef<string>(storageScopeKey);
   const guessOptions = useMemo(
     () =>
       games
@@ -208,6 +253,29 @@ export default function useGame(
   const game: Game = games[gameIndex % games.length];
   const isCompletionHydrated =
     !currentCompletionBootstrapKey || completionBootstrapReadyKey === currentCompletionBootstrapKey;
+  const topFiveTitle =
+    gameIndex === latestGameIndex ? "Today's Top 5" : `Top 5`;
+
+  useEffect(() => {
+    let cancelled = false;
+
+    Promise.resolve().then(() => {
+      if (cancelled) return;
+      setGuess(savedStateSnapshot.guess);
+      setGuesses(savedStateSnapshot.guesses);
+      setGameOver(savedStateSnapshot.gameOver);
+      setIsSyncPending(savedStateSnapshot.syncPending);
+      completionAlreadyAccountedRef.current = savedStateSnapshot.gameOver > 0;
+      remoteStateRef.current = null;
+      lastPersistedStateSignatureRef.current = null;
+      inFlightStateSignatureRef.current = null;
+      initialRemoteStatsRef.current = null;
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [savedStateSnapshot, storageScopeKey]);
 
   /**
    * Bootstrap local state from remote storage and apply deterministic conflict resolution.
@@ -387,6 +455,12 @@ export default function useGame(
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Avoid carrying old in-memory state into a newly selected auth scope.
+    if (lastStorageScopeRef.current !== storageScopeKey) {
+      lastStorageScopeRef.current = storageScopeKey;
+      return;
+    }
+
     const now = Date.now();
     localUpdatedAtRef.current = now;
     localSyncPendingRef.current = true;
@@ -400,8 +474,8 @@ export default function useGame(
       syncPending: true,
     };
 
-    writeStoredGameState(route.title, state);
-  }, [guess, guesses, gameOver, game, route, gameIndex]);
+    writeStoredGameState(route.title, state, storageScopeKey);
+  }, [guess, guesses, gameOver, game, route, gameIndex, storageScopeKey]);
 
   useEffect(() => {
     if (!isConfigured || !user || !gameMode) return;
@@ -466,7 +540,7 @@ export default function useGame(
           localSyncPendingRef.current = false;
           setIsSyncPending(false);
 
-          const parsed = readStoredGameState(route.title);
+          const parsed = readStoredGameState(route.title, storageScopeKey);
           if (!parsed) return;
 
           const sameState =
@@ -487,7 +561,7 @@ export default function useGame(
             syncPending: false,
           };
 
-          writeStoredGameState(route.title, synced);
+          writeStoredGameState(route.title, synced, storageScopeKey);
         })
         .catch((error) => {
           inFlightStateSignatureRef.current = null;
@@ -500,7 +574,17 @@ export default function useGame(
         window.clearTimeout(saveDebounceTimerRef.current);
       }
     };
-  }, [gameMode, gameIndex, gameOver, guess, guesses, isConfigured, route.title, user]);
+  }, [
+    gameMode,
+    gameIndex,
+    gameOver,
+    guess,
+    guesses,
+    isConfigured,
+    route.title,
+    storageScopeKey,
+    user,
+  ]);
 
   useEffect(() => {
     if (!isConfigured || !user || !gameMode) return;
@@ -513,10 +597,33 @@ export default function useGame(
       answerTitle: game.answer.title,
       didWin: gameOver === 2,
       guesses,
-    }).catch((error) => {
-      console.error('Failed to record played game', error);
-    });
-  }, [game.answer.title, gameIndex, gameMode, gameOver, guesses, isConfigured, user]);
+      leaderboardEligible: gameIndex === latestGameIndex,
+    })
+      .then(async () => {
+        emitLeaderboardUpdated({ gameMode, gameIndex });
+
+        // History play can complete older indexes; rebuild canonical streak from archive order.
+        if (gameIndex === latestGameIndex) {
+          return;
+        }
+
+        const records = await loadPlayedGames(user.id, 5000);
+        const canonicalStats = buildCanonicalStatsFromModeHistory({ records, gameMode });
+        setStats((current) => (areStatsEqual(current, canonicalStats) ? current : canonicalStats));
+      })
+      .catch((error) => {
+        console.error('Failed to record played game', error);
+      });
+  }, [
+    game.answer.title,
+    gameIndex,
+    gameMode,
+    gameOver,
+    guesses,
+    isConfigured,
+    latestGameIndex,
+    user,
+  ]);
 
   // Listen for guesses
   function onGuess(newGuess: string) {
@@ -625,7 +732,7 @@ export default function useGame(
               userId={user?.id ?? null}
               pageSize={5}
               showCurrentUserPlacement
-              title="Today's Top 5"
+              title={topFiveTitle}
             />
           ) : null}
 

@@ -14,9 +14,12 @@ export default function Navbar() {
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+
     if (user && isConfigured) {
       loadUserProfile(user.id)
         .then((p) => {
+          if (!mounted) return;
           setProfile(p);
 
           if (typeof document !== 'undefined') {
@@ -36,6 +39,10 @@ export default function Navbar() {
     } else {
       setProfile(null);
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [user, isConfigured]);
 
   const handleThemeChange = async (theme: string) => {

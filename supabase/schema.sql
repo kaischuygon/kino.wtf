@@ -43,6 +43,7 @@ create table if not exists public.played_games (
   game_index integer not null check (game_index >= 0),
   answer_title text not null,
   did_win boolean not null,
+  leaderboard_eligible boolean not null default true,
   guesses text[] not null default '{}',
   finished_at timestamptz not null default now(),
   unique (user_id, game_mode, game_index)
@@ -229,12 +230,13 @@ create index if not exists idx_played_games_leaderboard_winners
   on public.played_games (
     game_mode,
     game_index,
+    leaderboard_eligible,
     did_win,
     (coalesce(array_length(guesses, 1), 0)),
     finished_at,
     user_id
   )
-  where did_win = true;
+  where leaderboard_eligible = true;
 
 create or replace function public.get_game_leaderboard_page(
   p_game_mode text,
@@ -246,6 +248,7 @@ returns table (
   rank bigint,
   user_id uuid,
   username text,
+  did_win boolean,
   guess_count integer,
   finished_at timestamptz,
   total_count bigint
@@ -255,36 +258,53 @@ stable
 security definer
 set search_path = public
 as $$
-  with winners as (
+  with ranked_entries as (
     select
       pg.user_id,
       coalesce(up.username, 'user_' || substring(replace(pg.user_id::text, '-', ''), 1, 8)) as username,
-      coalesce(array_length(pg.guesses, 1), 0) as guess_count,
+      pg.did_win,
+      case
+        when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
+        else null
+      end as guess_count,
       pg.finished_at,
+      rank() over (
+        order by
+          case when pg.did_win then 0 else 1 end asc,
+          case
+            when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
+            else 7
+          end asc
+      ) as rank,
       row_number() over (
         order by
-          coalesce(array_length(pg.guesses, 1), 0) asc,
+          case when pg.did_win then 0 else 1 end asc,
+          case
+            when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
+            else 7
+          end asc,
           pg.finished_at asc,
           pg.user_id asc
-      ) as rank,
+      ) as row_num,
       count(*) over () as total_count
     from public.played_games pg
     left join public.user_profiles up on up.id = pg.user_id
     where pg.game_mode = p_game_mode
       and pg.game_index = p_game_index
-      and pg.did_win = true
+      and pg.leaderboard_eligible = true
   )
   select
-    w.rank,
-    w.user_id,
-    w.username,
-    w.guess_count,
-    w.finished_at,
-    w.total_count
-  from winners w
-  where w.rank > ((greatest(p_page, 1) - 1) * greatest(p_page_size, 1))
-    and w.rank <= (greatest(p_page, 1) * greatest(p_page_size, 1))
-  order by w.rank asc;
+    re.rank,
+    re.user_id,
+    re.username,
+    re.did_win,
+    re.guess_count,
+    re.finished_at,
+    re.total_count
+  from ranked_entries re
+  where re.row_num > ((greatest(p_page, 1) - 1) * greatest(p_page_size, 1))
+    and re.row_num <= (greatest(p_page, 1) * greatest(p_page_size, 1))
+  order by re.row_num asc;
 $$;
 
 create or replace function public.get_game_leaderboard_placement(
@@ -296,6 +316,7 @@ returns table (
   rank bigint,
   user_id uuid,
   username text,
+  did_win boolean,
   guess_count integer,
   finished_at timestamptz
 )
@@ -304,32 +325,39 @@ stable
 security definer
 set search_path = public
 as $$
-  with winners as (
+  with ranked_entries as (
     select
       pg.user_id,
       coalesce(up.username, 'user_' || substring(replace(pg.user_id::text, '-', ''), 1, 8)) as username,
-      coalesce(array_length(pg.guesses, 1), 0) as guess_count,
+      pg.did_win,
+      case
+        when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
+        else null
+      end as guess_count,
       pg.finished_at,
-      row_number() over (
+      rank() over (
         order by
-          coalesce(array_length(pg.guesses, 1), 0) asc,
-          pg.finished_at asc,
-          pg.user_id asc
+          case when pg.did_win then 0 else 1 end asc,
+          case
+            when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
+            else 7
+          end asc,
       ) as rank
     from public.played_games pg
     left join public.user_profiles up on up.id = pg.user_id
     where pg.game_mode = p_game_mode
       and pg.game_index = p_game_index
-      and pg.did_win = true
+      and pg.leaderboard_eligible = true
   )
   select
-    w.rank,
-    w.user_id,
-    w.username,
-    w.guess_count,
-    w.finished_at
-  from winners w
-  where w.user_id = p_user_id
+    re.rank,
+    re.user_id,
+    re.username,
+    re.did_win,
+    re.guess_count,
+    re.finished_at
+  from ranked_entries re
+  where re.user_id = p_user_id
   limit 1;
 $$;
 

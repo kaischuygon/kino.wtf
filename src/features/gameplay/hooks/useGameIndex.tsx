@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import type { Route } from '../../../routes';
 import { getGameIndex } from '../../../helpers/gameHelpers';
 
+function isGameStateStorageKeyForRoute(key: string, routeTitle: string) {
+  return key === `${routeTitle}_game_state` || key.startsWith(`game_state:${routeTitle}:`);
+}
+
 function parseStoredGameIndex(raw: string | null): number | undefined {
   if (!raw) return undefined;
   try {
@@ -47,7 +51,7 @@ export default function useGameIndex(route: Route, forcedIndex?: number) {
     // listen for storage changes from other tabs
     const onStorage = (e: StorageEvent) => {
       if (!e.key) return;
-      if (e.key.startsWith(`${route.title}_`)) {
+      if (isGameStateStorageKeyForRoute(e.key, route.title)) {
         const nextIndex = parseStoredGameIndex(e.newValue);
         if (typeof nextIndex === 'number') update(nextIndex);
       }
@@ -79,7 +83,7 @@ export function simulateNextBoundary() {
   // Write a deterministic default per-game state so the app sees a known shape
   // (matches the defaults used by `useGame`) and will load the next game's index.
   try {
-    const stateKey = `${routeTitle}_game_state`;
+    const stateKey = `game_state:${routeTitle}:local`;
     const currentIndex = parseStoredGameIndex(localStorage.getItem(stateKey)) ?? -1;
     const nextIndex = currentIndex + 1;
 

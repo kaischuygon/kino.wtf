@@ -60,7 +60,8 @@ export default function GameHistoryModal() {
   });
   const { Modal, open, close } = useModal();
   const { user, isConfigured } = useAuth();
-  const itemsPerPage = 12;
+  const storageScopeKey = isConfigured ? (user?.id ?? 'signed_out') : 'local';
+  const itemsPerPage = 24;
 
   const [playedLookupByMode, setPlayedLookupByMode] = useState<Record<
     string,
@@ -88,8 +89,8 @@ export default function GameHistoryModal() {
   const localState = useMemo(() => {
     if (!isHydrated || !route) return null;
     void openTick;
-    return readStoredGameState(route.title);
-  }, [isHydrated, route, openTick]);
+    return readStoredGameState(route.title, storageScopeKey);
+  }, [isHydrated, openTick, route, storageScopeKey]);
 
   useEffect(() => {
     let mounted = true;
@@ -141,14 +142,23 @@ export default function GameHistoryModal() {
 
   if (!canShow || !route) return null;
 
+  const playedLookup = Object.entries(playedLookupByMode?.[route.title] ?? {}).reduce<
+    Record<number, 'win' | 'loss'>
+  >((acc, [rawIndex, status]) => {
+    const parsedIndex = Number(rawIndex);
+    if (!Number.isFinite(parsedIndex)) return acc;
+    if (parsedIndex < 0 || parsedIndex > currentIndex) return acc;
+    acc[parsedIndex] = status;
+    return acc;
+  }, {});
+  const playedCount = Object.keys(playedLookup).length;
+  const remoteState = gameMode ? (remoteStateByMode[gameMode] ?? null) : null;
+  const isLoadingHistory = Boolean(isConfigured && user && playedLookupByMode === null);
   const allIndices = Array.from({ length: currentIndex + 1 }, (_value, idx) => currentIndex - idx);
   const pageCount = Math.max(1, Math.ceil(allIndices.length / itemsPerPage));
   const safePage = Math.min(page, pageCount - 1);
   const pageStart = safePage * itemsPerPage;
   const indices = allIndices.slice(pageStart, pageStart + itemsPerPage);
-  const playedLookup = playedLookupByMode?.[route.title] ?? {};
-  const remoteState = gameMode ? (remoteStateByMode[gameMode] ?? null) : null;
-  const isLoadingHistory = Boolean(isConfigured && user && playedLookupByMode === null);
 
   /**
    * Active-game targeting is URL-first so navigation intent always wins over persisted progress.
@@ -206,6 +216,10 @@ export default function GameHistoryModal() {
           {route.emoji} {route.title} history
         </h2>
         <p className="text-sm mb-3">Jump to previous games. Symbols reflect your current state.</p>
+        <p className="text-xs text-base-content/70 mb-3">
+          Historical games can still be completed for your archive and stats, but only the live
+          current game is eligible for leaderboard placement.
+        </p>
         {isLoadingHistory ? (
           <div className="flex items-center gap-2 text-sm text-base-content/70 mb-3">
             <span className="loading loading-spinner loading-sm" />
@@ -219,9 +233,12 @@ export default function GameHistoryModal() {
           <div className="badge badge-ghost">○ Unplayed</div>
         </div>
         <div className="flex items-center justify-between mb-3 gap-2">
-          <p className="text-xs text-base-content/70">
-            Page {safePage + 1} of {pageCount}
-          </p>
+          <div className="text-xs text-base-content/70 flex flex-col">
+            <p>
+              Page {safePage + 1} of {pageCount}
+            </p>
+            <p>Played total: {playedCount}</p>
+          </div>
           <GameHistoryPagination safePage={safePage} pageCount={pageCount} setPage={setPage} />
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-96 overflow-auto p-1">

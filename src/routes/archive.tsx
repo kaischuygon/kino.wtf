@@ -14,9 +14,21 @@ function ArchivePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isConfigured || !user) return;
+    if (!isConfigured || !user) {
+      Promise.resolve().then(() => {
+        setRecords(null);
+        setError(null);
+      });
+      return;
+    }
 
     let mounted = true;
+    Promise.resolve().then(() => {
+      if (!mounted) return;
+      setRecords(null);
+      setError(null);
+    });
+
     loadPlayedGames(user.id)
       .then((data) => {
         if (!mounted) return;

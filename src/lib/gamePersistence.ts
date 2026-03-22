@@ -35,7 +35,8 @@ export interface LeaderboardEntry {
   rank: number;
   userId: string;
   username: string;
-  guessCount: number;
+  didWin: boolean;
+  guessCount: number | null;
   finishedAt: string;
 }
 
@@ -173,6 +174,7 @@ export async function recordPlayedGame(input: {
   answerTitle: string;
   didWin: boolean;
   guesses: string[];
+  leaderboardEligible?: boolean;
 }) {
   if (!supabase) return;
 
@@ -184,6 +186,7 @@ export async function recordPlayedGame(input: {
       answer_title: input.answerTitle,
       did_win: input.didWin,
       guesses: input.guesses,
+      leaderboard_eligible: input.leaderboardEligible ?? true,
       finished_at: new Date().toISOString(),
     },
     {
@@ -370,7 +373,8 @@ export async function loadGameLeaderboardPage(input: {
     rank: number;
     user_id: string;
     username: string | null;
-    guess_count: number;
+    did_win: boolean;
+    guess_count: number | null;
     finished_at: string;
     total_count: number;
   }>;
@@ -380,7 +384,8 @@ export async function loadGameLeaderboardPage(input: {
       rank: Number(row.rank ?? 0),
       userId: row.user_id,
       username: row.username ?? 'unknown',
-      guessCount: Number(row.guess_count ?? 0),
+      didWin: row.did_win === true,
+      guessCount: row.did_win === true ? Number(row.guess_count ?? 0) : null,
       finishedAt: row.finished_at,
     })),
     totalCount: Number(rows[0]?.total_count ?? 0),
@@ -409,7 +414,8 @@ export async function loadGameLeaderboardPlacement(input: {
     rank: number;
     user_id: string;
     username: string | null;
-    guess_count: number;
+    did_win: boolean;
+    guess_count: number | null;
     finished_at: string;
   } | null;
 
@@ -419,7 +425,8 @@ export async function loadGameLeaderboardPlacement(input: {
     rank: Number(row.rank ?? 0),
     userId: row.user_id,
     username: row.username ?? 'unknown',
-    guessCount: Number(row.guess_count ?? 0),
+    didWin: row.did_win === true,
+    guessCount: row.did_win === true ? Number(row.guess_count ?? 0) : null,
     finishedAt: row.finished_at,
   };
 }
