@@ -104,9 +104,11 @@ gameplay sources.
 
 Contract:
 
-- route decides game mode catalog source and selected index
+- route decides game mode and coordinates dynamic catalog loading from Supabase RPC
 - gameplay hooks operate on selected catalog entry
 - runtime catalog reads must be capped to current index to prevent future-game exposure
+- route handles async data loading with loading/error states before rendering gameplay component
+- URL normalization redirects out-of-range game indices to valid values within current catalog bounds
 
 ### Local Draft State
 
@@ -186,6 +188,29 @@ Required behavior:
 - game history interactions should preserve selected page/index intent
 - status display should be deterministic and consistent across local/remote sources
 
+## v2.0.0 Migration Notes (Runtime Catalog Loading)
+
+**Major change**: Game catalogs transitioned from static JSON files to dynamic Supabase RPC queries.
+
+**Impact on routes**:
+
+- src/routes/actors.tsx, src/routes/directors.tsx, src/routes/movies.tsx now fetch game data asynchronously
+- each route validates index against dynamically loaded catalog length before rendering gameplay
+- routes use new `loadPublicGameCatalog()` function (src/lib/gameCatalog.ts) to fetch mode-specific games
+- routes normalize out-of-range indices by redirecting to valid bounds (highest available game or today's index)
+
+**Impact on feature layer**:
+
+- useGame hook continues to work with selected catalog entry after async load completes
+- gameplay component receives games array at render time (no longer static JSON)
+- loading/error states now required in route components
+
+**Backward compatibility**:
+
+- no change to game rules, scoring, leaderboard, or persistence logic
+- auth flows and user profiles unaffected
+- local draft state continues to work when Supabase is unavailable
+
 ## Development Modes
 
 ### Frontend-only mode
@@ -222,21 +247,45 @@ Workflow expectation:
 - run `fetch_games.py` with `--mode <actors|movies|directors> --write-db` to append new entries
 - or run `get_games/append_catalog.sh` for batch execution (supports dry-run, mode filtering, and buffer-check)
 - use `get_games/append_catalog.sh --status-only` for observability-only buffer reporting
-- production automation can use `.github/workflows/game-catalog-buffer.yml` for scheduled status + refill jobs
 - preserve existing game indexes/history; append from current max index in each mode table
 - avoid rewriting historical rows unless an intentional backfill/migration is planned
 - when game payload schema changes, version adapters in `fetch_games.py` (`--catalog-schema-version`)
 - pair schema changes with SQL/RPC migrations for any JSON path reads from `game_data`
 
-## Testing and Validation Gate
+### Buffer-based catalog automation (v2.0.0+)
 
-Before merging architecture-affecting changes:
+Catalog generation now integrates a buffer-based scheduling system:
 
-- run lint
-- run tests
-- run build (includes prerender)
+- script mode: `get_games/append_catalog.sh` is the canonical entrypoint for all catalog operations
+- buffer thresholds: actors/movies (14 days), directors (8 weeks)
+- exit codes: script returns non-zero code 2 when low buffer detected with `--fail-on-low-buffer` flag
+- production automation: `.github/workflows/game-catalog-buffer.yml` runs daily (3:10 AM UTC) + can be manually dispatched
+- automation design: status job checks buffer and reports findings; refill job appends new games regardless of status outcome (via `if: always()`)
+- access model: game catalog tables (`actor_games`, `movie_games`, `director_games`) use Supabase service role with GRANT permissions; RLS disabled since access is backend-only
+
+For observability and alerting:
+
+- status job exits non-zero if any mode is below buffer threshold, triggering alerts
+- refill job always executes and resolves low-buffer conditions by appending new content
+- status CSV output available in job logs for dashboard integration
+
+For new deployments or manual refill:
+
+- dispatch ` Game Catalog Buffer` workflow from GitHub Actions → Run workflow button
+- or invoke locally: `get_games/append_catalog.sh --buffer-check` to test and append new games
+
+## Testing, Formatting, and Validation Gate
+
+Before merging any changes to `main`:
+
+- run `npm run format` to auto-fix code style (Prettier)
+- run `npm run lint` for code quality checks
+- run `npm run test` for unit tests
+- run `npm run build` (includes prerender)
 - verify primary routes render correctly
 - verify auth and persistence paths when enabled
+
+Format step is mandatory before pushing to `main` — all PRs and commits must have Prettier formatting applied.
 
 ## Coding Guidelines
 

@@ -3,6 +3,7 @@
 ## [2.0.0-rc.1] - 2026-03-22
 
 ### Added
+
 - **Database-backed game catalog** — Game data now served from Supabase tables instead of static JSON bundles, enabling dynamic content updates without frontend deployments
 - **Public game catalog RPC** — New `get_public_game_catalog()` function provides authenticated/anon clients bounded access to available games with automatic date/week-based index calculation
 - **Dynamic game fetching** — Frontend routes (actors, movies, directors) now load game catalogs on demand from the database with loading/error states
@@ -15,11 +16,13 @@
 - **RLS policies** — Game catalog tables have permissive backend-only access via service_role
 
 ### Changed
+
 - Migrated from static JSON imports to dynamic database queries for game data
 - Refactored route components (actors, movies, directors) to support async data loading
 - Updated deployment pipeline to support scheduled catalog maintenance
 
 ### Technical Notes
+
 - Game catalog stored in `actor_games`, `movie_games`, `director_games` tables
 - Date-based game indexing: epoch is 2025-12-31
 - Buffer thresholds: 14 days (actors/movies), 8 weeks (directors), customizable via env vars
