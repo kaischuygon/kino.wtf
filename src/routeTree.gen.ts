@@ -17,6 +17,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ArchiveRouteImport } from './routes/archive'
 import { Route as ActorsRouteImport } from './routes/actors'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthConfirmedRouteImport } from './routes/auth.confirmed'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -58,37 +59,45 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthConfirmedRoute = AuthConfirmedRouteImport.update({
+  id: '/confirmed',
+  path: '/confirmed',
+  getParentRoute: () => AuthRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
   '/archive': typeof ArchiveRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/auth/confirmed': typeof AuthConfirmedRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
   '/archive': typeof ArchiveRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/auth/confirmed': typeof AuthConfirmedRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/actors': typeof ActorsRoute
   '/archive': typeof ArchiveRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/directors': typeof DirectorsRoute
   '/movies': typeof MoviesRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/auth/confirmed': typeof AuthConfirmedRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/movies'
     | '/privacy'
     | '/terms'
+    | '/auth/confirmed'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/movies'
     | '/privacy'
     | '/terms'
+    | '/auth/confirmed'
   id:
     | '__root__'
     | '/'
@@ -121,13 +132,14 @@ export interface FileRouteTypes {
     | '/movies'
     | '/privacy'
     | '/terms'
+    | '/auth/confirmed'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActorsRoute: typeof ActorsRoute
   ArchiveRoute: typeof ArchiveRoute
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   DirectorsRoute: typeof DirectorsRoute
   MoviesRoute: typeof MoviesRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -192,14 +204,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/confirmed': {
+      id: '/auth/confirmed'
+      path: '/confirmed'
+      fullPath: '/auth/confirmed'
+      preLoaderRoute: typeof AuthConfirmedRouteImport
+      parentRoute: typeof AuthRoute
+    }
   }
 }
+
+interface AuthRouteChildren {
+  AuthConfirmedRoute: typeof AuthConfirmedRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthConfirmedRoute: AuthConfirmedRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActorsRoute: ActorsRoute,
   ArchiveRoute: ArchiveRoute,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   DirectorsRoute: DirectorsRoute,
   MoviesRoute: MoviesRoute,
   PrivacyRoute: PrivacyRoute,

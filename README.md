@@ -315,6 +315,12 @@ Required vars:
 - VITE_SUPABASE_URL
 - VITE_SUPABASE_KEY
 
+Optional auth var:
+
+- VITE_AUTH_REDIRECT_URL
+  - Use this to force a canonical base URL for auth redirects (recommended in production)
+  - Example: `https://kino.wtf`
+
 ### Database schema
 
 Run the SQL in `supabase/schema.sql` in the Supabase SQL editor.
@@ -354,6 +360,79 @@ In Supabase Authentication Providers:
 - Set redirect URL(s) to include your local/dev and deployed auth callback URL:
   - `http://localhost:5173/auth`
   - `https://your-domain/auth`
+
+### Custom confirm-account email (free tier)
+
+Supabase free tier supports customizing the email template content for confirmation emails.
+
+1. In Supabase Dashboard, open `Authentication -> Email Templates`.
+2. Select `Confirm signup`.
+3. Set `Subject` to: `Confirm your kino.wtf account`.
+4. Paste a custom HTML template (example below).
+5. Save.
+6. In `Authentication -> URL Configuration`:
+   - Set `Site URL` to your primary app URL (for example `https://kino.wtf`).
+  - Add redirect URLs for local + production (`http://localhost:5173/auth`, `https://kino.wtf/auth`, `https://kino.wtf/auth/confirmed`).
+7. In app env, set `VITE_AUTH_REDIRECT_URL=https://kino.wtf` to keep auth links canonical across signup, reset, and OAuth.
+
+Template example:
+
+```html
+<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#111827;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#f3f4f6;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:24px 12px;background:radial-gradient(1200px circle at 0% 0%,#1f2937 0%,#111827 42%,#0b1020 100%);">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#1d232a;border:1px solid #2a3440;border-radius:16px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,0.4);">
+            <tr>
+              <td style="padding:0;">
+                <img
+                  src="https://kino.wtf/og-image.png"
+                  alt="kino.wtf"
+                  width="560"
+                  style="display:block;width:100%;max-width:560px;height:auto;border:0;"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 12px 0;">
+                  <tr>
+                    <td width="36" valign="middle" style="padding:0 10px 0 0;">
+                      <img
+                        src="https://kino.wtf/web-app-manifest-512x512.png"
+                        alt="kino.wtf logo"
+                        width="36"
+                        height="36"
+                        style="display:block;border-radius:8px;"
+                      />
+                    </td>
+                    <td valign="middle" style="font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#9ca3af;">kino.wtf</td>
+                  </tr>
+                </table>
+
+                <h1 style="margin:0 0 12px 0;font-size:28px;line-height:1.2;color:#f9fafb;">Roll credits. You are almost in.</h1>
+                <p style="margin:0 0 14px 0;font-size:16px;line-height:1.6;color:#d1d5db;">Confirm your email to unlock cloud stats, streak sync, and your full archive.</p>
+                <p style="margin:0 0 20px 0;font-size:14px;line-height:1.6;color:#9ca3af;">For security, this link expires automatically.</p>
+                <p style="margin:0 0 22px 0;">
+                  <a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#22d3ee;color:#00131a;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:800;letter-spacing:0.2px;">Confirm Account</a>
+                </p>
+                <p style="margin:0;font-size:13px;line-height:1.6;color:#9ca3af;">If you did not request this account, you can safely ignore this email.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+```
+
+Notes:
+
+- Keep `{{ .ConfirmationURL }}` exactly as-is; Supabase injects the secure tokenized link.
+- If your plan does not include custom SMTP, the template branding still works, but sender identity remains Supabase-managed.
 
 ## Troubleshooting
 

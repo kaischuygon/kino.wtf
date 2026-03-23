@@ -4,6 +4,20 @@ import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
 type OAuthProvider = 'discord' | 'google' | 'github';
 
+function getAuthRedirectUrl(path = '/auth'): string {
+  const configuredRedirect = import.meta.env.VITE_AUTH_REDIRECT_URL;
+
+  if (typeof configuredRedirect === 'string' && configuredRedirect.trim().length > 0) {
+    try {
+      return new URL(path, configuredRedirect).toString();
+    } catch {
+      // Ignore invalid env values and fall back to runtime origin.
+    }
+  }
+
+  return `${window.location.origin}${path}`;
+}
+
 export default function useAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(Boolean(supabase));
@@ -55,7 +69,7 @@ export default function useAuth() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth`,
+        emailRedirectTo: getAuthRedirectUrl('/auth/confirmed'),
         data: username ? { username } : undefined,
       },
     });
@@ -69,7 +83,7 @@ export default function useAuth() {
     return supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth`,
+        redirectTo: getAuthRedirectUrl('/auth'),
         queryParams,
       },
     });
@@ -79,7 +93,7 @@ export default function useAuth() {
     if (!supabase) throw new Error('Supabase is not configured.');
 
     return supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth?mode=reset`,
+      redirectTo: getAuthRedirectUrl('/auth?mode=reset'),
     });
   };
 
