@@ -39,6 +39,7 @@ function RootDocument({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <meta name="alldle-verify" content="aKwi6No42vPp0GE07WgOpn7-S3-7kHvj" />
       </head>
       <body>
         {children}
