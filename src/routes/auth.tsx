@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -156,8 +156,65 @@ function OAuthButtons({
   );
 }
 
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (!error || typeof error !== 'object') {
+    return 'An error occurred.';
+  }
+
+  const maybeError = error as {
+    message?: string;
+    details?: string;
+    hint?: string;
+    code?: string;
+  };
+
+  if (typeof maybeError.message === 'string' && maybeError.message.trim()) {
+    return maybeError.message;
+  }
+
+  const details = [maybeError.details, maybeError.hint].filter(Boolean).join(' | ').trim();
+  return details || 'An error occurred.';
+}
+
+function isUsernameTakenError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+
+  const maybeError = error as {
+    message?: string;
+    details?: string;
+    hint?: string;
+    code?: string;
+  };
+
+  const blob = [maybeError.code, maybeError.message, maybeError.details, maybeError.hint]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (!blob) {
+    return false;
+  }
+
+  return (
+    (maybeError.code === '23505' && blob.includes('username')) ||
+    (blob.includes('duplicate key value') && blob.includes('username')) ||
+    (blob.includes('already exists') && blob.includes('username')) ||
+    blob.includes('user_profiles_username_key')
+  );
+}
+
 function handleError(error: unknown): string {
-  return error instanceof Error ? error.message : 'An error occurred.';
+  if (isUsernameTakenError(error)) {
+    return 'That username is already taken. Please choose another one.';
+  }
+
+  return getErrorMessage(error);
 }
 
 function getOAuthSetupHint(error: unknown, provider: OAuthProvider): string | null {
@@ -250,6 +307,7 @@ function AuthPage() {
     'discord' | 'google' | 'github' | null
   >(null);
   const [isSigningOutAccount, setIsSigningOutAccount] = useState(false);
+  const errorAlertRef = useRef<HTMLDivElement | null>(null);
 
   const resetState = () => {
     setError(null);
@@ -285,6 +343,19 @@ function AuthPage() {
         });
     }
   }, [user, isConfigured, signupUsername]);
+
+  useEffect(() => {
+    if (!error || !errorAlertRef.current) {
+      return;
+    }
+
+    const bounds = errorAlertRef.current.getBoundingClientRect();
+    const isOutOfView = bounds.top < 0 || bounds.bottom > window.innerHeight;
+
+    if (isOutOfView) {
+      errorAlertRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [error, user]);
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -454,6 +525,17 @@ function AuthPage() {
       <section className="p-3 flex flex-col gap-3">
         <h1 className="text-2xl font-display">Account</h1>
 
+        {message && (
+          <div className="alert alert-success">
+            <span>{message}</span>
+          </div>
+        )}
+        {error && (
+          <div ref={errorAlertRef} className="alert alert-error">
+            <span>{error}</span>
+          </div>
+        )}
+
         <div className="card bg-base-200 border border-base-300">
           <div className="card-body">
             <h2 className="font-display text-lg mb-3">Account Details</h2>
@@ -593,16 +675,6 @@ function AuthPage() {
           </div>
         </div>
 
-        {message && (
-          <div className="alert alert-success">
-            <span>{message}</span>
-          </div>
-        )}
-        {error && (
-          <div className="alert alert-error">
-            <span>{error}</span>
-          </div>
-        )}
       </section>
     );
   }
@@ -610,6 +682,23 @@ function AuthPage() {
   return (
     <section className="p-3 flex flex-col gap-3">
       <h1 className="text-2xl font-display">Sign in</h1>
+
+      {message && (
+        <div className="alert alert-success">
+          <span>{message}</span>
+        </div>
+      )}
+      {error && (
+        <div ref={errorAlertRef} className="alert alert-error">
+          <span>{error}</span>
+        </div>
+      )}
+      {oauthSetupHint && (
+        <div className="alert alert-info">
+          <span>{oauthSetupHint}</span>
+        </div>
+      )}
+
       <div className="tabs tabs-lift">
         <TabForm
           id="signin"
@@ -695,22 +784,6 @@ function AuthPage() {
           </button>
         </TabForm>
       </div>
-
-      {message && (
-        <div className="alert alert-success">
-          <span>{message}</span>
-        </div>
-      )}
-      {error && (
-        <div className="alert alert-error">
-          <span>{error}</span>
-        </div>
-      )}
-      {oauthSetupHint && (
-        <div className="alert alert-info">
-          <span>{oauthSetupHint}</span>
-        </div>
-      )}
 
       <div className="divider">or sign in with:</div>
       <OAuthButtons
