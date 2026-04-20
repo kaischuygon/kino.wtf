@@ -31,3 +31,4 @@ env
 
 # Supabase local CLI metadata
 supabase/.temp/
+get_games/supabase/.temp/

@@ -161,6 +161,18 @@ Use this mode when developing auth, cloud sync, and archive persistence.
 3. Apply `supabase/schema.sql`
 4. Apply migrations in `supabase/migrations/` order
 
+#### Applying migrations locally
+
+If your Supabase project is linked, the quickest path is:
+
+```sh
+npx supabase db push --yes
+```
+
+If you are applying SQL manually in the Supabase dashboard, run the migration files in filename order from `supabase/migrations/` after `supabase/schema.sql`. See [supabase/migrations/README.md](supabase/migrations/README.md) for the full runbook.
+
+If `db push` or `db pull` reports a migration history mismatch, repair the remote migration table first with the exact versions listed in the CLI output, then rerun `npx supabase db push --yes`. The `supabase/migrations/README.md` runbook covers the same recovery flow.
+
 ### OAuth provider setup (Supabase)
 
 To use Google, Discord, or GitHub sign-in locally:

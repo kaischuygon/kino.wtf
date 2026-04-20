@@ -31,6 +31,7 @@ import {
   type StoredGameState,
 } from '../../../lib/gameStateStorage';
 import { emitLeaderboardUpdated } from '../../../lib/leaderboardEvents';
+import { loadPublicGuessboxOptions } from '../../../lib/gameCatalog';
 
 interface Game {
   answer: {
@@ -153,6 +154,7 @@ export default function useGame(
     isConfigured && user && gameMode ? `${user.id}:${gameMode}` : null;
   const currentCompletionBootstrapKey =
     isConfigured && user && gameMode ? `${user.id}:${gameMode}:${gameIndex}` : null;
+  const guessboxEntityKind = gameMode === 'movies' ? 'movie' : 'person';
 
   /**
    * Local cache snapshot for the selected game index.
@@ -230,6 +232,7 @@ export default function useGame(
   const [completionBootstrapReadyKey, setCompletionBootstrapReadyKey] = useState<string | null>(
     null,
   );
+  const [guessboxPool, setGuessboxPool] = useState<string[]>([]);
   const completionAlreadyAccountedRef = useRef<boolean>(savedStateSnapshot.gameOver > 0);
   const initialRemoteStatsRef = useRef<GameStats | null>(null);
   const remoteStateRef =
@@ -243,11 +246,15 @@ export default function useGame(
   const lastStorageScopeRef = useRef<string>(storageScopeKey);
   const guessOptions = useMemo(
     () =>
-      games
-        .map((entry) => entry?.answer?.title)
-        .filter((title): title is string => Boolean(title))
-        .sort(),
-    [games],
+      Array.from(
+        new Set([
+          ...games
+            .map((entry) => entry?.answer?.title)
+            .filter((title): title is string => Boolean(title)),
+          ...guessboxPool,
+        ]),
+      ).sort(),
+    [games, guessboxPool],
   );
 
   const game: Game = games[gameIndex % games.length];
@@ -412,6 +419,32 @@ export default function useGame(
         console.warn('Failed to run stats integrity validation', error);
       });
   }, [gameMode, isConfigured, user]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (!gameMode) {
+      setGuessboxPool([]);
+      return () => {
+        mounted = false;
+      };
+    }
+
+    loadPublicGuessboxOptions({ entityKind: guessboxEntityKind, maxOptions: 5000 })
+      .then((titles) => {
+        if (!mounted) return;
+        setGuessboxPool(titles);
+      })
+      .catch((error) => {
+        if (!mounted) return;
+        console.error('Failed to load guessbox suggestion pool', error);
+        setGuessboxPool([]);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [gameMode, guessboxEntityKind]);
 
   // Save stats to localStorage whenever they change
   useEffect(() => {

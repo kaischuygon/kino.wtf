@@ -82,6 +82,49 @@ create index if not exists idx_movie_games_created_at
 create index if not exists idx_director_games_created_at
   on public.director_games (created_at desc);
 
+create table if not exists public.guessbox_options (
+  entity_kind text not null check (entity_kind in ('person', 'movie')),
+  title text not null,
+  created_at timestamptz not null default now(),
+  primary key (entity_kind, title)
+);
+
+alter table public.guessbox_options enable row level security;
+
+create or replace function public.catalog_upsert_guessbox_options()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  answer_kind text;
+begin
+  if tg_table_name in ('actor_games', 'director_games') then
+    answer_kind := 'person';
+  else
+    answer_kind := 'movie';
+  end if;
+
+  if new.answer_title is not null and new.answer_title <> '' then
+    insert into public.guessbox_options (entity_kind, title)
+    values (answer_kind, new.answer_title)
+    on conflict do nothing;
+  end if;
+
+  insert into public.guessbox_options (entity_kind, title)
+  select
+    case when answer_kind = 'person' then 'movie' else 'person' end,
+    hint_item->>'title'
+  from jsonb_array_elements(coalesce(new.game_data->'hints', '[]'::jsonb)) as hint_item
+  where hint_item->>'title' is not null
+    and hint_item->>'title' <> ''
+  on conflict do nothing;
+
+  return new;
+end;
+$$;
+
 create or replace function public.handle_auth_user_created()
 returns trigger
 language plpgsql
@@ -182,6 +225,29 @@ grant select, insert, update on table public.played_games to authenticated;
 grant select, insert, update on table public.game_states to authenticated;
 grant select, insert, update on table public.game_stats to authenticated;
 grant select, insert, update on table public.user_profiles to authenticated;
+grant select, insert, update on table public.guessbox_options to service_role;
+
+drop policy if exists "Anyone can read guessbox options" on public.guessbox_options;
+create policy "Anyone can read guessbox options"
+  on public.guessbox_options
+  for select
+  using (true);
+
+drop trigger if exists trg_actor_games_guessbox_options on public.actor_games;
+drop trigger if exists trg_movie_games_guessbox_options on public.movie_games;
+drop trigger if exists trg_director_games_guessbox_options on public.director_games;
+
+create trigger trg_actor_games_guessbox_options
+after insert on public.actor_games
+for each row execute function public.catalog_upsert_guessbox_options();
+
+create trigger trg_movie_games_guessbox_options
+after insert on public.movie_games
+for each row execute function public.catalog_upsert_guessbox_options();
+
+create trigger trg_director_games_guessbox_options
+after insert on public.director_games
+for each row execute function public.catalog_upsert_guessbox_options();
 
 drop policy if exists "Users can read own profile" on public.user_profiles;
 create policy "Users can read own profile"
@@ -258,6 +324,30 @@ create policy "Users can update own played games"
   for update
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
+
+create or replace function public.get_public_guessbox_options(
+  p_entity_kind text,
+  p_limit integer default null
+)
+returns table (title text)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select go.title
+  from public.guessbox_options go
+  where go.entity_kind = p_entity_kind
+  order by go.title asc
+  limit case
+    when p_limit is null then 2147483647
+    else greatest(p_limit, 0)
+  end;
+$$;
+
+revoke all on function public.get_public_guessbox_options(text, integer) from public;
+grant execute on function public.get_public_guessbox_options(text, integer) to anon;
+grant execute on function public.get_public_guessbox_options(text, integer) to authenticated;
 
 create or replace function public.get_public_game_catalog(
   p_game_mode text,

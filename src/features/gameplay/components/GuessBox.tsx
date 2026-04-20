@@ -40,6 +40,10 @@ export default function GuessBox({
         type="search"
         className="input join-item w-full"
         aria-label="Guess"
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="none"
+        spellCheck={false}
         displayValue={(option: string | null) => option ?? ''}
         onChange={(event) => {
           event.preventDefault();

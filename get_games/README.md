@@ -88,6 +88,42 @@ Notes:
 - JSON output is still produced for tooling/debug workflows.
 - TMDb calls now use retry/backoff, strict timeouts, and per-entry validation.
 
+### Expand Guessbox Suggestion Pool
+
+The game now supports an offline Supabase-backed guessbox option pool (`public.guessbox_options`).
+To increase suggestion coverage beyond the curated game catalog, you can seed extra names/titles
+from TMDb popular endpoints.
+
+Required env vars:
+
+- `TMDB_API_TOKEN`
+- `SUPABASE_URL` (or `VITE_SUPABASE_URL`)
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Examples:
+
+```sh
+# dry run only (fetch counts, no DB writes)
+python expand_guessbox_pool.py --people-pages 50 --movie-pages 50 --dry-run
+
+# write expanded suggestions to Supabase
+python expand_guessbox_pool.py --people-pages 100 --movie-pages 100
+
+# with 1Password env file resolution
+op run --env-file "op.env" -- python expand_guessbox_pool.py --people-pages 100 --movie-pages 100
+```
+
+After running, verify:
+
+```sh
+npx supabase db query --linked "
+select entity_kind, count(*) as option_count
+from public.guessbox_options
+group by entity_kind
+order by entity_kind;
+"
+```
+
 ### Batch Append Helper
 
 Use the wrapper script to run all modes in one command (or one specific mode).

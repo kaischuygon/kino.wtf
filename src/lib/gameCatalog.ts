@@ -52,3 +52,32 @@ export async function loadPublicGameCatalog(input: {
     .map((row) => row.game_data)
     .filter(isValidGameData);
 }
+
+export async function loadPublicGuessboxOptions(input: {
+  entityKind: 'person' | 'movie';
+  maxOptions?: number | null;
+}) {
+  if (!supabase) return [] as string[];
+
+  const { data, error } = await supabase.rpc('get_public_guessbox_options', {
+    p_entity_kind: input.entityKind,
+    p_limit:
+      typeof input.maxOptions === 'number' && Number.isFinite(input.maxOptions)
+        ? Math.max(0, Math.floor(input.maxOptions))
+        : null,
+  });
+
+  if (error) throw error;
+
+  const rows = (data ?? []) as Array<{
+    title: string;
+  }>;
+
+  return Array.from(
+    new Set(
+      rows
+        .map((row) => row.title)
+        .filter((title): title is string => typeof title === 'string' && title.trim() !== ''),
+    ),
+  );
+}
