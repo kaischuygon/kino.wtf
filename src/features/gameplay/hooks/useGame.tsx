@@ -421,14 +421,9 @@ export default function useGame(
   }, [gameMode, isConfigured, user]);
 
   useEffect(() => {
+    // Without a game mode there is nothing to load; the pool stays at its initial [].
+    if (!gameMode) return;
     let mounted = true;
-
-    if (!gameMode) {
-      setGuessboxPool([]);
-      return () => {
-        mounted = false;
-      };
-    }
 
     loadPublicGuessboxOptions({ entityKind: guessboxEntityKind, maxOptions: 5000 })
       .then((titles) => {
