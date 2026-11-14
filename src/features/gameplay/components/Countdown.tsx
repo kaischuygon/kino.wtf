@@ -1,28 +1,25 @@
 import { useEffect, useState } from 'react';
-import {
-  getTimeUntilMidnight,
-  getTimeUntilNextWeek,
-  type Countdown,
-} from '../../../helpers/gameHelpers';
+import { getTimeUntilNextRelease, type Countdown } from '../../../lib/gameRelease';
 
 export default function Countdown({
   frequency = 'daily',
 }: {
   frequency: 'daily' | 'weekly' | null;
 }) {
-  const init = frequency === 'weekly' ? getTimeUntilNextWeek() : getTimeUntilMidnight();
+  const period = frequency === 'weekly' ? 'weekly' : 'daily';
+  const init = getTimeUntilNextRelease(period);
   const [timeUntilReset, setTimeUntilReset] = useState<Countdown>(init);
 
   // countdown every 1 second
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeUntilReset(frequency === 'weekly' ? getTimeUntilNextWeek() : getTimeUntilMidnight());
+      setTimeUntilReset(getTimeUntilNextRelease(period));
     }, 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [frequency]);
+  }, [period]);
 
   return (
     <span className="countdown font-mono text-2xl text-center">

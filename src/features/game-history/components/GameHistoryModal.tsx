@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import useModal from '../../../hooks/useModal';
 import routes from '../../../routes';
-import { getGameIndex } from '../../../helpers/gameHelpers';
 import useAuth from '../../../hooks/useAuth';
 import { toGameMode } from '../../../lib/gameMode';
+import { useCurrentGameIndex } from '../../../lib/gameRelease';
 import { readStoredGameState } from '../../../lib/gameStateStorage';
 import GameHistoryPagination from './GameHistoryPagination';
 import {
@@ -81,11 +81,8 @@ export default function GameHistoryModal() {
   const route = useMemo(() => routes.find((entry) => entry.link === pathname) ?? null, [pathname]);
   const canShow = Boolean(route && route.frequency !== null && route.title !== 'home');
   const gameMode = route ? toGameMode(route.title) : null;
-  const currentIndex = useSyncExternalStore(
-    () => () => undefined,
-    () => (route ? getGameIndex(route) : 0),
-    () => 0,
-  );
+  // -1 while loading or when nothing is released, which yields an empty history list.
+  const currentIndex = useCurrentGameIndex(gameMode) ?? -1;
   const localState = useMemo(() => {
     if (!isHydrated || !route) return null;
     void openTick;

@@ -23,7 +23,6 @@ import {
   validateGameStatsIntegrity,
 } from '../../../lib/gamePersistence';
 import { toGameMode } from '../../../lib/gameMode';
-import { getGameIndex } from '../../../helpers/gameHelpers';
 import {
   clearStoredGameState,
   readStoredGameState,
@@ -148,7 +147,8 @@ export default function useGame(
 ) {
   const { user, isConfigured } = useAuth();
   const gameMode = toGameMode(route.title);
-  const latestGameIndex = getGameIndex(route);
+  // The catalog only contains released games, so the last one is today's.
+  const latestGameIndex = games.length - 1;
   const storageScopeKey = isConfigured ? (user?.id ?? 'signed_out') : 'local';
   const currentStatsBootstrapKey =
     isConfigured && user && gameMode ? `${user.id}:${gameMode}` : null;

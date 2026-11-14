@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Route } from '../../../routes';
-import { getGameIndex } from '../../../helpers/gameHelpers';
+import { toGameMode } from '../../../lib/gameMode';
+import { useCurrentGameIndex } from '../../../lib/gameRelease';
 
 function isGameStateStorageKeyForRoute(key: string, routeTitle: string) {
   return key === `${routeTitle}_game_state` || key.startsWith(`game_state:${routeTitle}:`);
@@ -19,41 +20,29 @@ function parseStoredGameIndex(raw: string | null): number | undefined {
 /**
  * useGameIndex
  *
- * React hook that returns the current `gameIndex` for a given `route` and keeps
- * it up-to-date. It updates automatically:
- * - when a `storage` event is received for keys starting with `<route.title>_` (useful for cross-tab updates),
- * - and via the dev helper `window.__simulateNextDay(routeTitle)` (development builds only) to make same-tab testing easier.
+ * Returns the `gameIndex` to show for `route`, or `null` while the latest
+ * released index is loading from Supabase.
  *
+ * - Defaults to the latest released game for the mode (see lib/gameRelease).
+ * - `forcedIndex` (from `?game=N`) is clamped to [0, latest released].
+ * - Follows `storage` events for `<route.title>` game state keys (cross-tab
+ *   updates) and the dev helper `window.__simulateNextBoundary()`.
  */
-export default function useGameIndex(route: Route, forcedIndex?: number) {
-  const currentIndex = getGameIndex(route);
-  const resolvedForcedIndex =
-    typeof forcedIndex === 'number' && Number.isFinite(forcedIndex)
-      ? Math.max(0, Math.min(Math.floor(forcedIndex), currentIndex))
-      : undefined;
-
-  const [index, setIndex] = useState<number>(currentIndex);
+export default function useGameIndex(route: Route, forcedIndex?: number): number | null {
+  const currentIndex = useCurrentGameIndex(toGameMode(route.title));
+  const hasForcedIndex = typeof forcedIndex === 'number' && Number.isFinite(forcedIndex);
+  const [storageIndex, setStorageIndex] = useState<number | null>(null);
 
   useEffect(() => {
+    if (hasForcedIndex) return;
     let mounted = true;
-
-    const update = (newIndex: number) => {
-      if (!mounted) return;
-      setIndex(newIndex);
-    };
-
-    if (typeof resolvedForcedIndex === 'number') {
-      return () => {
-        mounted = false;
-      };
-    }
 
     // listen for storage changes from other tabs
     const onStorage = (e: StorageEvent) => {
-      if (!e.key) return;
+      if (!mounted || !e.key) return;
       if (isGameStateStorageKeyForRoute(e.key, route.title)) {
         const nextIndex = parseStoredGameIndex(e.newValue);
-        if (typeof nextIndex === 'number') update(nextIndex);
+        if (typeof nextIndex === 'number') setStorageIndex(nextIndex);
       }
     };
 
@@ -62,11 +51,14 @@ export default function useGameIndex(route: Route, forcedIndex?: number) {
     return () => {
       mounted = false;
       window.removeEventListener('storage', onStorage);
-      // clearTimeout(timeout);
     };
-  }, [resolvedForcedIndex, route]);
+  }, [hasForcedIndex, route]);
 
-  return resolvedForcedIndex ?? index;
+  if (currentIndex === null) return null;
+  if (hasForcedIndex) {
+    return Math.max(0, Math.min(Math.floor(forcedIndex as number), currentIndex));
+  }
+  return storageIndex ?? currentIndex;
 }
 
 /**
