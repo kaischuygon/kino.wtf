@@ -44,7 +44,7 @@ Responsibilities:
 
 - route definitions and route-local page composition
 - search param validation (for game index selection)
-- loading route-scoped datasets from get_games
+- loading the released game catalog from Supabase
 
 Rules:
 
@@ -106,9 +106,20 @@ Contract:
 
 - route decides game mode and coordinates dynamic catalog loading from Supabase RPC
 - gameplay hooks operate on selected catalog entry
-- runtime catalog reads must be capped to current index to prevent future-game exposure
+- runtime catalog reads must be capped to the latest released index (`game_releases`) to prevent future-game exposure
 - route handles async data loading with loading/error states before rendering gameplay component
 - URL normalization redirects out-of-range game indices to valid values within current catalog bounds
+
+### Game Releases
+
+"Today's game" is the latest row per mode in `public.game_releases`, not a date calculation.
+
+- `release_next_games()` (pg_cron, every 5 minutes) releases at most one game per mode per period, and only if the next `game_index` exists in the catalog
+- periods are days (actors, movies) or Monday-starting weeks (directors) at midnight `America/Denver`; keep `release_period_for_mode` and `GAME_RELEASE_TIME_ZONE` (`src/lib/gameRelease.ts`) in sync
+- the frontend reads the current index with `get_current_game_index` (`useCurrentGameIndex`); never derive it from `Date`
+- an empty catalog pauses releases instead of skipping numbers
+
+See [ARCHITECTURE.md](ARCHITECTURE.md#game-releases) for the rationale.
 
 ### Local Draft State
 
@@ -213,24 +224,7 @@ Required behavior:
 
 ## Development Modes
 
-### Frontend-only mode
-
-Use when Supabase variables are absent or placeholders.
-
-Expected behavior:
-
-- app shell and static pages run
-- gameplay routes show catalog-unavailable state (runtime catalog now comes from DB)
-- auth/remote sync gracefully degrade
-
-### Supabase-enabled mode
-
-Use for auth, profile, and persistence work.
-
-Required setup:
-
-- environment variables from .env.example
-- schema and migration application in Supabase
+Setup and the frontend-only / Supabase-enabled modes are described in [DEVELOPMENT.md](DEVELOPMENT.md). Rules for the data pipeline:
 
 ### Dataset-generation mode
 
@@ -257,10 +251,10 @@ Workflow expectation:
 Catalog generation now integrates a buffer-based scheduling system:
 
 - script mode: `get_games/append_catalog.sh` is the canonical entrypoint for all catalog operations
-- buffer thresholds: actors/movies (14 days), directors (8 weeks)
+- buffer thresholds: actors/movies (14 days), directors (8 weeks), measured from the latest released index in `game_releases`
 - exit codes: script returns non-zero code 2 when low buffer detected with `--fail-on-low-buffer` flag
 - production automation: `.github/workflows/game-catalog-buffer.yml` runs daily (3:10 AM UTC) + can be manually dispatched
-- automation design: status job checks buffer and reports findings; refill job appends new games regardless of status outcome (via `if: always()`)
+- automation design: status job checks buffer and reports findings; refill job appends new games regardless of status outcome (via `if: always()`); keepalive job re-enables the workflow so GitHub's 60-day inactivity rule can't disable it
 - access model: game catalog tables (`actor_games`, `movie_games`, `director_games`) use Supabase service role with GRANT permissions; RLS disabled since access is backend-only
 
 For observability and alerting:
@@ -348,6 +342,7 @@ Current architectural decisions:
 3. Supabase optional at runtime; app remains usable without cloud configuration
 4. Public schema secured by RLS and auth-scoped policies
 5. Baseline migration currently squashed for release-era simplicity
+6. Games are released by index through a release log (`game_releases`) and pg_cron, not derived from the calendar, so catalog outages pause instead of leaving gaps
 
 ## Maintenance
 

@@ -21,9 +21,7 @@ yarn dev
 
 ## Development modes
 
-- Frontend-only: no `.env` required (localStorage mode).
-- Supabase-enabled: configure `.env` from `.env.example` and apply SQL schema/migrations.
-- Dataset tooling: use `get_games/` Python scripts and `TMDB_API_TOKEN`.
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for frontend-only, Supabase-enabled, and dataset-tooling setups, and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how the system fits together.
 
 ## Quality checks
 
