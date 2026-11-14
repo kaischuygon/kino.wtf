@@ -13,23 +13,20 @@ with seed_users as (
   limit 50
 ),
 indexes as (
+  -- Seed around each mode's latest released game (public.game_releases).
   select
-    greatest((current_date - date '2025-12-31')::int, 0) as daily_index,
-    greatest(
-      (
-        (
-          current_date - ((extract(dow from current_date)::int + 6) % 7)
-        ) - (
-          date '2025-12-31' - ((extract(dow from date '2025-12-31')::int + 6) % 7)
-        )
-      ) / 7,
-      0
-    )::int as weekly_index
+    greatest(public.get_current_game_index('actors'), 0) as actors_index,
+    greatest(public.get_current_game_index('movies'), 0) as movies_index,
+    greatest(public.get_current_game_index('directors'), 0) as weekly_index
 ),
 target_indexes as (
   select
-    greatest(idx.daily_index + offs.offset_days, 0) as daily_index
+    modes.game_mode,
+    greatest(modes.current_index + offs.offset_days, 0) as daily_index
   from indexes idx
+  cross join lateral (
+    values ('actors'::text, idx.actors_index), ('movies'::text, idx.movies_index)
+  ) as modes(game_mode, current_index)
   cross join generate_series(-13, 0) as offs(offset_days)
 ),
 weekly_target_indexes as (
@@ -91,7 +88,7 @@ seed_rows as (
   cross join lateral (
     select d.daily_index as game_index
     from target_indexes d
-    where valueset.game_mode in ('actors', 'movies')
+    where d.game_mode = valueset.game_mode
     union all
     select w.weekly_index as game_index
     from weekly_target_indexes w

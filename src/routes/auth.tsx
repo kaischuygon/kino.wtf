@@ -674,7 +674,6 @@ function AuthPage() {
             </button>
           </div>
         </div>
-
       </section>
     );
   }

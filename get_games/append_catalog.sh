@@ -21,7 +21,6 @@ BUFFER_ACTORS_DAYS="${BUFFER_ACTORS_DAYS:-14}"
 BUFFER_MOVIES_DAYS="${BUFFER_MOVIES_DAYS:-14}"
 BUFFER_DIRECTORS_WEEKS="${BUFFER_DIRECTORS_WEEKS:-8}"
 
-BASE_DATE="${BASE_DATE:-2025-12-31}"
 
 usage() {
   cat <<'EOF'
@@ -44,7 +43,6 @@ Environment overrides:
   BUFFER_ACTORS_DAYS         Trigger threshold for actors mode (default: 14)
   BUFFER_MOVIES_DAYS         Trigger threshold for movies mode (default: 14)
   BUFFER_DIRECTORS_WEEKS     Trigger threshold for directors mode (default: 8)
-  BASE_DATE                  Index epoch start date (default: 2025-12-31)
 
 Required env vars for non-dry runs:
   TMDB_API_TOKEN
@@ -160,23 +158,49 @@ mode_table() {
 }
 
 current_index_for_mode() {
+  # Latest released game index for the mode (public.game_releases), or -1.
+  # Releases are made by pg_cron in Supabase (public.release_next_games), so the
+  # buffer is measured from what players can actually see, not from the calendar.
   local mode="$1"
-  "$PYTHON_BIN" - "$mode" "$BASE_DATE" <<'PY'
-import datetime
+
+  "$PYTHON_BIN" - "$mode" "$SUPABASE_URL_RESOLVED" "$SUPABASE_SERVICE_ROLE_KEY" <<'PY'
+import json
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 
 mode = sys.argv[1]
-base_date = datetime.date.fromisoformat(sys.argv[2])
-today = datetime.date.today()
+supabase_url = sys.argv[2].rstrip('/')
+service_key = sys.argv[3]
 
-if mode in ("actors", "movies"):
-    print(max((today - base_date).days, 0))
-elif mode == "directors":
-    today_week = today - datetime.timedelta(days=today.weekday())
-    base_week = base_date - datetime.timedelta(days=base_date.weekday())
-    print(max((today_week - base_week).days // 7, 0))
+url = (
+    f"{supabase_url}/rest/v1/game_releases"
+    "?select=game_index"
+    f"&game_mode=eq.{urllib.parse.quote(mode)}"
+    "&order=game_index.desc"
+    "&limit=1"
+)
+
+req = urllib.request.Request(
+    url,
+    headers={
+        "apikey": service_key,
+        "Authorization": f"Bearer {service_key}",
+    },
+)
+
+try:
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        payload = json.loads(resp.read().decode('utf-8'))
+except urllib.error.HTTPError as exc:
+    detail = exc.read().decode('utf-8', errors='replace')
+    raise SystemExit(f"Failed reading released index for {mode}: HTTP {exc.code}: {detail}")
+
+if not payload:
+    print(-1)
 else:
-    raise SystemExit(f"Unsupported mode: {mode}")
+    print(int(payload[0].get("game_index", -1)))
 PY
 }
 

@@ -60,7 +60,7 @@ function Actors() {
   const gameIndex = useGameIndex(route, forcedGameIndex);
 
   useEffect(() => {
-    if (typeof game !== 'number') return;
+    if (typeof game !== 'number' || gameIndex === null) return;
     const normalizedGame = gameIndex + 1;
     if (game === normalizedGame) return;
 
@@ -73,6 +73,16 @@ function Actors() {
       replace: true,
     });
   }, [game, gameIndex, navigate]);
+
+  if (gameIndex === null) {
+    return (
+      <section id="actors" className="p-2">
+        <div className="flex items-center justify-center py-8">
+          <span className="loading loading-spinner loading-md" />
+        </div>
+      </section>
+    );
+  }
 
   return <ActorsGame key={gameIndex} gameIndex={gameIndex} />;
 }

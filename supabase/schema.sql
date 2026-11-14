@@ -349,6 +349,142 @@ revoke all on function public.get_public_guessbox_options(text, integer) from pu
 grant execute on function public.get_public_guessbox_options(text, integer) to anon;
 grant execute on function public.get_public_guessbox_options(text, integer) to authenticated;
 
+-- Index-based game releases (see migrations/202611140100_index_based_game_releases.sql).
+-- Historical releases are backfilled by that migration, not by this snapshot.
+
+-- 1) Release log --------------------------------------------------------------
+
+create table if not exists public.game_releases (
+  game_mode text not null check (game_mode in ('actors', 'movies', 'directors')),
+  game_index integer not null check (game_index >= 0),
+  released_on date not null,
+  created_at timestamptz not null default now(),
+  primary key (game_mode, game_index),
+  unique (game_mode, released_on)
+);
+
+alter table public.game_releases enable row level security;
+-- No anon/auth policies: reads go through the RPCs below.
+
+-- Releases are append-only, like the catalog tables.
+create or replace function public.game_releases_block_mutation()
+returns trigger
+language plpgsql
+as $$
+begin
+  raise exception 'public.game_releases is append-only (% blocked)', tg_op;
+end;
+$$;
+
+drop trigger if exists trg_game_releases_block_mutation on public.game_releases;
+create trigger trg_game_releases_block_mutation
+before update or delete on public.game_releases
+for each row execute function public.game_releases_block_mutation();
+
+-- 2) Release period -----------------------------------------------------------
+
+create or replace function public.release_period_for_mode(
+  p_game_mode text,
+  p_at timestamptz default now()
+)
+returns date
+language sql
+stable
+as $$
+  select case
+    when p_game_mode = 'directors'
+      then date_trunc('week', (p_at at time zone 'America/Denver'))::date
+    else (p_at at time zone 'America/Denver')::date
+  end;
+$$;
+
+-- 4) Release logic ------------------------------------------------------------
+
+
+-- Releases at most one new game per mode per period, and only if the next
+-- game_index exists in the catalog. Safe to call any number of times.
+create or replace function public.release_next_games(p_at timestamptz default now())
+returns table (released_mode text, released_index integer, released_on date)
+language plpgsql
+security definer
+set search_path = public
+as $$
+#variable_conflict use_column
+declare
+  m record;
+  v_period date;
+  v_last_index integer;
+  v_last_date date;
+  v_next_index integer;
+  v_has_next boolean;
+begin
+  for m in
+    select *
+    from (values
+      ('actors', 'actor_games'),
+      ('movies', 'movie_games'),
+      ('directors', 'director_games')
+    ) as modes(game_mode, table_name)
+  loop
+    v_period := public.release_period_for_mode(m.game_mode, p_at);
+
+    select gr.game_index, gr.released_on
+      into v_last_index, v_last_date
+    from public.game_releases gr
+    where gr.game_mode = m.game_mode
+    order by gr.game_index desc
+    limit 1;
+
+    if v_last_date is not null and v_last_date >= v_period then
+      continue; -- already released this period
+    end if;
+
+    v_next_index := coalesce(v_last_index, -1) + 1;
+
+    execute format('select exists (select 1 from public.%I where game_index = $1)', m.table_name)
+      into v_has_next
+      using v_next_index;
+
+    if not v_has_next then
+      continue; -- catalog is empty for this mode; pause instead of skipping
+    end if;
+
+    insert into public.game_releases (game_mode, game_index, released_on)
+    values (m.game_mode, v_next_index, v_period)
+    on conflict do nothing;
+
+    if found then
+      released_mode := m.game_mode;
+      released_index := v_next_index;
+      released_on := v_period;
+      return next;
+    end if;
+  end loop;
+end;
+$$;
+
+revoke all on function public.release_next_games(timestamptz) from public, anon, authenticated;
+
+-- 5) Public read RPCs ---------------------------------------------------------
+
+create or replace function public.get_current_game_index(p_game_mode text)
+returns integer
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select coalesce(max(gr.game_index), -1)
+  from public.game_releases gr
+  where gr.game_mode = p_game_mode;
+$$;
+
+revoke all on function public.get_current_game_index(text) from public;
+grant execute on function public.get_current_game_index(text) to anon;
+grant execute on function public.get_current_game_index(text) to authenticated;
+
+-- Same signature as before; the upper bound now comes from released games
+-- instead of the calendar, so unreleased (buffered) games stay hidden.
 create or replace function public.get_public_game_catalog(
   p_game_mode text,
   p_max_index integer default null
@@ -362,27 +498,11 @@ stable
 security definer
 set search_path = public
 as $$
-  with mode_meta as (
-    select
-      case
-        when p_game_mode in ('actors', 'movies')
-          then greatest((current_date - date '2025-12-31')::int, 0)
-        when p_game_mode = 'directors'
-          then greatest(
-            (
-              (
-                date_trunc('week', current_date::timestamp)::date
-                - date_trunc('week', date '2025-12-31'::timestamp)::date
-              ) / 7
-            )::int,
-            0
-          )
-        else 0
-      end as current_index
-  ),
-  bounded as (
-    select least(coalesce(p_max_index, mm.current_index), mm.current_index) as max_index
-    from mode_meta mm
+  with bounded as (
+    select least(
+      coalesce(p_max_index, public.get_current_game_index(p_game_mode)),
+      public.get_current_game_index(p_game_mode)
+    ) as max_index
   )
   select g.game_index, g.game_data
   from bounded b
@@ -412,6 +532,19 @@ $$;
 revoke all on function public.get_public_game_catalog(text, integer) from public;
 grant execute on function public.get_public_game_catalog(text, integer) to anon;
 grant execute on function public.get_public_game_catalog(text, integer) to authenticated;
+
+-- 6) Schedule -----------------------------------------------------------------
+-- Every 5 minutes: releases land shortly after the Denver midnight boundary,
+-- and a game appended mid-period (e.g. after a refill) is released within
+-- minutes instead of waiting a full day.
+
+create extension if not exists pg_cron with schema pg_catalog;
+
+select cron.schedule(
+  'release-next-games',
+  '*/5 * * * *',
+  $$select public.release_next_games();$$
+);
 
 create index if not exists idx_played_games_leaderboard_winners
   on public.played_games (
@@ -528,7 +661,7 @@ as $$
           case
             when pg.did_win then coalesce(array_length(pg.guesses, 1), 0)
             else 7
-          end asc,
+          end asc
       ) as rank
     from public.played_games pg
     left join public.user_profiles up on up.id = pg.user_id

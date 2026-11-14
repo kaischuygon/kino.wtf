@@ -9,9 +9,9 @@ This folder contains SQL scripts used for leaderboard development and visual tes
 
 - `leaderboard_dev_seed.sql`
   Creates mixed outcomes in `public.played_games` across a rolling window of game indexes using existing auth users:
-- daily modes (`actors`, `movies`): current + previous 13 indexes
-- weekly mode (`directors`): current + previous 5 indexes
-  This also avoids local timezone/DST off-by-one gaps during frontend testing.
+- daily modes (`actors`, `movies`): each mode's latest released index + previous 13
+- weekly mode (`directors`): latest released index + previous 5
+  "Latest released" comes from `public.get_current_game_index`, so seeded rows line up with what the app shows.
   It now seeds additional edge cases, including:
 - wins with variable guess counts (1..6)
 - losses with all skipped guesses ("give up" style)

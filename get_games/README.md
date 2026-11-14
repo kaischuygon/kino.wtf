@@ -7,7 +7,7 @@ Utilities for generating the movie/actor/director game datasets used by the app.
 - `fetch_games.py`: Main data-fetch script that reads IMDb seed CSVs and enriches data from TMDb.
 - `append_catalog.sh`: Canonical batch wrapper for generation/append workflows.
 - `kino-actors.csv`, `kino-movies.csv`, `kino-directors.csv`: Input seed lists (IMDb IDs).
-- `actors.json`, `movies.json`, `directors.json`: Output game datasets consumed by the frontend.
+- `actors.json`, `movies.json`, `directors.json`: Generated datasets (tooling artifacts and bootstrap snapshots; the app reads games from Supabase).
 - `requirements.txt`: Python dependencies for the data tooling.
 - `op.env`: Optional 1Password CLI env-file with TMDb token reference.
 
@@ -151,6 +151,8 @@ bash append_catalog.sh --status-only
 bash append_catalog.sh --status-only --fail-on-low-buffer
 ```
 
+How the buffer is measured: `current_index` is the latest **released** game for the mode (`public.game_releases`), and `max_index` is the highest `game_index` in the catalog table. `remaining = max_index - current_index` is how many games are queued. Appending never releases anything: pg_cron releases one game per mode per period (see [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md#game-releases)), so it is safe to append at any time.
+
 Optional environment overrides:
 
 - `CATALOG_SCHEMA_VERSION` (default `v1`)
@@ -203,10 +205,11 @@ Cron example (daily at 03:10 UTC with 1Password):
 
 Workflow file: `.github/workflows/game-catalog-buffer.yml`
 
-It runs daily and has two jobs:
+It runs daily and has three jobs:
 
 1. `buffer-status`: runs `--status-only --fail-on-low-buffer` for alerting.
 2. `buffer-refill`: always runs `--buffer-check` to refill as needed.
+3. `keepalive`: re-enables the workflow through the GitHub API. GitHub disables scheduled workflows after 60 days without repository activity, which is what stopped refills in June 2026.
 
 Required repository secrets:
 
