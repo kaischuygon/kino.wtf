@@ -249,6 +249,13 @@ else:
 PY
 }
 
+require_int() {
+  if [[ ! "$2" =~ ^-?[0-9]+$ ]]; then
+    echo "Buffer check failed: $1 is not an integer (got '$2')" >&2
+    exit 1
+  fi
+}
+
 should_run_mode_buffer() {
   local mode="$1"
   local threshold="$2"
@@ -257,8 +264,12 @@ should_run_mode_buffer() {
   local max_index
   local remaining
 
-  current_index="$(current_index_for_mode "$mode")"
-  max_index="$(max_index_for_mode "$mode")"
+  # Called from an `if`, so `set -e` does not apply here: fail explicitly
+  # (exit, not return) so a read error can never look like a healthy buffer.
+  current_index="$(current_index_for_mode "$mode")" || exit 1
+  max_index="$(max_index_for_mode "$mode")" || exit 1
+  require_int "$mode current_index" "$current_index"
+  require_int "$mode max_index" "$max_index"
   remaining=$(( max_index - current_index ))
 
   echo "Buffer check mode=$mode current_index=$current_index max_index=$max_index remaining=$remaining threshold=$threshold"
@@ -295,8 +306,10 @@ print_buffer_status() {
     local remaining
     local action
 
-    current_index="$(current_index_for_mode "$mode")"
-    max_index="$(max_index_for_mode "$mode")"
+    current_index="$(current_index_for_mode "$mode")" || exit 1
+    max_index="$(max_index_for_mode "$mode")" || exit 1
+    require_int "$mode current_index" "$current_index"
+    require_int "$mode max_index" "$max_index"
     remaining=$(( max_index - current_index ))
 
     if (( remaining < threshold )); then

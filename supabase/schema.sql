@@ -364,6 +364,7 @@ create table if not exists public.game_releases (
 );
 
 alter table public.game_releases enable row level security;
+grant select on public.game_releases to service_role; -- read by get_games/append_catalog.sh
 -- No anon/auth policies: reads go through the RPCs below.
 
 -- Releases are append-only, like the catalog tables.
